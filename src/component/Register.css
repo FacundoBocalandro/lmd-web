@@ -1,0 +1,108 @@
+.container {
+    flex: 1;
+    background: #fff;
+    padding: 60px 20px;
+}
+
+.headerContainer{
+    text-align: center;
+}
+.header {
+    align-self: center;
+    color: #FAA645;
+    font-size: 80px;
+    font-weight: bold;
+    width: 100%;
+    margin: 30px;
+    text-align: center;
+    font-family: serif;
+}
+
+.row{
+    display: flex;
+    justify-content: space-around;
+}
+.inputContainer {
+    margin-top: 60px
+}
+
+.label {
+    color: #FAA645;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: serif
+}
+
+.input {
+    width: 35vw;
+    height: 3vh;
+    background: #EBEBEB;
+    border-radius: 5px;
+    color: #000;
+    padding-top: 20px;
+    padding-left: 10px;
+    border-width: 2px;
+    border-color: transparent;
+    outline: none;
+}
+
+.inputError{
+    width: 35vw;
+    height: 3vh;
+    background: #EBEBEB;
+    border-radius: 5px;
+    color: #000;
+    padding-top: 20px;
+    padding-left: 10px;
+    border: 2px solid red;
+    outline: none;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: space-around;
+    padding: 90px 10vw;
+    /*color: #649CCD;*/
+    /*secondary: #FAA645;*/
+    /*color: #133D8D;*/
+}
+
+.submitButton {
+    background: #133D8D;
+    width: 18vw;
+    height: 6vh;
+    border-radius: 3px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    border: none;
+}
+
+.cancelButton {
+    background: #FAA645;
+    width: 18vw;
+    height: 6vh;
+    border-radius: 3px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    border: none;
+}
+
+.submitButtonText {
+    color: #FFF;
+    font-size: 30px
+}
+
+.cancelButtonText {
+    color: #FFF;
+    font-size: 30px
+}
+
+.errorInput {
+    background-color: rgba(255,0,0,.5);
+}
