@@ -5,13 +5,15 @@ import {
 import {Switch, Route} from 'react-router'
 
 import './App.css';
-import Register from "./component/Register";
+import Register from "./component/register/Register";
+import Home from "./component/homePage/HomePage";
 
 function App() {
     return (
         <Router>
             <Switch>
-                <Route path={'/'} component={Register}/>
+                <Route path={'/register'} component={Register}/>
+                <Route path={'/home'} component={Home}/>
             </Switch>
         </Router>
     );

@@ -1,9 +1,14 @@
 import React, {useState} from 'react';
 import "./Register.css"
+import * as axios from "../../http";
+import {useHistory} from "react-router";
 
 const Register = () => {
+
+    const history = useHistory();
+
     const [form, setForm] = useState({
-        name: "",
+        firstName: "",
         lastName: "",
         dni: "",
         birthDate: "",
@@ -14,7 +19,7 @@ const Register = () => {
     })
 
     const [errors, setErrors] = useState({
-        name: false,
+        firstName: false,
         lastName: false,
         dni: false,
         birthDate: false,
@@ -33,7 +38,7 @@ const Register = () => {
     }
 
     const validateName = (values) => {
-        return !!values.name
+        return !!values.firstName
     }
 
     const validateLastName = (values) => {
@@ -60,8 +65,8 @@ const Register = () => {
     }
 
     const validatePassword = (values) => {
-        //TODO password rules
-        return !!values.password
+        return !!values.password && (new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"))
+            .test(values.password)
     }
 
     const validateConfirmPassword = (values) => {
@@ -69,7 +74,7 @@ const Register = () => {
     }
 
     const rules = {
-        name: validateName,
+        firstName: validateName,
         lastName: validateLastName,
         dni: validateDni,
         birthDate: validateBirthDate,
@@ -86,21 +91,28 @@ const Register = () => {
         })
 
         if (!Object.values(newErrors).some(error => error)) {
-            //TODO submit form
+            const dateParts = form.birthDate.split("/");
+            axios.post("users/register", {
+                ...form,
+                birthDate: new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]).toISOString().substring(0, 10)
+            })
+                .then(history.push('/home'))
         } else {
             setErrors(newErrors)
         }
     }
 
     const cancelForm = () => {
-        setForm({...form, name: "",
+        setForm({
+            ...form, firstName: "",
             lastName: "",
             dni: "",
             birthDate: "",
             email: "",
             username: "",
             password: "",
-            confirmPassword: ""})
+            confirmPassword: ""
+        })
     }
 
     return (
@@ -112,15 +124,13 @@ const Register = () => {
                 <div className={"row"}>
                     <div className={"inputContainer"}>
                         <input placeholder={"Nombre"}
-                               className={errors.name ? 'inputError' : 'input'}
-                            /*{errors.name ? {...styles.input, ...styles.errorInput} : styles.input}*/
-                               value={form.name}
-                               onChange={event => setField('name', event)}/>
+                               className={errors.firstName ? 'inputError' : 'input'}
+                               value={form.firstName}
+                               onChange={event => setField('firstName', event)}/>
                     </div>
                     <div className={"inputContainer"}>
                         <input placeholder={"Apellido"}
                                className={errors.lastName ? 'inputError' : 'input'}
-                            /*{errors.lastName ? {...styles.input, ...styles.errorInput} : styles.input}*/
                                value={form.lastName}
                                onChange={text => setField('lastName', text)}/>
                     </div>
@@ -129,14 +139,12 @@ const Register = () => {
                     <div className={"inputContainer"}>
                         <input placeholder={"DNI (Sin puntos)"}
                                className={errors.dni ? 'inputError' : 'input'}
-                            /*{errors.dni ? {...styles.input, ...styles.errorInput} : styles.input}*/
-                                type={"number"}
+                               type={"number"}
                                value={form.dni}
                                onChange={text => setField('dni', text)}/>
                     </div>
                     <div className={"inputContainer"}>
                         <input placeholder={"DD/MM/AA"}
-                            /*{errors.birthDate ? {...styles.input, ...styles.errorInput} : styles.input}*/
                                className={errors.birthDate ? 'inputError' : 'input'}
                                value={form.birthDate}
                                onChange={text => setField('birthDate', text)}/>
@@ -147,14 +155,12 @@ const Register = () => {
                         <input placeholder={"Email"}
                                type={"emailAddress"}
                                className={errors.email ? 'inputError' : 'input'}
-                            /*{errors.email ? {...styles.input, ...styles.errorInput} : styles.input}*/
                                value={form.email}
                                onChange={text => setField('email', text)}/>
                     </div>
                     <div className={"inputContainer"}>
                         <input placeholder={"Nombre de Usuario"}
                                className={errors.username ? 'inputError' : 'input'}
-                            /*{errors.username ? {...styles.input, ...styles.errorInput} : styles.input}*/
                                value={form.username}
                                onChange={text => setField('username', text)}/>
                     </div>
@@ -164,24 +170,22 @@ const Register = () => {
                         <input placeholder={"Contraseña"}
                                type={"password"}
                                className={errors.password ? 'inputError' : 'input'}
-                            /*{errors.password ? {...styles.input, ...styles.errorInput} : styles.input}*/
                                value={form.password}
                                onChange={text => setField('password', text)}/>
                     </div>
                     <div className={"inputContainer"}>
-                        <input placeholder={"Contraseña"}
+                        <input placeholder={"Repita contraseña"}
                                type={"password"}
                                className={errors.confirmPassword ? 'inputError' : 'input'}
-                            /*errors.confirmPassword ? {...styles.input, ...styles.errorInput} : styles.input}*/
                                value={form.confirmPassword}
                                onChange={text => setField('confirmPassword', text)}/>
                     </div>
                 </div>
                 <div className={"buttonContainer"}>
-                    <button className={"cancelButton"} onClick={cancelForm} >
+                    <button className={"cancelButton"} onClick={cancelForm}>
                         <p className={"cancelButtonText"}>Cancelar</p>
                     </button>
-                    <button onClick={submitForm} className={"submitButton"} >
+                    <button onClick={submitForm} className={"submitButton"}>
                         <p className={"submitButtonText"}>Registrarse</p>
                     </button>
                 </div>
