@@ -33,11 +33,10 @@ const Register = () => {
         if (errors[fieldName]) {
             setErrors({...errors, [fieldName]: false})
         }
-        // value.preventDefault();
         setForm({...form, [fieldName]: value.target.value})
     }
 
-    const validateName = (values) => {
+    const validateFirstName = (values) => {
         return !!values.firstName
     }
 
@@ -60,8 +59,15 @@ const Register = () => {
     }
 
     const validateUsername = (values) => {
-        //TODO call api to check username
-        return !!values.username
+        return !!values.username && !errors.username;
+    }
+
+    const checkUsername = async (value) => {
+        await axios.get('users/available/' + value)
+            .then(response => {
+                setErrors({...errors, username: !response})
+            })
+            .catch(error => setErrors({...errors, username: true}))
     }
 
     const validatePassword = (values) => {
@@ -74,7 +80,7 @@ const Register = () => {
     }
 
     const rules = {
-        firstName: validateName,
+        firstName: validateFirstName,
         lastName: validateLastName,
         dni: validateDni,
         birthDate: validateBirthDate,
@@ -96,7 +102,10 @@ const Register = () => {
                 ...form,
                 birthDate: new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]).toISOString().substring(0, 10)
             })
-                .then(history.push('/home'))
+                .then(response => {
+                    history.push({pathname: '/home', state: {registerSuccess: true}})
+                }).catch(errors => {
+            })
         } else {
             setErrors(newErrors)
         }
@@ -127,12 +136,14 @@ const Register = () => {
                                className={errors.firstName ? 'inputError' : 'input'}
                                value={form.firstName}
                                onChange={event => setField('firstName', event)}/>
+                        <span className={errors.firstName ? 'errorMessage' : 'noMessage'}> Error en el nombre</span>
                     </div>
                     <div className={"inputContainer"}>
                         <input placeholder={"Apellido"}
                                className={errors.lastName ? 'inputError' : 'input'}
                                value={form.lastName}
                                onChange={text => setField('lastName', text)}/>
+                        <span className={errors.lastName ? 'errorMessage' : 'noMessage'}> Error en el apellido</span>
                     </div>
                 </div>
                 <div className={"row"}>
@@ -142,12 +153,16 @@ const Register = () => {
                                type={"number"}
                                value={form.dni}
                                onChange={text => setField('dni', text)}/>
+                        <span className={errors.dni ? 'errorMessage' : 'noMessage'}>Error en el DNI</span>
+
                     </div>
                     <div className={"inputContainer"}>
                         <input placeholder={"DD/MM/AA"}
                                className={errors.birthDate ? 'inputError' : 'input'}
                                value={form.birthDate}
                                onChange={text => setField('birthDate', text)}/>
+                        <span className={errors.birthDate ? 'errorMessage' : 'noMessage'}>Error en la fecha de nacimiento</span>
+
                     </div>
                 </div>
                 <div className={"row"}>
@@ -157,12 +172,17 @@ const Register = () => {
                                className={errors.email ? 'inputError' : 'input'}
                                value={form.email}
                                onChange={text => setField('email', text)}/>
+                        <span className={errors.email ? 'errorMessage' : 'noMessage'}>Error en el email</span>
+
                     </div>
                     <div className={"inputContainer"}>
                         <input placeholder={"Nombre de Usuario"}
                                className={errors.username ? 'inputError' : 'input'}
                                value={form.username}
-                               onChange={text => setField('username', text)}/>
+                               onChange={text => setField('username', text)}
+                               onBlur={() => checkUsername(form.username)}
+                        />
+                        <span className={errors.username ? 'errorMessage' : 'noMessage'}>El usuario ya existe</span>
                     </div>
                 </div>
                 <div className={"row"}>
@@ -172,6 +192,10 @@ const Register = () => {
                                className={errors.password ? 'inputError' : 'input'}
                                value={form.password}
                                onChange={text => setField('password', text)}/>
+                        <p className={errors.password ? 'errorMessage' : 'noMessage'}>
+                            La contraseña tiene que tener mínimo 8 caracteres,
+                            <br/> una mayúscula un número y un signo </p>
+
                     </div>
                     <div className={"inputContainer"}>
                         <input placeholder={"Repita contraseña"}
@@ -179,6 +203,8 @@ const Register = () => {
                                className={errors.confirmPassword ? 'inputError' : 'input'}
                                value={form.confirmPassword}
                                onChange={text => setField('confirmPassword', text)}/>
+                        <p className={errors.confirmPassword ? 'errorMessage' : 'noMessage'}> Las contraseñas no coiniciden</p>
+
                     </div>
                 </div>
                 <div className={"buttonContainer"}>
