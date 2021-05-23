@@ -36,7 +36,7 @@ const Register = () => {
         if (errors[fieldName]) {
             setErrors({...errors, [fieldName]: false})
         }
-        setForm({...form, [fieldName]: value.target.value})
+        setForm({...form, [fieldName]: value})
     }
 
     const validateFirstName = (values) => {
@@ -138,14 +138,14 @@ const Register = () => {
                         <input placeholder={"Nombre"}
                                className={errors.firstName ? 'input input-error' :  ' input'}
                                value={form.firstName}
-                               onChange={event => setField('firstName', event)}/>
+                               onChange={event => setField('firstName', event.target.value)}/>
                         <span className={errors.firstName ? 'error-message' : 'error-message no-message'}> Error en el nombre</span>
                     </div>
                     <div className={"input-container"}>
                         <input placeholder={"Apellido"}
                                className={errors.lastName ? 'input input-error' :  ' input'}
                                value={form.lastName}
-                               onChange={text => setField('lastName', text)}/>
+                               onChange={event => setField('lastName', event.target.value)}/>
                         <span className={errors.lastName ? 'error-message' : 'error-message no-message'}> Error en el apellido</span>
                     </div>
                 </div>
@@ -155,7 +155,7 @@ const Register = () => {
                                className={errors.dni ? 'input input-error' :  ' input'}
                                type={"number"}
                                value={form.dni}
-                               onChange={text => setField('dni', text)}/>
+                               onChange={event => setField('dni', event.target.value)}/>
                         <span className={errors.dni ? 'error-message' : 'error-message no-message'}>Error en el DNI</span>
 
                     </div>
@@ -163,7 +163,7 @@ const Register = () => {
                         <input placeholder={"DD/MM/AA"}
                                className={errors.birthDate ? 'input input-error' :  ' input'}
                                value={form.birthDate}
-                               onChange={text => setField('birthDate', text)}/>
+                               onChange={event => setField('birthDate', event.target.value)}/>
                         <span className={errors.birthDate ? 'error-message' : 'error-message no-message'}>Error en la fecha de nacimiento</span>
 
                     </div>
@@ -174,7 +174,7 @@ const Register = () => {
                                type={"emailAddress"}
                                className={errors.email ? 'input input-error' :  ' input'}
                                value={form.email}
-                               onChange={text => setField('email', text)}/>
+                               onChange={event => setField('email', event.target.value)}/>
                         <span className={errors.email ? 'error-message' : 'error-message no-message'}>Error en el email</span>
 
                     </div>
@@ -182,7 +182,7 @@ const Register = () => {
                         <input placeholder={"Nombre de Usuario"}
                                className={errors.username ? 'input input-error' :  ' input'}
                                value={form.username}
-                               onChange={text => setField('username', text)}
+                               onChange={event => setField('username', event.target.value)}
                                onBlur={() => checkUsername(form.username)}
                         />
                         <span className={errors.username ? 'error-message' : 'error-message no-message'}>El usuario ya existe</span>
@@ -194,7 +194,7 @@ const Register = () => {
                                type={"password"}
                                className={errors.password ? 'input input-error' :  ' input'}
                                value={form.password}
-                               onChange={text => setField('password', text)}/>
+                               onChange={event => setField('password', event.target.value)}/>
                         <p className={errors.password ? 'error-message' : 'error-message no-message'}>
                             La contraseña tiene que tener mínimo 8 caracteres,
                             <br/> una mayúscula un número y un signo </p>
@@ -205,7 +205,7 @@ const Register = () => {
                                type={"password"}
                                className={errors.confirmPassword ? 'input input-error' :  ' input'}
                                value={form.confirmPassword}
-                               onChange={text => setField('confirmPassword', text)}/>
+                               onChange={event => setField('confirmPassword', event.target.value)}/>
                         <p className={errors.confirmPassword ?'error-message' : 'error-message no-message'}> Las contraseñas no coiniciden</p>
                     </div>
                 </div>
