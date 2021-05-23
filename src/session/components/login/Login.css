@@ -7,22 +7,29 @@
     align-items: center;
 }
 
-.login-header span{
-    color: var(--primary);
-    font-size: 72px;
-}
-
 .login-screen .login-screen-body {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
     height: 100%;
+    width: 100%;
+}
+
+.login-header-container {
+    text-align: center;
+}
+
+.login-form {
+    width: 30%;
+    min-width: fit-content;
 }
 
 .login-form .login-input-container {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    padding: 30px;
 }
 
 .login-input-container .login-input-label {
@@ -34,4 +41,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.login-button-container span {
+    font-size: 20px;
+}
+
+.login-button-container span:hover {
+    cursor: pointer;
 }

@@ -1,10 +1,10 @@
 import {applyMiddleware, compose, createStore} from 'redux'
-import rootReducer from "./reducers";
+import appReducer from "./reducers";
 import sessionMiddleware from "./session/session.middleware";
 
 
 const store = createStore(
-    rootReducer,
+    appReducer,
     undefined,
     compose(applyMiddleware(
         sessionMiddleware,
