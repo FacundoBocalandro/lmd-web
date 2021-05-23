@@ -1,5 +1,7 @@
 import sessionActions from "../session/session.actions";
 
-export default {
-    session: sessionActions,
+const actions = {
+    session: sessionActions
 }
+
+export default actions;
