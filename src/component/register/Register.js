@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
 import "./Register.css"
-import * as axios from "../../http";
+// import * as axios from "../../http";
+import {get} from "../../http"
+import {post} from "../../http"
 import {useHistory} from "react-router";
+import * as http from "http";
 
 const Register = () => {
 
@@ -63,7 +66,7 @@ const Register = () => {
     }
 
     const checkUsername = async (value) => {
-        await axios.get('users/available/' + value)
+        await get('users/available/' + value)
             .then(response => {
                 setErrors({...errors, username: !response})
             })
@@ -98,7 +101,7 @@ const Register = () => {
 
         if (!Object.values(newErrors).some(error => error)) {
             const dateParts = form.birthDate.split("/");
-            axios.post("users/register", {
+            post("users/register", {
                 ...form,
                 birthDate: new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]).toISOString().substring(0, 10)
             })
@@ -126,93 +129,92 @@ const Register = () => {
 
     return (
         <div className={"container"}>
-            <div className={"headerContainer"}>
+            <div className={"header-container"}>
                 <p className={"header"}>Registro de Paciente</p>
             </div>
             <div>
                 <div className={"row"}>
-                    <div className={"inputContainer"}>
+                    <div className={"input-container"}>
                         <input placeholder={"Nombre"}
-                               className={errors.firstName ? 'inputError' : 'input'}
+                               className={errors.firstName ? 'input input-error' :  ' input'}
                                value={form.firstName}
                                onChange={event => setField('firstName', event)}/>
-                        <span className={errors.firstName ? 'errorMessage' : 'noMessage'}> Error en el nombre</span>
+                        <span className={errors.firstName ? 'error-message' : 'error-message no-message'}> Error en el nombre</span>
                     </div>
-                    <div className={"inputContainer"}>
+                    <div className={"input-container"}>
                         <input placeholder={"Apellido"}
-                               className={errors.lastName ? 'inputError' : 'input'}
+                               className={errors.lastName ? 'input input-error' :  ' input'}
                                value={form.lastName}
                                onChange={text => setField('lastName', text)}/>
-                        <span className={errors.lastName ? 'errorMessage' : 'noMessage'}> Error en el apellido</span>
+                        <span className={errors.lastName ? 'error-message' : 'error-message no-message'}> Error en el apellido</span>
                     </div>
                 </div>
                 <div className={"row"}>
-                    <div className={"inputContainer"}>
+                    <div className={"input-container"}>
                         <input placeholder={"DNI (Sin puntos)"}
-                               className={errors.dni ? 'inputError' : 'input'}
+                               className={errors.dni ? 'input input-error' :  ' input'}
                                type={"number"}
                                value={form.dni}
                                onChange={text => setField('dni', text)}/>
-                        <span className={errors.dni ? 'errorMessage' : 'noMessage'}>Error en el DNI</span>
+                        <span className={errors.dni ? 'error-message' : 'error-message no-message'}>Error en el DNI</span>
 
                     </div>
-                    <div className={"inputContainer"}>
+                    <div className={"input-container"}>
                         <input placeholder={"DD/MM/AA"}
-                               className={errors.birthDate ? 'inputError' : 'input'}
+                               className={errors.birthDate ? 'input input-error' :  ' input'}
                                value={form.birthDate}
                                onChange={text => setField('birthDate', text)}/>
-                        <span className={errors.birthDate ? 'errorMessage' : 'noMessage'}>Error en la fecha de nacimiento</span>
+                        <span className={errors.birthDate ? 'error-message' : 'error-message no-message'}>Error en la fecha de nacimiento</span>
 
                     </div>
                 </div>
                 <div className={"row"}>
-                    <div className={"inputContainer"}>
+                    <div className={"input-container"}>
                         <input placeholder={"Email"}
                                type={"emailAddress"}
-                               className={errors.email ? 'inputError' : 'input'}
+                               className={errors.email ? 'input input-error' :  ' input'}
                                value={form.email}
                                onChange={text => setField('email', text)}/>
-                        <span className={errors.email ? 'errorMessage' : 'noMessage'}>Error en el email</span>
+                        <span className={errors.email ? 'error-message' : 'error-message no-message'}>Error en el email</span>
 
                     </div>
-                    <div className={"inputContainer"}>
+                    <div className={"input-container"}>
                         <input placeholder={"Nombre de Usuario"}
-                               className={errors.username ? 'inputError' : 'input'}
+                               className={errors.username ? 'input input-error' :  ' input'}
                                value={form.username}
                                onChange={text => setField('username', text)}
                                onBlur={() => checkUsername(form.username)}
                         />
-                        <span className={errors.username ? 'errorMessage' : 'noMessage'}>El usuario ya existe</span>
+                        <span className={errors.username ? 'error-message' : 'error-message no-message'}>El usuario ya existe</span>
                     </div>
                 </div>
                 <div className={"row"}>
-                    <div className={"inputContainer"}>
+                    <div className={"input-container"}>
                         <input placeholder={"Contraseña"}
                                type={"password"}
-                               className={errors.password ? 'inputError' : 'input'}
+                               className={errors.password ? 'input input-error' :  ' input'}
                                value={form.password}
                                onChange={text => setField('password', text)}/>
-                        <p className={errors.password ? 'errorMessage' : 'noMessage'}>
+                        <p className={errors.password ? 'error-message' : 'error-message no-message'}>
                             La contraseña tiene que tener mínimo 8 caracteres,
                             <br/> una mayúscula un número y un signo </p>
 
                     </div>
-                    <div className={"inputContainer"}>
+                    <div className={"input-container"}>
                         <input placeholder={"Repita contraseña"}
                                type={"password"}
-                               className={errors.confirmPassword ? 'inputError' : 'input'}
+                               className={errors.confirmPassword ? 'input input-error' :  ' input'}
                                value={form.confirmPassword}
                                onChange={text => setField('confirmPassword', text)}/>
-                        <p className={errors.confirmPassword ? 'errorMessage' : 'noMessage'}> Las contraseñas no coiniciden</p>
-
+                        <p className={errors.confirmPassword ?'error-message' : 'error-message no-message'}> Las contraseñas no coiniciden</p>
                     </div>
                 </div>
-                <div className={"buttonContainer"}>
-                    <button className={"cancelButton"} onClick={cancelForm}>
-                        <p className={"cancelButtonText"}>Cancelar</p>
+                <div className={"button-container"}>
+                    <button className={"cancel-button"} onClick={cancelForm}>
+                        <p className={"cancel-button-text"}>Cancelar</p>
                     </button>
-                    <button onClick={submitForm} className={"submitButton"}>
-                        <p className={"submitButtonText"}>Registrarse</p>
+                    <button onClick={submitForm} className={"submit-button"}>
+                        <p className={"submit-button-text"}>Registrarse</p>
                     </button>
                 </div>
             </div>
