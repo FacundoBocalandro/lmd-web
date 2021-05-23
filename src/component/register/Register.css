@@ -49,6 +49,7 @@
     border-width: 2px;
     border-color: transparent;
     outline: none;
+    font-size: 20px;
 }
 
 .input-error{
