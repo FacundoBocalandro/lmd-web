@@ -1,0 +1,45 @@
+.register-screen {
+    padding: 35px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-header-container{
+    text-align: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.register-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 30px;
+    flex-grow: 1;
+}
+
+.register-input-container {
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+}
+
+.register-input-container .error-message{
+    color: red;
+    margin-top: 2px;
+    font-size: 20px;
+}
+
+.no-message{
+    visibility: hidden;
+}
+
+.register-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px;
+}
+
+.error-input {
+    background-color: rgba(255,0,0,.5);
+}
