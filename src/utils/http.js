@@ -23,4 +23,8 @@ export const get = (url, config) => _request(url, "GET", null, config);
 export const post = (url, body, config = {}) => _request(url, "POST", body, config);
 export const put = (url, body, config = {}) => _request(url, "PUT", body, config);
 export const patch = (url, body, config = {}) => _request(url, "PATCH", body, config);
-export const deleteRequest = (url, body, config = {}) => _request(url, "DELETE", body, config)
+export const deleteRequest = (url, body, config = {}) => _request(url, "DELETE", body, config);
+
+export const isAuthenticated = () => {
+    return window.localStorage.getItem('token') !== null;
+}

@@ -3,17 +3,19 @@ import {
     BrowserRouter as Router,
 } from "react-router-dom";
 import {Switch, Route} from 'react-router'
-
-import './App.css';
-import Register from "./component/register/Register";
-import Home from "./component/homePage/HomePage";
+import LoginScreen from "./session/containers/LoginScreen";
+import Register from "./session/containers/Register";
+import PrivateRoute from "./security/PrivateRoute";
+import ReversePrivateRoute from "./security/ReversePrivateRoute";
+import Home from "./home/containers/Home";
 
 function App() {
     return (
         <Router>
             <Switch>
+                <ReversePrivateRoute exact path={'/'} component={LoginScreen}/>
                 <Route path={'/register'} component={Register}/>
-                <Route path={'/home'} component={Home}/>
+                <PrivateRoute path={'/home'} component={Home}/>
             </Switch>
         </Router>
     );
