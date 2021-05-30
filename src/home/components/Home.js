@@ -1,14 +1,11 @@
 import {useHistory} from "react-router";
+import Navbar from "../../navbar/components/Navbar";
 
 const Home = ({logout}) => {
     const history = useHistory();
 
     return (
-        <button onClick={() => {
-            logout();
-            window.localStorage.removeItem('token');
-            history.replace('/');
-        }}>logout</button>
+        <Navbar logout={logout}> </Navbar>
     )
 }
 

@@ -1,0 +1,38 @@
+.navbar {
+    padding-inline: 25px ;
+    justify-content: space-between;
+    display: flex;
+    height: 80px;
+    background-color: var(--blue);
+    color: white;
+}
+
+.navbar-list {
+    justify-content: space-around;
+    cursor: pointer;
+    display: flex;
+}
+
+.navbar-p {
+    margin-right: 40px;
+    font-size: 25px;
+    font-weight: lighter;
+}
+
+.current-location {
+    color: var(--primary);
+}
+
+.navbar-title{
+    font-weight: bold;
+    font-size: 30px;
+    margin: auto auto auto 0;
+}
+
+.logout{
+    margin-right: 0!important;
+}
+
+
+
+
