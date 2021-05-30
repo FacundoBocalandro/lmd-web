@@ -1,0 +1,10 @@
+const homeMiddleware = ({dispatch, getState}) => next => action => {
+    next(action);
+
+    switch (action.type) {
+        default:
+            break;
+    }
+}
+
+export default homeMiddleware;

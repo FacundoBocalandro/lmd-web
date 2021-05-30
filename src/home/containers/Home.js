@@ -3,10 +3,11 @@ import {connect} from "react-redux";
 import actions from "../../actions";
 
 const mapStateToProps = state => ({
+    personalData: state.home.personalData
 })
 
 const mapDispatchToProps = dispatch => ({
-    logout: () => dispatch(actions.session.logout()),
+    getPersonalData: () => dispatch(actions.home.getPersonalData.request()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

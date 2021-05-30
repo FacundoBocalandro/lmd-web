@@ -1,0 +1,34 @@
+.home-screen {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    height: 100%;
+}
+
+.home-personal-data {
+    padding-top: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home-avatar-container {
+    padding: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--blue);
+}
+
+.home-avatar {
+    font-size: 100px;
+    color: var(--blue);
+}
+
+.home-name {
+    font-size: 52px;
+    text-align: center;
+}
+
+.home-age-and-id {
+    font-size: 36px;
+    text-align: center;
+}

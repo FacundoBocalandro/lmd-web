@@ -4,7 +4,7 @@ import {isAuthenticated} from "../utils/http";
 
 const ReversePrivateRoute = ({...props}) => {
     return isAuthenticated() ?
-        <Redirect to={"/home"}/> :
+        <Redirect to={"/main/home"}/> :
         <Route {...props}/>
 }
 
