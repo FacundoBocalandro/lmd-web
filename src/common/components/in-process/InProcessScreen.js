@@ -1,7 +1,7 @@
 import React from 'react';
-import "./InProgressScreen.css"
+import "./InProcessScreen.css"
 
-const InProgressScreen = ({logout}) => {
+const InProcessScreen = ({logout}) => {
     return(
         <div className={"in-progress-screen"}>
             <span className={"lmd-title"}>Libreta Médica Digital</span>
@@ -11,4 +11,4 @@ const InProgressScreen = ({logout}) => {
     )
 }
 
-export default InProgressScreen;
+export default InProcessScreen;

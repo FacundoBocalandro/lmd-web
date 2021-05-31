@@ -1,5 +1,5 @@
 import {useHistory} from "react-router";
-import InProgressScreen from "../../common/components/in-progress/InProgressScreen";
+import InProcessScreen from "../../common/components/in-process/InProcessScreen";
 
 
 const Home = ({logout}) => {
@@ -12,7 +12,7 @@ const Home = ({logout}) => {
     }
 
     return (
-        <InProgressScreen logout={logoutAction}/>
+        <InProcessScreen logout={logoutAction}/>
     )
 }
 
