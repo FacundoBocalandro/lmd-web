@@ -1,14 +1,18 @@
 import {useHistory} from "react-router";
+import InProgressScreen from "../../common/components/in-progress/InProgressScreen";
+
 
 const Home = ({logout}) => {
     const history = useHistory();
 
+    const logoutAction = () => {
+        logout();
+        window.localStorage.removeItem('token');
+        history.replace('/');
+    }
+
     return (
-        <button onClick={() => {
-            logout();
-            window.localStorage.removeItem('token');
-            history.replace('/');
-        }}>logout</button>
+        <InProgressScreen logout={logoutAction}/>
     )
 }
 
