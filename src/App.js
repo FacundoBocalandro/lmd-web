@@ -2,7 +2,7 @@ import React from 'react';
 import {
     BrowserRouter as Router,
 } from "react-router-dom";
-import {Switch, Route} from 'react-router'
+import {Switch} from 'react-router'
 import LoginScreen from "./session/containers/LoginScreen";
 import Register from "./session/containers/Register";
 import PrivateRoute from "./security/PrivateRoute";

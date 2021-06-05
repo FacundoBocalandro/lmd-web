@@ -1,0 +1,17 @@
+.in-progress-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.in-progress-screen .lmd-title {
+    font-size: 80px;
+    color: var(--primary);
+}
+
+.in-progress-screen .in-progress-text {
+    font-size: 50px;
+}
