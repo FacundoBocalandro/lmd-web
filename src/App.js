@@ -2,7 +2,7 @@ import React from 'react';
 import {
     BrowserRouter as Router,
 } from "react-router-dom";
-import {Switch, Route} from 'react-router'
+import {Switch} from 'react-router'
 import LoginScreen from "./session/containers/LoginScreen";
 import Register from "./session/containers/Register";
 import PrivateRoute from "./security/PrivateRoute";
@@ -14,7 +14,7 @@ function App() {
         <Router>
             <Switch>
                 <ReversePrivateRoute exact path={'/'} component={LoginScreen}/>
-                <Route path={'/register'} component={Register}/>
+                <ReversePrivateRoute path={'/register'} component={Register}/>
                 <PrivateRoute path={'/home'} component={Home}/>
             </Switch>
         </Router>
