@@ -206,6 +206,11 @@ const Register = ({
                            type={"password"}
                            className={errors.confirmPassword ? 'input input-error' : ' input'}
                            value={form.confirmPassword}
+                           onKeyUp={(event) => {
+                               if (event.key === "Enter") {
+                                   submitForm();
+                               }
+                           }}
                            onChange={event => setField('confirmPassword', event.target.value)}/>
                     <span className={errors.confirmPassword ? 'error-message' : 'error-message no-message'}> Las
                         contraseñas no coiniciden</span>
