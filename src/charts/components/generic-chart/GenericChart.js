@@ -33,7 +33,7 @@ const GenericChart = ({percentileData, maxY, yStep, yLabel, data, colors}) => {
                          style={{tickLabels: {fontSize: 10}, grid: {stroke: colors.grid}, axisLabel: {fontSize: 12}}}
                          standalone={false}
                          maxDomain={maxY}
-                         tickCount={maxY * 5 / yStep}
+                         tickValues={Array((maxY * 4 / yStep) + 1).fill(0).map((value, index) => (yStep/4)*index)}
                          tickFormat={value => value % yStep === 0 ? value : ''}
                          label={yLabel}
                          axisLabelComponent={<VictoryLabel dy={-10}/>}
