@@ -44,7 +44,7 @@ const Login = ({login, loginPending}) => {
             <div className={"login-screen-body"}>
                 <div className={"login-form"}>
                     <div className={"login-input-container"}>
-                        <span className={"login-input-label"}>Nombre de usuario</span>
+                        <span className={"input-label"}>Nombre de usuario</span>
                         <input type="text" value={form.username}
                                className={"input"}
                                onKeyUp={(event) => {
@@ -56,7 +56,7 @@ const Login = ({login, loginPending}) => {
                                placeholder={"Nombre de usuario"}/>
                     </div>
                     <div className={"login-input-container"}>
-                        <span className={"login-input-label"}>Contraseña</span>
+                        <span className={"input-label"}>Contraseña</span>
                         <input type="password" value={form.password}
                                className={"input"}
                                onKeyUp={(event) => {
