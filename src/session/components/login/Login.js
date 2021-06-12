@@ -16,7 +16,7 @@ const Login = ({login, loginPending}) => {
 
     const successCallback = (token) => {
         window.localStorage.setItem('token', token)
-        history.push("/home");
+        history.push("/main/home");
     }
 
     const [openErrorSnackbar] = useSnackbar({...errorSnackbarOptions})

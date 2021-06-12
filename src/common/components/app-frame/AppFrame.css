@@ -1,0 +1,5 @@
+.app-frame .content {
+    width: 100vw;
+    height: calc(100vh - var(--navbar-size));
+    overflow-y: auto;
+}

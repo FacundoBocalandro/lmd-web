@@ -1,6 +1,8 @@
 import {useHistory} from "react-router";
 import './Navbar.css'
 import {useLocation} from "react-router-dom";
+import actions from "../../actions";
+import {connect} from "react-redux";
 
 const Navbar = ({logout}) => {
     const history = useHistory();
@@ -17,7 +19,7 @@ const Navbar = ({logout}) => {
     }
 
     const pathIsHome = () => {
-        return historyPath() === "/home";
+        return historyPath() === "/main/home";
     }
 
     const pathIsReadings = () => {
@@ -42,4 +44,11 @@ const Navbar = ({logout}) => {
     )
 }
 
-export default Navbar;
+const mapStateToProps = state => ({
+})
+
+const mapDispatchToProps = dispatch => ({
+    logout: () => actions.session.logout(),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
