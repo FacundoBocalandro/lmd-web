@@ -8,7 +8,7 @@ import {
 } from "./home.actions";
 import {services} from "./home.services";
 import actions from "../actions";
-import {SEX} from "../constants/PersonalData";
+import {GENDERS} from "../constants/PersonalData";
 import {adapt3PercentileData, adapt7PercentileData} from "../utils/averageData";
 
 const homeMiddleware = ({dispatch, getState}) => next => action => {
@@ -16,17 +16,17 @@ const homeMiddleware = ({dispatch, getState}) => next => action => {
 
     switch (action.type) {
         case GET_AVERAGE_WEIGHT_DATA_REQUEST:
-            services.getAverageWeightData(getState().home.personalData.sex === SEX.MALE)
+            services.getAverageWeightData(getState().home.personalData.sex === GENDERS.MALE)
                 .then(res => dispatch(actions.home.getAverageWeightData.response(adapt7PercentileData(res.weights))))
                 .catch(err => dispatch(actions.home.getAverageWeightData.error(err)))
             break;
         case GET_AVERAGE_PERIMETER_DATA_REQUEST:
-            services.getAveragePerimeterData(getState().home.personalData.sex === SEX.MALE)
+            services.getAveragePerimeterData(getState().home.personalData.sex === GENDERS.MALE)
                 .then(res => dispatch(actions.home.getAveragePerimeterData.response(adapt3PercentileData(res.perimeters))))
                 .catch(err => dispatch(actions.home.getAveragePerimeterData.error(err)))
             break;
         case GET_AVERAGE_HEIGHT_DATA_REQUEST:
-            services.getAverageHeightData(getState().home.personalData.sex === SEX.MALE)
+            services.getAverageHeightData(getState().home.personalData.sex === GENDERS.MALE)
                 .then(res => dispatch(actions.home.getAverageHeightData.response(adapt7PercentileData(res.heights))))
                 .catch(err => dispatch(actions.home.getAverageHeightData.error(err)))
             break;

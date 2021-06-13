@@ -1,7 +1,7 @@
 import React from 'react';
 import {numbersAndDecimalsOnly, numbersOnly} from "../../../utils/numbers";
 
-const NumberInput = ({value, onChange, placeholder, label, max, min, acceptDecimals, adornment}) => {
+const NumberInput = ({value, onChange, className, placeholder, label, max, min, acceptDecimals, adornment}) => {
 
     return (
         <div className={"input-container"}>
@@ -9,7 +9,7 @@ const NumberInput = ({value, onChange, placeholder, label, max, min, acceptDecim
             <div className={"input-box"}>
                 <input placeholder={placeholder}
                        value={value}
-                       className={"input"}
+                       className={className ?? "input"}
                        onChange={(e) => {
                            const numbers = acceptDecimals ? numbersAndDecimalsOnly(e.target.value) : numbersOnly(e.target.value);
                            if (numbers === "" || ((!min || parseInt(e.target.value) >= min) && (!max || parseInt(e.target.value) <= max))) onChange(numbers)

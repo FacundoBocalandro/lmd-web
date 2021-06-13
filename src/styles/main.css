@@ -50,7 +50,7 @@
     width: 100%;
 }
 
-.input.input-error {
+.input-error {
     border: 1px solid red;
 }
 

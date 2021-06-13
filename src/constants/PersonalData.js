@@ -1,4 +1,4 @@
-export const SEX = {
+export const GENDERS = {
     MALE: "MALE",
     FEMALE: "FEMALE"
 }

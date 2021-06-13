@@ -16,10 +16,10 @@ function App() {
             <Switch>
                 <ReversePrivateRoute exact path={'/'} component={LoginScreen}/>
                 <Route path={'/register'} component={Register}/>
-                <Route path='/main' component={({match: {url}}) => ([
+                <PrivateRoute path='/main' component={({match: {url}}) => ([
                     <AppFrame key={'app-frame'}>
                         <Switch style={{width: '100%', height: '100%'}}>
-                            <Route path={`${url}/home`} component={Home}/>
+                            <PrivateRoute path={`${url}/home`} component={Home}/>
                         </Switch>
                     </AppFrame>
                 ])}/>

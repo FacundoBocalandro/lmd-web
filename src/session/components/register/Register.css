@@ -13,7 +13,7 @@
 
 .register-form {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     padding: 30px;
     flex-grow: 1;
 }
@@ -24,10 +24,46 @@
     padding: 25px;
 }
 
+.register-gender-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 50px;
+    background-color: var(--grey);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.register-gender-options {
+    display: flex;
+    flex: 1;
+    justify-content: space-evenly;
+}
+
 .register-input-container .error-message{
     color: red;
     margin-top: 2px;
     font-size: 20px;
+}
+
+.register-gender-label {
+    font-size: 20px;
+    font-family: Arial, serif;
+    font-weight: 400;
+    color: dimgrey;
+}
+
+.gender-checkbox-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gender-checkbox-container span {
+    font-size: 16px;
+    font-family: Arial, serif;
+    font-weight: 400;
+    color: dimgrey;
 }
 
 .no-message{
