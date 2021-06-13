@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {getAvatar} from "../../utils/avatars";
 import "./Home.css";
-import WeightChart from "../../charts/components/weight-chart/WeightChart";
-import HeightChart from "../../charts/components/height-chart/HeightChart";
-import PerimeterChart from "../../charts/components/perimeter-chart/PerimeterChart";
+import WeightChart from "../../charts/containers/WeightChart";
+import HeightChart from "../../charts/containers/HeightChart";
+import PerimeterChart from "../../charts/containers/PerimeterChart";
 
 const Home = ({personalData, getPersonalData}) => {
     const [selectedTab, setSelectedTab] = useState(1);
