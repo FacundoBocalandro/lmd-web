@@ -1,8 +1,7 @@
 import React, {useState} from "react";
 import "./Login.css";
 import {useHistory} from "react-router";
-import {errorSnackbarOptions} from "../../../utils/snackbars";
-import {useSnackbar} from "react-simple-snackbar";
+import toast, { Toaster } from 'react-hot-toast';
 
 const initialForm = {
     username: "",
@@ -19,11 +18,9 @@ const Login = ({login, loginPending}) => {
         history.push("/main/home");
     }
 
-    const [openErrorSnackbar] = useSnackbar({...errorSnackbarOptions})
-
     const errorCallback = () => {
         setForm({...initialForm});
-        openErrorSnackbar("¡Credenciales incorrectas!");
+        toast.error("¡Credenciales incorrectas!");
     }
 
     const submitForm = () => {
@@ -38,6 +35,7 @@ const Login = ({login, loginPending}) => {
 
     return (
         <div className={"login-screen"}>
+            <Toaster/>
             <div className={"login-header-container"}>
                 <span className={"header"}>Iniciar sesión</span>
             </div>

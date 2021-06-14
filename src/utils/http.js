@@ -18,7 +18,7 @@ const _request = async (url, method, data, config = {}) => {
         else throw (res.data);
     }).catch(errorResponse => {
         // JWT expired: logout
-        if (errorResponse.response?.status === 403) {
+        if (!config.noAuth && errorResponse.response?.status === 403) {
             window.localStorage.removeItem('token');
             window.location.href = window.location.origin
         }

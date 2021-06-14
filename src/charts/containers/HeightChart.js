@@ -5,7 +5,8 @@ import HeightChart from "../components/height-chart/HeightChart";
 
 const mapStateToProps = state => ({
     averageHeightData: state.home.averageHeightData,
-    userHeightHistory: state.home.userHeightHistory
+    userHeightHistory: state.home.userHeightHistory,
+    gender: state.session.userInfo.gender
 })
 
 const mapDispatchToProps = dispatch => ({

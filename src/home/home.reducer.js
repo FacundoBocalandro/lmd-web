@@ -7,13 +7,6 @@ import {
 } from "./home.actions";
 
 const initialState = {
-    personalData: {
-        avatar: 'OTTER',
-        fullName: "Facundo Bocalandro",
-        age: 20,
-        dni: "42648941",
-        sex: "MALE"
-    },
     averageWeightData: undefined,
     averagePerimeterData: undefined,
     averageHeightData: undefined,

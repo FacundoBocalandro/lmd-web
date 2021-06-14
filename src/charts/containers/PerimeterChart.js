@@ -5,7 +5,8 @@ import PerimeterChart from "../components/perimeter-chart/PerimeterChart";
 
 const mapStateToProps = state => ({
     averagePerimeterData: state.home.averagePerimeterData,
-    userPerimeterHistory: state.home.userPerimeterHistory
+    userPerimeterHistory: state.home.userPerimeterHistory,
+    gender: state.session.userInfo.gender
 })
 
 const mapDispatchToProps = dispatch => ({

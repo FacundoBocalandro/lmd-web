@@ -8,6 +8,9 @@ export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_RESPONSE = "LOGIN_RESPONSE";
 export const LOGIN_ERROR = "LOGIN_ERROR";
 export const LOGOUT = "LOGOUT";
+export const GET_USER_INFO_REQUEST = "GET_USER_INFO_REQUEST";
+export const GET_USER_INFO_RESPONSE = "GET_USER_INFO_RESPONSE";
+export const GET_USER_INFO_ERROR = "GET_USER_INFO_ERROR";
 
 
 const sessionActions = {
@@ -49,7 +52,15 @@ const sessionActions = {
      * Restart redux store
      * @returns {{type: string}}
      */
-    logout: () => ({type: LOGOUT})
+    logout: () => ({type: LOGOUT}),
+    /**
+     * Get user information to display data accordingly (for example, differences between male and female)
+     */
+    getUserInfo: {
+        request: () => ({type: GET_USER_INFO_REQUEST}),
+        response: (res) => ({type: GET_USER_INFO_RESPONSE, res}),
+        error: (err) => ({type: GET_USER_INFO_ERROR, err}),
+    }
 }
 
 export default sessionActions;

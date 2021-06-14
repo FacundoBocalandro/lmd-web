@@ -1,28 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {getAvatar} from "../../utils/avatars";
 import "./Home.css";
 import WeightChart from "../../charts/containers/WeightChart";
 import HeightChart from "../../charts/containers/HeightChart";
 import PerimeterChart from "../../charts/containers/PerimeterChart";
-import EnterDataScreen from "../../enter-data/components/EnterDataScreen";
+import EnterDataScreen from "../../enter-data/containers/EnterDataScreen";
 
-const Home = ({personalData, getPersonalData}) => {
+const Home = ({userInfo}) => {
     const [selectedTab, setSelectedTab] = useState(1);
 
-    useEffect(() => {
-        getPersonalData();
-        // eslint-disable-next-line
-    }, [])
-
-    return (
+    return userInfo ? (
         <div className={"home-screen"}>
             <div className={"home-personal-data"}>
                 <div className={"home-avatar-container"}>
-                    <FontAwesomeIcon icon={getAvatar(personalData.avatar)} className={"home-avatar"}/>
+                    <FontAwesomeIcon icon={getAvatar(userInfo.avatar)} className={"home-avatar"}/>
                 </div>
-                <span className={"home-name"}>{personalData.fullName}</span>
-                <span className={"home-age-and-id"}>{personalData.age} años - {personalData.dni}</span>
+                <span className={"home-name"}>{userInfo.firstName} {userInfo.lastName}</span>
+                <span className={"home-age-and-id"}>{userInfo.age} - {userInfo.dni}</span>
             </div>
             <div className={"home-screen-charts"}>
                 <div className={"home-screen-charts-container"}>
@@ -47,7 +42,7 @@ const Home = ({personalData, getPersonalData}) => {
                 </div>
             </div>
         </div>
-    )
+    ) : null
 }
 
 export default Home;

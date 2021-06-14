@@ -4,11 +4,13 @@ import {
     createContainer,
     VictoryAxis,
     VictoryChart, VictoryLabel,
-    VictoryLine, VictoryTooltip,
+    VictoryLine, VictoryScatter, VictoryTooltip,
 } from "victory";
 
 const GenericChart = ({percentileData, maxY, minY = 0, yStep, yLabel, data, colors}) => {
     const VictoryZoomVoronoiContainer = createContainer("zoom", "voronoi");
+    const maxYToDisplay = Math.max(getMaxY(data), maxY);
+    const minYToDisplay = Math.min(getMinY(data), minY);
 
     const commonLineProps = (percentile) => {
         const lineData = percentileData[`percentile${percentile}`];
@@ -23,7 +25,7 @@ const GenericChart = ({percentileData, maxY, minY = 0, yStep, yLabel, data, colo
         <VictoryChart containerComponent={<VictoryZoomVoronoiContainer
             labels={({datum}) => `${Math.round(datum.x, 2)}, ${Math.round(datum.y, 2)}`}
             labelComponent={<VictoryTooltip centerOffset={{x: 5}} style={{fontSize: 8}}/>}
-        />} width={550} height={550} minDomain={{x: 0, y: minY}} maxDomain={{x: 19, y: maxY}}>
+        />} width={550} height={550} minDomain={{x: 0, y: minYToDisplay}} maxDomain={{x: 19, y: maxYToDisplay}}>
             <VictoryAxis crossAxis
                          minDomain={0}
                          maxDomain={19}
@@ -36,9 +38,9 @@ const GenericChart = ({percentileData, maxY, minY = 0, yStep, yLabel, data, colo
             <VictoryAxis dependentAxis crossAxis
                          style={{tickLabels: {fontSize: 10}, grid: {stroke: colors.grid}, axisLabel: {fontSize: 12}}}
                          standalone={false}
-                         minDomain={minY}
-                         maxDomain={maxY}
-                         tickValues={Array(((maxY - minY) * 4 / yStep) + 1).fill(0).map((value, index) => (yStep / 4) * index + minY)}
+                         minDomain={minYToDisplay}
+                         maxDomain={maxYToDisplay}
+                         tickValues={Array(((maxYToDisplay - minYToDisplay) * 4 / yStep) + 1).fill(0).map((value, index) => (yStep / 4) * index + minYToDisplay)}
                          tickFormat={value => value % yStep === 0 ? value : ''}
                          label={yLabel}
                          axisLabelComponent={<VictoryLabel dy={-10}/>}
@@ -57,9 +59,25 @@ const GenericChart = ({percentileData, maxY, minY = 0, yStep, yLabel, data, colo
                          style={{data: {strokeWidth: .7}}}/>}
             <VictoryLine data={percentileData.percentile3} {...commonLineProps('3')}
                          style={{data: {strokeWidth: .7, strokeDasharray: '3,3'}}}/>
-            <VictoryLine data={data} style={{data: {stroke: colors.stroke}}}/>
+            {data.length === 1 ? <VictoryScatter data={data} style={{data: {fill: colors.stroke}}}/> : <VictoryLine data={data} style={{data: {stroke: colors.stroke}}}/>}
         </VictoryChart>
     )
+}
+
+const getMaxY = (data) => {
+    let maxY = 0;
+    data.forEach(value => {
+        if (value.y > maxY) maxY = value.y
+    })
+    return maxY;
+}
+
+const getMinY = (data) => {
+    let minY = 0;
+    data.forEach(value => {
+        if (value.y < minY) minY = value.y
+    })
+    return minY;
 }
 
 export default GenericChart;

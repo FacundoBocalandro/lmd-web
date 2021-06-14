@@ -1,10 +1,9 @@
 import React, {useEffect} from "react";
 import GenericChart from "../generic-chart/GenericChart";
 import DelayedRendering from "../../../common/components/delayed-rendering/DelayedRendering";
+import {GENDERS} from "../../../constants/PersonalData";
 
-const data = Array(36).fill().map((value, index) => ({x: (19 / 228) * index + 8, y: 43 + 0.15 * index}))
-
-const PerimeterChart = ({getAveragePerimeterData, averagePerimeterData, getUserPerimeterHistory, userPerimeterHistory}) => {
+const PerimeterChart = ({getAveragePerimeterData, averagePerimeterData, getUserPerimeterHistory, userPerimeterHistory, gender}) => {
     useEffect(() => {
         if (!averagePerimeterData) getAveragePerimeterData();
 
@@ -14,13 +13,13 @@ const PerimeterChart = ({getAveragePerimeterData, averagePerimeterData, getUserP
 
     return (
         <DelayedRendering>
-            {averagePerimeterData ? <GenericChart percentileData={averagePerimeterData}
+            {averagePerimeterData && userPerimeterHistory ? <GenericChart percentileData={averagePerimeterData}
                                                   maxY={60}
                                                   minY={28}
                                                   yStep={2}
                                                   yLabel={"Perímetro Cefálico (cm)"}
-                                                  data={data}
-                                                  colors={{grid: '#649CCD', stroke: 'red'}}/> : null}
+                                                  data={userPerimeterHistory}
+                                                  colors={{grid: gender === GENDERS.MALE ? '#649CCD' : 'pink', stroke: 'red'}}/> : null}
         </DelayedRendering>
     )
 }

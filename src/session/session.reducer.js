@@ -1,11 +1,18 @@
 import {
     CHECK_USERNAME_USED_ERROR,
     CHECK_USERNAME_USED_REQUEST,
-    CHECK_USERNAME_USED_RESPONSE, LOGIN_ERROR, LOGIN_REQUEST, LOGIN_RESPONSE, REGISTER_USER_ERROR,
-    REGISTER_USER_REQUEST, REGISTER_USER_RESPONSE
+    CHECK_USERNAME_USED_RESPONSE,
+    GET_USER_INFO_RESPONSE,
+    LOGIN_ERROR,
+    LOGIN_REQUEST,
+    LOGIN_RESPONSE,
+    REGISTER_USER_ERROR,
+    REGISTER_USER_REQUEST,
+    REGISTER_USER_RESPONSE
 } from "./session.actions";
 
 const initialState = {
+    userInfo: undefined,
     ui: {
         checkUsernameUsedPending: false,
         checkUsernameUsedError: false,
@@ -33,6 +40,8 @@ const sessionReducer = (state = initialState, action) => {
         case LOGIN_RESPONSE:
         case LOGIN_ERROR:
             return {...state, ui: {...state.ui, loginPending: false}}
+        case GET_USER_INFO_RESPONSE:
+            return {...state, userInfo: action.res}
         default:
             return state
     }

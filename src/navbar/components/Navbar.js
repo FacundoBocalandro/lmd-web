@@ -1,8 +1,6 @@
 import {useHistory} from "react-router";
 import './Navbar.css'
 import {useLocation} from "react-router-dom";
-import actions from "../../actions";
-import {connect} from "react-redux";
 
 const Navbar = ({logout}) => {
     const history = useHistory();
@@ -38,17 +36,10 @@ const Navbar = ({logout}) => {
                 <p className={ `navbar-p  ${pathIsHome() ? 'current-location' : ''}`} onClick={historyPath}>Inicio</p>
                 <p className={`navbar-p  ${pathIsReadings() ? 'current-location' : ''}`}>Lecturas</p>
                 <p className={`navbar-p  ${pathIsImmunizations() ? 'current-location' : ''}`} >Inmunizaciones</p>
-                <p className={"navbar-p logout"} onClick={logoutAction}>logout</p>
+                <p className={"navbar-p logout"} onClick={logoutAction}>Cerrar Sesión</p>
             </div>
         </div>
     )
 }
 
-const mapStateToProps = state => ({
-})
-
-const mapDispatchToProps = dispatch => ({
-    logout: () => actions.session.logout(),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default Navbar;

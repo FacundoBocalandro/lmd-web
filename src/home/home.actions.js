@@ -1,6 +1,3 @@
-export const GET_PERSONAL_DATA_REQUEST = "GET_PERSONAL_DATA_REQUEST";
-export const GET_PERSONAL_DATA_RESPONSE = "GET_PERSONAL_DATA_RESPONSE";
-export const GET_PERSONAL_DATA_ERROR = "GET_PERSONAL_DATA_ERROR";
 export const GET_AVERAGE_WEIGHT_DATA_REQUEST = "GET_AVERAGE_WEIGHT_DATA_REQUEST";
 export const GET_AVERAGE_WEIGHT_DATA_RESPONSE = "GET_AVERAGE_WEIGHT_DATA_RESPONSE";
 export const GET_AVERAGE_WEIGHT_DATA_ERROR = "GET_AVERAGE_WEIGHT_DATA_ERROR";
@@ -19,13 +16,17 @@ export const GET_USER_PERIMETER_HISTORY_ERROR = "GET_USER_PERIMETER_HISTORY_ERRO
 export const GET_USER_HEIGHT_HISTORY_REQUEST = "GET_USER_HEIGHT_HISTORY_REQUEST";
 export const GET_USER_HEIGHT_HISTORY_RESPONSE = "GET_USER_HEIGHT_HISTORY_RESPONSE";
 export const GET_USER_HEIGHT_HISTORY_ERROR = "GET_USER_HEIGHT_HISTORY_ERROR";
+export const CREATE_NEW_WEIGHT_RECORD_REQUEST = "CREATE_NEW_WEIGHT_RECORD_REQUEST";
+export const CREATE_NEW_WEIGHT_RECORD_RESPONSE = "CREATE_NEW_WEIGHT_RECORD_RESPONSE";
+export const CREATE_NEW_WEIGHT_RECORD_ERROR = "CREATE_NEW_WEIGHT_RECORD_ERROR";
+export const CREATE_NEW_PERIMETER_RECORD_REQUEST = "CREATE_NEW_PERIMETER_RECORD_REQUEST";
+export const CREATE_NEW_PERIMETER_RECORD_RESPONSE = "CREATE_NEW_PERIMETER_RECORD_RESPONSE";
+export const CREATE_NEW_PERIMETER_RECORD_ERROR = "CREATE_NEW_PERIMETER_RECORD_ERROR";
+export const CREATE_NEW_HEIGHT_RECORD_REQUEST = "CREATE_NEW_HEIGHT_RECORD_REQUEST";
+export const CREATE_NEW_HEIGHT_RECORD_RESPONSE = "CREATE_NEW_HEIGHT_RECORD_RESPONSE";
+export const CREATE_NEW_HEIGHT_RECORD_ERROR = "CREATE_NEW_HEIGHT_RECORD_ERROR";
 
 const homeActions = {
-    getPersonalData: {
-        request: () => ({type: GET_PERSONAL_DATA_REQUEST}),
-        response: (res) => ({type: GET_PERSONAL_DATA_RESPONSE, res}),
-        error: (err) => ({type: GET_PERSONAL_DATA_ERROR, err}),
-    },
     /**
      * Get weight percentile values to display in home screen chart
      */
@@ -76,6 +77,30 @@ const homeActions = {
         request: () => ({type: GET_USER_HEIGHT_HISTORY_REQUEST}),
         response: (history) => ({type: GET_USER_HEIGHT_HISTORY_RESPONSE, history}),
         error: (err) => ({type: GET_USER_HEIGHT_HISTORY_ERROR, err}),
+    },
+    /**
+     * Create new weight record to keep track of growth history
+     */
+    createNewWeightRecord: {
+        request: (weight, callback, errorCallback) => ({type: CREATE_NEW_WEIGHT_RECORD_REQUEST, weight, callback, errorCallback}),
+        response: (res) => ({type: CREATE_NEW_WEIGHT_RECORD_RESPONSE, res}),
+        error: (err) => ({type: CREATE_NEW_WEIGHT_RECORD_ERROR, err}),
+    },
+    /**
+     * Create new perimeter record to keep track of growth history
+     */
+    createNewPerimeterRecord: {
+        request: (perimeter, callback, errorCallback) => ({type: CREATE_NEW_PERIMETER_RECORD_REQUEST, perimeter, callback, errorCallback}),
+        response: (res) => ({type: CREATE_NEW_PERIMETER_RECORD_RESPONSE, res}),
+        error: (err) => ({type: CREATE_NEW_PERIMETER_RECORD_ERROR, err}),
+    },
+    /**
+     * Create new height record to keep track of growth history
+     */
+    createNewHeightRecord: {
+        request: (height, callback, errorCallback) => ({type: CREATE_NEW_HEIGHT_RECORD_REQUEST, height, callback, errorCallback}),
+        response: (res) => ({type: CREATE_NEW_HEIGHT_RECORD_RESPONSE, res}),
+        error: (err) => ({type: CREATE_NEW_HEIGHT_RECORD_ERROR, err}),
     },
 }
 

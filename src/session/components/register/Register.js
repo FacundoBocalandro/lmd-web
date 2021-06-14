@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import "./Register.css"
 import {useHistory} from "react-router";
-import {errorSnackbarOptions, successSnackbarOptions} from "../../../utils/snackbars";
-import {useSnackbar} from "react-simple-snackbar";
+import toast, { Toaster } from 'react-hot-toast';
 import NumberInput from "../../../common/components/inputs/NumberInput";
 import {GENDERS} from "../../../constants/PersonalData";
 import DateInput from "../../../common/components/inputs/DateInput";
@@ -119,15 +118,12 @@ const Register = ({
         }
     }
 
-    const [openErrorSnackbar] = useSnackbar({...errorSnackbarOptions});
-    const [openSuccessSnackbar] = useSnackbar({...successSnackbarOptions});
-
     const errorCallback = () => {
-        openErrorSnackbar("Error registrando el usuario");
+        toast.error("Error registrando el usuario");
     }
 
     const successCallback = () => {
-        openSuccessSnackbar("¡Felicitaciones! Inicia sesión para usar la aplicación");
+        toast.success("¡Felicitaciones! Inicia sesión para usar la aplicación");
         history.push('/');
     }
 
@@ -149,6 +145,7 @@ const Register = ({
 
     return (
         <div className={"register-screen"}>
+            <Toaster/>
             <div className={"register-header-container"}>
                 <span className={"header"}>Registro de Paciente</span>
             </div>
@@ -197,10 +194,6 @@ const Register = ({
                                className={errors.birthDate ? 'input input-error' : ' input'}
                                date={form.birthDate}
                                onChange={value => setField('birthDate', value)}/>
-                    {/*<input placeholder={"DD/MM/AA"}*/}
-                    {/*       className={errors.birthDate ? 'input input-error' : ' input'}*/}
-                    {/*       value={form.birthDate}*/}
-                    {/*       onChange={event => setField('birthDate', event.target.value)}/>*/}
                     <span className={errors.birthDate ? 'error-message' : 'error-message no-message'}>Error en la fecha de nacimiento</span>
 
                 </div>

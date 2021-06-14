@@ -1,10 +1,9 @@
 import React, {useEffect} from "react";
 import GenericChart from "../generic-chart/GenericChart";
 import DelayedRendering from "../../../common/components/delayed-rendering/DelayedRendering";
+import {GENDERS} from "../../../constants/PersonalData";
 
-const data = Array(36).fill().map((value, index) => ({x: (19 / 228) * index + 8, y: 30 + 0.3 * index ^ 2}))
-
-const WeightChart = ({getAverageWeightData, averageWeightData, getUserWeightHistory, userWeightHistory}) => {
+const WeightChart = ({getAverageWeightData, averageWeightData, getUserWeightHistory, userWeightHistory, gender}) => {
     useEffect(() => {
         if (!averageWeightData) getAverageWeightData();
 
@@ -14,12 +13,12 @@ const WeightChart = ({getAverageWeightData, averageWeightData, getUserWeightHist
 
     return (
         <DelayedRendering>
-            {averageWeightData ? <GenericChart percentileData={averageWeightData}
+            {averageWeightData && userWeightHistory ? <GenericChart percentileData={averageWeightData}
                                                maxY={90}
                                                yStep={5}
                                                yLabel={"Peso (kg)"}
-                                               data={data}
-                                               colors={{grid: '#649CCD', stroke: 'red'}}/> : null}
+                                               data={userWeightHistory}
+                                               colors={{grid: gender === GENDERS.MALE ? '#649CCD' : 'pink', stroke: 'red'}}/> : null}
         </DelayedRendering>
     )
 }
