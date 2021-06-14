@@ -1,0 +1,9 @@
+.vaccines-screen {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100%;
+}
+
+.vaccines-screen-left-panel {
+    padding: 30px;
+}

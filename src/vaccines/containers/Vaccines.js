@@ -3,8 +3,7 @@ import actions from "../../actions";
 import VaccinesScreen from "../components/VaccinesScreen";
 
 const mapStateToProps = state => ({
-    allVaccines: state.vaccines.allVaccines,
-    userVaccines: state.vaccines.userVaccines
+    allVaccines: state.vaccines.allVaccines
 })
 
 const mapDispatchToProps = dispatch => ({

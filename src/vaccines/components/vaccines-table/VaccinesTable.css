@@ -1,0 +1,32 @@
+.vaccines-table {
+}
+
+.vaccines-table-row {
+    display: grid;
+    grid-template-columns: 4fr 2fr 2fr 1fr;
+    padding-bottom: 10px;
+}
+
+.vaccines-table-row.vaccines-table-header {
+    padding-bottom: 20px;
+}
+
+.vaccines-table-cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 25px;
+}
+
+.vaccines-table-cell.align-center {
+    text-align: center;
+}
+
+.vaccines-table-header .vaccines-table-cell {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.vaccines-table-check {
+    color: var(--green);
+}
