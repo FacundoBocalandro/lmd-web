@@ -1,0 +1,62 @@
+.vaccines-table {
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.vaccines-table-body {
+    overflow: auto;
+}
+
+.vaccines-table-row {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+
+:not(.vaccines-table-header) .vaccines-table-row {
+    padding: 10px;
+}
+
+:not(.vaccines-table-header).vaccines-table-row:hover {
+    cursor: pointer;
+    background-color: var(--grey);
+}
+
+.selected-row {
+    background-color: var(--grey);
+}
+
+
+
+.vaccines-table-row:hover .unchecked-icon,.selected-row .unchecked-icon {
+    color: black;
+}
+
+.vaccines-table-row.vaccines-table-header {
+    padding-bottom: 20px;
+}
+
+.vaccines-table-cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 25px;
+}
+
+.vaccines-table-cell.align-center {
+    text-align: center;
+}
+
+.vaccines-table-header .vaccines-table-cell {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.check-icon {
+    color: var(--green);
+}
+
+.unchecked-icon {
+    color: var(--grey);
+}
