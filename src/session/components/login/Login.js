@@ -15,7 +15,7 @@ const Login = ({login, loginPending}) => {
 
     const successCallback = (token) => {
         window.localStorage.setItem('token', token)
-        history.push("/main/home");
+        history.push("/inicio");
     }
 
     const errorCallback = () => {
@@ -69,7 +69,7 @@ const Login = ({login, loginPending}) => {
                     <button onClick={submitForm} className={`submit-button ${isDisabled() ? 'disabled' : ''}`}
                             disabled={isDisabled()}>Iniciar sesión
                     </button>
-                    <span onClick={() => history.push('/register')}>¿Aún no tiene un usuario?</span>
+                    <span onClick={() => history.push('/registro')}>¿Aún no tiene un usuario?</span>
                 </div>
             </div>
         </div>

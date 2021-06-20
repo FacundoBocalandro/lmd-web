@@ -17,7 +17,7 @@ const Navbar = ({logout}) => {
     }
 
     const pathIsHome = () => {
-        return historyPath() === "/main/home";
+        return historyPath() === "/inicio";
     }
 
     const pathIsReadings = () => {
@@ -25,7 +25,7 @@ const Navbar = ({logout}) => {
     }
 
     const pathIsImmunizations = () => {
-        return historyPath() === "/immunizations";
+        return historyPath() === "/inicio/vacunas";
     }
 
 
@@ -33,9 +33,9 @@ const Navbar = ({logout}) => {
         <div  className={"navbar"}>
             <p className={"navbar-title"}>Libreta Médica</p>
             <div className={"navbar-list"}>
-                <p className={ `navbar-p  ${pathIsHome() ? 'current-location' : ''}`} onClick={historyPath}>Inicio</p>
+                <p className={ `navbar-p  ${pathIsHome() ? 'current-location' : ''}`} onClick={() => history.push('/inicio')}>Inicio</p>
                 <p className={`navbar-p  ${pathIsReadings() ? 'current-location' : ''}`}>Lecturas</p>
-                <p className={`navbar-p  ${pathIsImmunizations() ? 'current-location' : ''}`} >Inmunizaciones</p>
+                <p className={`navbar-p  ${pathIsImmunizations() ? 'current-location' : ''}`} onClick={() => history.push('/inicio/vacunas')}>Vacunas</p>
                 <p className={"navbar-p logout"} onClick={logoutAction}>Cerrar Sesión</p>
             </div>
         </div>

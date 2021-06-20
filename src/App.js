@@ -9,17 +9,19 @@ import PrivateRoute from "./security/PrivateRoute";
 import ReversePrivateRoute from "./security/ReversePrivateRoute";
 import Home from "./home/containers/Home";
 import AppFrame from "./common/components/app-frame/AppFrame";
+import Vaccines from "./vaccines/containers/Vaccines";
 
 function App() {
     return (
         <Router>
             <Switch>
                 <ReversePrivateRoute exact path={'/'} component={LoginScreen}/>
-                <Route path={'/register'} component={Register}/>
-                <PrivateRoute path='/main' component={({match: {url}}) => ([
+                <Route path={'/registro'} component={Register}/>
+                <PrivateRoute path='/inicio' component={({match: {url}}) => ([
                     <AppFrame key={'app-frame'}>
                         <Switch style={{width: '100%', height: '100%'}}>
-                            <PrivateRoute path={`${url}/home`} component={Home}/>
+                            <PrivateRoute exact path={`${url}`} component={Home}/>
+                            <PrivateRoute path={`${url}/vacunas`} component={Vaccines}/>
                         </Switch>
                     </AppFrame>
                 ])}/>
