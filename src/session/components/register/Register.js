@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import "./Register.css"
 import {useHistory} from "react-router";
-import {errorSnackbarOptions, successSnackbarOptions} from "../../../utils/snackbars";
-import {useSnackbar} from "react-simple-snackbar";
+import toast, { Toaster } from 'react-hot-toast';
+import NumberInput from "../../../common/components/inputs/NumberInput";
+import {GENDERS} from "../../../constants/PersonalData";
+import DateInput from "../../../common/components/inputs/DateInput";
 
 const Register = ({
                       registerUser,
@@ -17,12 +19,13 @@ const Register = ({
     const [form, setForm] = useState({
         firstName: "",
         lastName: "",
+        gender: null,
         dni: "",
         birthDate: "",
         email: "",
         username: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
     })
 
     const [errors, setErrors] = useState({
@@ -33,7 +36,8 @@ const Register = ({
         email: false,
         username: false,
         password: false,
-        confirmPassword: false
+        confirmPassword: false,
+        gender: false
     })
 
     const setField = (fieldName, value) => {
@@ -49,6 +53,10 @@ const Register = ({
 
     const validateLastName = (values) => {
         return !!values.lastName
+    }
+
+    const validateGender = (values) => {
+        return [GENDERS.MALE, GENDERS.FEMALE].includes(values.gender)
     }
 
     const validateDni = (values) => {
@@ -82,12 +90,13 @@ const Register = ({
     const rules = {
         firstName: validateFirstName,
         lastName: validateLastName,
+        gender: validateGender,
         dni: validateDni,
         birthDate: validateBirthDate,
         email: validateEmail,
         username: validateUsername,
         password: validatePassword,
-        confirmPassword: validateConfirmPassword
+        confirmPassword: validateConfirmPassword,
     };
 
     const submitForm = () => {
@@ -109,15 +118,12 @@ const Register = ({
         }
     }
 
-    const [openErrorSnackbar] = useSnackbar({...errorSnackbarOptions});
-    const [openSuccessSnackbar] = useSnackbar({...successSnackbarOptions});
-
     const errorCallback = () => {
-        openErrorSnackbar("Error registrando el usuario");
+        toast.error("Error registrando el usuario");
     }
 
     const successCallback = () => {
-        openSuccessSnackbar("¡Felicitaciones! Inicia sesión para usar la aplicación");
+        toast.success("¡Felicitaciones! Inicia sesión para usar la aplicación");
         history.push('/');
     }
 
@@ -129,8 +135,17 @@ const Register = ({
         history.push('/')
     }
 
+    const changeGender = (gender) => {
+        if (errors.gender) {
+            setErrors({...errors, gender: false})
+        }
+        if (form.gender === gender) setForm({...form, gender: null})
+        else setForm({...form, gender})
+    }
+
     return (
         <div className={"register-screen"}>
+            <Toaster/>
             <div className={"register-header-container"}>
                 <span className={"header"}>Registro de Paciente</span>
             </div>
@@ -150,19 +165,35 @@ const Register = ({
                     <span className={errors.lastName ? 'error-message' : 'error-message no-message'}> Error en el apellido</span>
                 </div>
                 <div className={"register-input-container"}>
-                    <input placeholder={"DNI (Sin puntos)"}
-                           className={errors.dni ? 'input input-error' : ' input'}
-                           type={"number"}
-                           value={form.dni}
-                           onChange={event => setField('dni', event.target.value)}/>
-                    <span className={errors.dni ? 'error-message' : 'error-message no-message'}>Error en el DNI</span>
-
+                    <div className={`register-gender-container${errors.gender ? ' input-error' : ''}`}>
+                        <div className={"register-gender-label"}>Sexo</div>
+                        <div className={"register-gender-options"}>
+                            <div className={"gender-checkbox-container"}>
+                                <span>Masculino</span>
+                                <input type="checkbox" checked={form.gender === GENDERS.MALE}
+                                       onClick={() => changeGender(GENDERS.MALE)}/>
+                            </div>
+                            <div className={"gender-checkbox-container"}>
+                                <span>Femenino</span>
+                                <input type="checkbox" checked={form.gender === GENDERS.FEMALE}
+                                       onClick={() => changeGender(GENDERS.FEMALE)}/>
+                            </div>
+                        </div>
+                    </div>
+                    <span className={errors.gender ? 'error-message' : 'error-message no-message'}>Debe seleccionar el sexo</span>
                 </div>
                 <div className={"register-input-container"}>
-                    <input placeholder={"DD/MM/AA"}
-                           className={errors.birthDate ? 'input input-error' : ' input'}
-                           value={form.birthDate}
-                           onChange={event => setField('birthDate', event.target.value)}/>
+                    <NumberInput value={form.dni}
+                                 placeholder={"DNI (Sin puntos)"}
+                                 className={errors.dni ? 'input input-error' : ' input'}
+                                 onChange={value => setField('dni', value)}/>
+                    <span className={errors.dni ? 'error-message' : 'error-message no-message'}>Error en el DNI</span>
+                </div>
+                <div className={"register-input-container"}>
+                    <DateInput placeholder={"Fecha de nacimiento"}
+                               className={errors.birthDate ? 'input input-error' : ' input'}
+                               date={form.birthDate}
+                               onChange={value => setField('birthDate', value)}/>
                     <span className={errors.birthDate ? 'error-message' : 'error-message no-message'}>Error en la fecha de nacimiento</span>
 
                 </div>

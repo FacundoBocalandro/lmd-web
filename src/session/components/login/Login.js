@@ -1,8 +1,7 @@
 import React, {useState} from "react";
 import "./Login.css";
 import {useHistory} from "react-router";
-import {errorSnackbarOptions} from "../../../utils/snackbars";
-import {useSnackbar} from "react-simple-snackbar";
+import toast, { Toaster } from 'react-hot-toast';
 
 const initialForm = {
     username: "",
@@ -19,11 +18,9 @@ const Login = ({login, loginPending}) => {
         history.push("/inicio");
     }
 
-    const [openErrorSnackbar] = useSnackbar({...errorSnackbarOptions})
-
     const errorCallback = () => {
         setForm({...initialForm});
-        openErrorSnackbar("¡Credenciales incorrectas!");
+        toast.error("¡Credenciales incorrectas!");
     }
 
     const submitForm = () => {
@@ -38,13 +35,14 @@ const Login = ({login, loginPending}) => {
 
     return (
         <div className={"login-screen"}>
+            <Toaster/>
             <div className={"login-header-container"}>
                 <span className={"header"}>Iniciar sesión</span>
             </div>
             <div className={"login-screen-body"}>
                 <div className={"login-form"}>
                     <div className={"login-input-container"}>
-                        <span className={"login-input-label"}>Nombre de usuario</span>
+                        <span className={"input-label"}>Nombre de usuario</span>
                         <input type="text" value={form.username}
                                className={"input"}
                                onKeyUp={(event) => {
@@ -56,7 +54,7 @@ const Login = ({login, loginPending}) => {
                                placeholder={"Nombre de usuario"}/>
                     </div>
                     <div className={"login-input-container"}>
-                        <span className={"login-input-label"}>Contraseña</span>
+                        <span className={"input-label"}>Contraseña</span>
                         <input type="password" value={form.password}
                                className={"input"}
                                onKeyUp={(event) => {

@@ -1,13 +1,12 @@
 import Home from "../components/Home";
 import {connect} from "react-redux";
-import actions from "../../actions";
+// import actions from "../../actions";
 
 const mapStateToProps = state => ({
-    personalData: state.home.personalData
+    userInfo: state.session.userInfo
 })
 
 const mapDispatchToProps = dispatch => ({
-    getPersonalData: () => dispatch(actions.home.getPersonalData.request()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -24,6 +24,30 @@
     font-family: serif;
 }
 
+.input-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.input-label {
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.input-box {
+    display: flex;
+    align-items: center;
+    background: var(--grey);
+    border-radius: 5px;
+}
+
+.input-adornment {
+    font-size: 20px;
+    padding-right: 10px;
+    font-weight: bolder;
+}
+
 .input {
     background: var(--grey);
     border-radius: 5px;
@@ -33,9 +57,10 @@
     outline: none;
     font-size: 20px;
     height: 50px;
+    width: 100%;
 }
 
-.input.input-error {
+.input-error {
     border: 1px solid red;
 }
 
@@ -47,11 +72,11 @@
     background: var(--primary);
 }
 
-.submit-button:hover,.cancel-button:hover {
+.submit-button:hover, .cancel-button:hover {
     cursor: pointer;
 }
 
-.submit-button,.cancel-button {
+.submit-button, .cancel-button {
     font-size: 30px;
     color: #fff;
     border-radius: 3px;
