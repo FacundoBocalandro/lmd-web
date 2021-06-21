@@ -1,4 +1,7 @@
-import {GET_ALL_VACCINES_RESPONSE, GET_USER_VACCINES_RESPONSE} from "./vaccines.actions";
+import {
+    GET_ALL_VACCINES_RESPONSE,
+    GET_USER_VACCINES_RESPONSE,
+} from "./vaccines.actions";
 
 const initialState = {
     allVaccines: undefined,
