@@ -1,4 +1,4 @@
-import {GET_ALL_VACCINES_REQUEST, GET_USER_VACCINES_REQUEST} from "./vaccines.actions";
+import {GET_ALL_VACCINES_REQUEST, GET_USER_VACCINES_REQUEST, SUBMIT_NEW_VACCINATION_REQUEST} from "./vaccines.actions";
 import {services} from "./vaccines.services";
 import actions from "../actions";
 
@@ -15,6 +15,18 @@ const vaccinesMiddleware = ({dispatch, getState}) => next => action => {
             services.getUserVaccines()
                 .then(res => dispatch(actions.vaccines.getUserVaccines.response(res.vaccineApplications)))
                 .catch(err => dispatch(actions.vaccines.getUserVaccines.error(err)));
+            break;
+        case SUBMIT_NEW_VACCINATION_REQUEST:
+            services.submitNewVaccination(action.vaccinationInfo)
+                .then(res => {
+                    if (action.callback) action.callback();
+                    dispatch(actions.vaccines.submitNewVaccination.response(res))
+                    dispatch(actions.vaccines.getUserVaccines.request());
+                })
+                .catch(err => {
+                    if (action.errorCallback) action.errorCallback();
+                    dispatch(actions.vaccines.submitNewVaccination.error(err))
+                });
             break;
         default:
             break;

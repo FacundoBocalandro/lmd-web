@@ -53,10 +53,27 @@
     font-weight: bold;
 }
 
-.check-icon {
+.checked-icon {
     color: var(--green);
 }
 
 .unchecked-icon {
     color: var(--grey);
+}
+
+.new-vaccination-modal {
+    width: 400px;
+}
+
+.new-vaccination-modal-title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.new-vaccination-modal .input-container {
+    margin-top: 20px;
+}
+
+.new-vaccination-button-container {
+    margin-top: 20px;
 }

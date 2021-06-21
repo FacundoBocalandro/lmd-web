@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
-// import actions from "../../actions";
 import VaccinesTable from "../components/vaccines-table/VaccinesTable";
+import actions from "../../actions";
 
 const mapStateToProps = state => ({
     allVaccines: state.vaccines.allVaccines,
@@ -8,6 +8,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+    submitNewVaccination: (vaccinationInfo, callback, errorCallback) => dispatch(actions.vaccines.submitNewVaccination.request(vaccinationInfo, callback, errorCallback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(VaccinesTable);
