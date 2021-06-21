@@ -6,7 +6,7 @@ httpClient.defaults.timeout = 1200000;
 const baseUrl = "http://localhost:8080/"
 
 const _request = async (url, method, data, config = {}) => {
-    const headers = isAuthenticated() ? {...config.headers, Authorization: `Bearer ${getToken()}`} : config.headers;
+    const headers = isAuthenticated() || config.token ? {...config.headers, Authorization: `Bearer ${config.token ?? getToken()}`} : config.headers;
 
     return httpClient({
         url: baseUrl + url,
@@ -19,7 +19,8 @@ const _request = async (url, method, data, config = {}) => {
     }).catch(errorResponse => {
         // JWT expired: logout
         if (!config.noAuth && errorResponse.response?.status === 403) {
-            window.localStorage.removeItem('token');
+            window.localStorage.removeItem(`token-${window.localStorage.getItem('selected-user')}`);
+            window.localStorage.removeItem('selected-user');
             window.location.href = window.location.origin
         }
         else throw (errorResponse.response || {status: 500})
@@ -33,9 +34,9 @@ export const patch = (url, body, config = {}) => _request(url, "PATCH", body, co
 export const deleteRequest = (url, body, config = {}) => _request(url, "DELETE", body, config);
 
 export const isAuthenticated = () => {
-    return window.localStorage.getItem('token') !== null;
+    return window.localStorage.getItem(`token-${window.localStorage.getItem('selected-user')}`) !== null;
 }
 
-const getToken = () => {
-    return window.localStorage.getItem('token');
+export const getToken = () => {
+    return window.localStorage.getItem(`token-${window.localStorage.getItem('selected-user')}`);
 }

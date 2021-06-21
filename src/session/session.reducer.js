@@ -1,7 +1,7 @@
 import {
     CHECK_USERNAME_USED_ERROR,
     CHECK_USERNAME_USED_REQUEST,
-    CHECK_USERNAME_USED_RESPONSE,
+    CHECK_USERNAME_USED_RESPONSE, GET_USER_INFO_FROM_TOKEN_RESPONSE,
     GET_USER_INFO_RESPONSE,
     LOGIN_ERROR,
     LOGIN_REQUEST,
@@ -13,6 +13,7 @@ import {
 
 const initialState = {
     userInfo: undefined,
+    allUsersInfo: undefined,
     ui: {
         checkUsernameUsedPending: false,
         checkUsernameUsedError: false,
@@ -42,6 +43,8 @@ const sessionReducer = (state = initialState, action) => {
             return {...state, ui: {...state.ui, loginPending: false}}
         case GET_USER_INFO_RESPONSE:
             return {...state, userInfo: action.res}
+        case GET_USER_INFO_FROM_TOKEN_RESPONSE:
+            return {...state, allUsersInfo: {...state.allUsersInfo, [action.token]: action.res}}
         default:
             return state
     }

@@ -14,12 +14,18 @@ const Login = ({login, loginPending}) => {
     const [form, setForm] = useState({...initialForm});
 
     const successCallback = (token) => {
-        window.localStorage.setItem('token', token)
+        const tokens = Object.keys(window.localStorage).filter(key => key.startsWith('token-'));
+        let lastToken = 0;
+        tokens.forEach(tokenString => {
+            const tokenNumber = tokenString.split('-')[1]
+            if (tokenNumber > lastToken) lastToken = parseFloat(tokenNumber);
+        })
+        window.localStorage.setItem(`token-${lastToken + 1}`, token);
+        window.localStorage.setItem('selected-user', `${lastToken + 1}`);
         history.push("/inicio");
     }
 
     const errorCallback = () => {
-        setForm({...initialForm});
         toast.error("¡Credenciales incorrectas!");
     }
 
