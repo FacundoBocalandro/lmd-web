@@ -6,7 +6,6 @@ import {Switch, Route, Redirect} from 'react-router'
 import LoginScreen from "./session/containers/LoginScreen";
 import Register from "./session/containers/Register";
 import PrivateRoute from "./security/PrivateRoute";
-import ReversePrivateRoute from "./security/ReversePrivateRoute";
 import Home from "./home/containers/Home";
 import AppFrame from "./common/components/app-frame/AppFrame";
 import Vaccines from "./vaccines/containers/Vaccines";
@@ -15,7 +14,7 @@ function App() {
     return (
         <Router>
             <Switch>
-                <ReversePrivateRoute exact path={'/'} component={LoginScreen}/>
+                <Route exact path={'/'} component={LoginScreen}/>
                 <Route path={'/registro'} component={Register}/>
                 <PrivateRoute path='/inicio' component={({match: {url}}) => ([
                     <AppFrame key={'app-frame'}>
