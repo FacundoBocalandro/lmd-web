@@ -11,3 +11,8 @@
     overflow: hidden;
     height: 100%;
 }
+
+.vaccines-screen-right-panel {
+    height: 100%;
+    overflow: hidden;
+}

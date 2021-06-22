@@ -7,6 +7,9 @@ export const GET_USER_VACCINES_ERROR = "GET_USER_VACCINES_ERROR";
 export const SUBMIT_NEW_VACCINATION_REQUEST = "SUBMIT_NEW_VACCINATION_REQUEST";
 export const SUBMIT_NEW_VACCINATION_RESPONSE = "SUBMIT_NEW_VACCINATION_RESPONSE";
 export const SUBMIT_NEW_VACCINATION_ERROR = "SUBMIT_NEW_VACCINATION_ERROR";
+export const GET_VACCINE_DETAILS_REQUEST = "GET_VACCINE_DETAILS_REQUEST";
+export const GET_VACCINE_DETAILS_RESPONSE = "GET_VACCINE_DETAILS_RESPONSE";
+export const GET_VACCINE_DETAILS_ERROR = "GET_VACCINE_DETAILS_ERROR";
 
 const vaccinesActions = {
     getAllVaccines: {
@@ -23,6 +26,11 @@ const vaccinesActions = {
         request: (vaccinationInfo, callback, errorCallback) => ({type: SUBMIT_NEW_VACCINATION_REQUEST, vaccinationInfo, callback, errorCallback}),
         response: (res) => ({type: SUBMIT_NEW_VACCINATION_RESPONSE, res}),
         error: (err) => ({type: SUBMIT_NEW_VACCINATION_ERROR, err})
+    },
+    getVaccineDetails: {
+        request: (id) => ({type: GET_VACCINE_DETAILS_REQUEST, id}),
+        response: (res) => ({type: GET_VACCINE_DETAILS_RESPONSE, res}),
+        error: (err) => ({type: GET_VACCINE_DETAILS_ERROR, err})
     }
 }
 
