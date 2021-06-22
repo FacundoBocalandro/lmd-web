@@ -10,6 +10,7 @@
 .navbar-list {
     justify-content: space-around;
     cursor: pointer;
+    align-items: center;
     display: flex;
 }
 
@@ -31,6 +32,89 @@
 
 .logout{
     margin-right: 0!important;
+}
+
+.session-dropdown-text {
+    cursor: pointer;
+}
+
+.session-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.session-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0;
+    width: 300px;
+}
+
+.session-dropdown-content span {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 18px;
+    text-align: left;
+}
+
+.session-dropdown-content span:hover {background-color: var(--grey)}
+
+.session-dropdown:hover .session-dropdown-content {
+    display: block;
+}
+
+.navbar-users-container {
+    border-bottom: 1px solid rgba(0,0,0,.3);
+}
+
+.user-info-row {
+    padding: 5px 5px;
+    display: flex;
+    align-items: center;
+}
+
+.user-info-row span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-info-row:hover,.user-info-row.selected {
+    background: var(--grey);
+}
+
+.user-row-avatar-container {
+    padding: 10px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.user-row-avatar-container.male {
+    border: 1px solid var(--blue);
+}
+
+.user-row-avatar-container.female {
+    border: 1px solid pink;
+}
+
+
+.user-row-avatar {
+    font-size: 20px;
+    color: var(--blue);
+}
+
+.user-row-avatar.male {
+    color: var(--blue);
+}
+
+.user-row-avatar.female {
+    color: pink;
 }
 
 
