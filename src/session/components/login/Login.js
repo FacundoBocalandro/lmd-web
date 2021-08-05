@@ -1,14 +1,29 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./Login.css";
 import {useHistory} from "react-router";
 import toast, { Toaster } from 'react-hot-toast';
+import {setSelectedToken} from "../../../utils/tokens";
 
 const initialForm = {
     username: "",
     password: ""
 }
 
-const Login = ({login, loginPending}) => {
+const Login = ({login, logout, loginPending, allUsersInfo, getUserInfoFromToken}) => {
+
+    /**
+     * Get all logged in users information.
+     * In case the user inputted is already logged in, replace token
+     */
+    useEffect(() => {
+        const tokens = Object.keys(window.localStorage).filter(key => key.startsWith('token-'));
+        tokens.forEach(key => {
+            getUserInfoFromToken(window.localStorage.getItem(key));
+        })
+
+        // eslint-disable-next-line
+    }, [])
+
     const history = useHistory();
 
     const [form, setForm] = useState({...initialForm});
@@ -31,7 +46,19 @@ const Login = ({login, loginPending}) => {
 
     const submitForm = () => {
         if (!isDisabled()) {
-            login(form, successCallback, errorCallback)
+            //check if inputted user is already logged in
+            let alreadyLoggedInToken;
+            if (allUsersInfo) {
+                Object.entries(allUsersInfo).forEach(([token, info]) => {
+                    if (info.username === form.username) alreadyLoggedInToken = token;
+                })
+            }
+
+            if (alreadyLoggedInToken) {
+                setSelectedToken(alreadyLoggedInToken, logout);
+                history.push('/inicio');
+            }
+            else login(form, successCallback, errorCallback)
         }
     }
 

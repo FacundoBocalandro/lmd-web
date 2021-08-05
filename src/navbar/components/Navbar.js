@@ -6,6 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {getAvatar} from "../../utils/avatars";
 import {GENDERS} from "../../constants/PersonalData";
 import {getToken} from "../../utils/http";
+import {setSelectedToken} from "../../utils/tokens";
 
 const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
 
@@ -66,20 +67,6 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
         history.push('/');
     }
 
-    const setSelectedToken = (token) => {
-        const tokens = Object.keys(window.localStorage).filter(key => key.startsWith('token-'));
-        tokens.forEach(tokenKey => {
-            if (window.localStorage.getItem(tokenKey) === token) {
-                const tokenNumber = tokenKey.split('-')[1];
-                if (tokenNumber !== window.localStorage.getItem('selected-user')) {
-                    logout();
-                    window.localStorage.setItem('selected-user', tokenNumber)
-                    window.location.reload()
-                }
-            }
-        })
-    }
-
     return (
         <div className={"navbar"}>
             <p className={"navbar-title"}>Libreta Médica</p>
@@ -95,7 +82,7 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
                         {allUsersInfo &&
                         <div className={"navbar-users-container"}>
                             {Object.entries(allUsersInfo).map(([token, info]) => (
-                                <UserRow info={info} token={token} setSelectedToken={setSelectedToken}/>))}
+                                <UserRow info={info} token={token} setSelectedToken={(token) => setSelectedToken(token, logout)}/>))}
                         </div>
                         }
                         <span onClick={addAccount}>Agregar cuenta</span>
