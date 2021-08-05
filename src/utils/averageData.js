@@ -81,7 +81,7 @@ export const adapt3PercentileData = (data) => {
 }
 
 export const adaptUserHistoryData = (data, accessor, birthDate) => {
-    const result = [...data.pastRecords.map(record => adaptDataRecord(record, accessor, birthDate)), ...adaptDataRecord(data.lastRecord, accessor, birthDate)];
+    const result = [...data.pastRecords.map(record => adaptDataRecord(record, accessor, birthDate)[0]), ...adaptDataRecord(data.lastRecord, accessor, birthDate)];
     return result.filter((value, index) => result.findIndex(elem => elem.x === value.x) === index)
 }
 
