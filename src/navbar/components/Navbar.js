@@ -6,14 +6,18 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {getAvatar} from "../../utils/avatars";
 import {GENDERS} from "../../constants/PersonalData";
 import {getToken} from "../../utils/http";
-import {setSelectedToken} from "../../utils/tokens";
+import {clearSelectedUser, getAllStoredTokens, removeCurrentToken, setSelectedToken} from "../../utils/tokens";
 
 const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
 
+    /**
+     *  Fetch information of all logged in users.
+     *  Used to display information on navbar "session" dropdown, where user can change the selected profile.
+     */
     useEffect(() => {
-        const tokens = Object.keys(window.localStorage).filter(key => key.startsWith('token-'));
-        tokens.forEach(key => {
-            getUserInfoFromToken(window.localStorage.getItem(key));
+        const tokens = getAllStoredTokens();
+        tokens.forEach(token => {
+            getUserInfoFromToken(token);
         })
 
         // eslint-disable-next-line
@@ -24,25 +28,7 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
 
     const logoutAction = () => {
         logout();
-
-        //rearrange tokens to be in order
-        const selectedUser = window.localStorage.getItem('selected-user');
-        const tokens = Object.keys(window.localStorage).filter(key => key.startsWith('token-'));
-        let lastToken = selectedUser;
-        //get last token, which will be moved to the localstorage key where the removed token was.
-        tokens.forEach(tokenString => {
-            const tokenNumber = tokenString.split('-')[1]
-            if (tokenNumber > lastToken) lastToken = parseFloat(tokenNumber);
-        })
-
-        window.localStorage.removeItem(`token-${selectedUser}`);
-        if (lastToken !== selectedUser) {
-            window.localStorage.setItem(`token-${selectedUser}`, window.localStorage.getItem(`token-${lastToken}`))
-            window.localStorage.removeItem(`token-${lastToken}`)
-        }
-
-        window.localStorage.removeItem('selected-user');
-
+        removeCurrentToken();
         history.replace('/');
     }
 
@@ -64,6 +50,7 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
 
     const addAccount = () => {
         logout();
+        clearSelectedUser();
         history.push('/');
     }
 
@@ -81,7 +68,9 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
                     <div className={"session-dropdown-content"}>
                         {allUsersInfo &&
                         <div className={"navbar-users-container"}>
-                            {Object.entries(allUsersInfo).map(([token, info]) => (
+                            {Object.entries(allUsersInfo)
+                                .sort((a, b) => a[1].firstName - b[1].firstName) // a and b are arrays containing [token, info]. sort them by info.firstName
+                                .map(([token, info]) => (
                                 <UserRow info={info} token={token} setSelectedToken={(token) => setSelectedToken(token, logout)}/>))}
                         </div>
                         }

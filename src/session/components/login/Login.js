@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import "./Login.css";
 import {useHistory} from "react-router";
 import toast, { Toaster } from 'react-hot-toast';
-import {setSelectedToken} from "../../../utils/tokens";
+import {getAllStoredTokens, saveNewToken, setSelectedToken} from "../../../utils/tokens";
 
 const initialForm = {
     username: "",
@@ -16,9 +16,9 @@ const Login = ({login, logout, loginPending, allUsersInfo, getUserInfoFromToken}
      * In case the user inputted is already logged in, replace token
      */
     useEffect(() => {
-        const tokens = Object.keys(window.localStorage).filter(key => key.startsWith('token-'));
-        tokens.forEach(key => {
-            getUserInfoFromToken(window.localStorage.getItem(key));
+        const tokens = getAllStoredTokens();
+        tokens.forEach(token => {
+            getUserInfoFromToken(token);
         })
 
         // eslint-disable-next-line
@@ -29,14 +29,7 @@ const Login = ({login, logout, loginPending, allUsersInfo, getUserInfoFromToken}
     const [form, setForm] = useState({...initialForm});
 
     const successCallback = (token) => {
-        const tokens = Object.keys(window.localStorage).filter(key => key.startsWith('token-'));
-        let lastToken = 0;
-        tokens.forEach(tokenString => {
-            const tokenNumber = tokenString.split('-')[1]
-            if (tokenNumber > lastToken) lastToken = parseFloat(tokenNumber);
-        })
-        window.localStorage.setItem(`token-${lastToken + 1}`, token);
-        window.localStorage.setItem('selected-user', `${lastToken + 1}`);
+        saveNewToken(token);
         history.push("/inicio");
     }
 
