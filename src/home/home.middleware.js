@@ -1,8 +1,11 @@
 import {
-    CREATE_NEW_HEIGHT_RECORD_REQUEST, CREATE_NEW_PERIMETER_RECORD_REQUEST, CREATE_NEW_WEIGHT_RECORD_REQUEST,
+    CREATE_NEW_HEIGHT_RECORD_REQUEST,
+    CREATE_NEW_PERIMETER_RECORD_REQUEST,
+    CREATE_NEW_WEIGHT_RECORD_REQUEST,
+    GET_AVERAGE_BMI_DATA_REQUEST,
     GET_AVERAGE_HEIGHT_DATA_REQUEST,
     GET_AVERAGE_PERIMETER_DATA_REQUEST,
-    GET_AVERAGE_WEIGHT_DATA_REQUEST,
+    GET_AVERAGE_WEIGHT_DATA_REQUEST, GET_USER_BMI_HISTORY_REQUEST,
     GET_USER_HEIGHT_HISTORY_REQUEST,
     GET_USER_PERIMETER_HISTORY_REQUEST,
     GET_USER_WEIGHT_HISTORY_REQUEST
@@ -31,6 +34,11 @@ const homeMiddleware = ({dispatch, getState}) => next => action => {
                 .then(res => dispatch(actions.home.getAverageHeightData.response(adapt7PercentileData(res.heights))))
                 .catch(err => dispatch(actions.home.getAverageHeightData.error(err)))
             break;
+        case GET_AVERAGE_BMI_DATA_REQUEST:
+            services.getAverageBmiData(getState().session.userInfo.gender === GENDERS.MALE)
+                .then(res => dispatch(actions.home.getAverageBmiData.response(adapt7PercentileData(res.bmiList))))
+                .catch(err => dispatch(actions.home.getAverageBmiData.error(err)))
+            break;
         case GET_USER_WEIGHT_HISTORY_REQUEST:
             services.getUserWeightHistory()
                 .then(res => dispatch(actions.home.getUserWeightHistory.response(adaptUserHistoryData(res, 'weight', getState().session.userInfo.birthDate))))
@@ -45,6 +53,11 @@ const homeMiddleware = ({dispatch, getState}) => next => action => {
             services.getUserHeightHistory()
                 .then(res => dispatch(actions.home.getUserHeightHistory.response(adaptUserHistoryData(res, 'height', getState().session.userInfo.birthDate))))
                 .catch(err => dispatch(actions.home.getUserHeightHistory.error(err)));
+            break;
+        case GET_USER_BMI_HISTORY_REQUEST:
+            services.getUserBmiHistory()
+                .then(res => dispatch(actions.home.getUserBmiHistory.response(adaptUserHistoryData(res, 'bmi', getState().session.userInfo.birthDate))))
+                .catch(err => dispatch(actions.home.getUserBmiHistory.error(err)));
             break;
         case CREATE_NEW_WEIGHT_RECORD_REQUEST:
             services.createNewWeightRecord(action.weight)

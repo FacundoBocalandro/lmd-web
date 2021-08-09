@@ -6,6 +6,7 @@ import WeightChart from "../../charts/containers/WeightChart";
 import HeightChart from "../../charts/containers/HeightChart";
 import PerimeterChart from "../../charts/containers/PerimeterChart";
 import EnterDataScreen from "../../enter-data/containers/EnterDataScreen";
+import BmiChart from "../../charts/containers/BmiChart";
 
 const Home = ({userInfo}) => {
     const [selectedTab, setSelectedTab] = useState(1);
@@ -24,7 +25,8 @@ const Home = ({userInfo}) => {
                     {selectedTab === 1 && <WeightChart/>}
                     {selectedTab === 2 && <HeightChart/>}
                     {selectedTab === 3 && <PerimeterChart/>}
-                    {selectedTab === 4 && <EnterDataScreen/>}
+                    {selectedTab === 4 && <BmiChart/>}
+                    {selectedTab === 5 && <EnterDataScreen/>}
                 </div>
                 <div className={"home-screen-tabs-container"}>
                     <div className={`home-screen-tab${selectedTab === 1 ? ' selected' : ''}`}
@@ -37,7 +39,10 @@ const Home = ({userInfo}) => {
                          onClick={() => setSelectedTab(3)}>Perímetro Cefálico
                     </div>
                     <div className={`home-screen-tab${selectedTab === 4 ? ' selected' : ''}`}
-                         onClick={() => setSelectedTab(4)}>Cargar Datos
+                         onClick={() => setSelectedTab(4)}>IMC
+                    </div>
+                    <div className={`home-screen-tab${selectedTab === 5 ? ' selected' : ''}`}
+                         onClick={() => setSelectedTab(5)}>Cargar Datos
                     </div>
                 </div>
             </div>
