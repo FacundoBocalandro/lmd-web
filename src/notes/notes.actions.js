@@ -2,6 +2,7 @@ export const GET_ALL_NOTES_REQUEST = "GET_ALL_NOTES_REQUEST";
 export const GET_ALL_NOTES_RESPONSE = "GET_ALL_NOTES_RESPONSE";
 export const CREATE_NOTE_REQUEST = "CREATE_NOTE_REQUEST";
 export const CREATE_NOTE_RESPONSE = "CREATE_NOTE_RESPONSE";
+export const CREATE_NOTE_ERROR = "CREATE_NOTE_ERROR";
 export const UPDATE_NOTE_TITLE_REQUEST = "UPDATE_NOTE_TITLE_REQUEST";
 export const UPDATE_NOTE_TITLE_RESPONSE = "UPDATE_NOTE_TITLE_RESPONSE";
 export const UPDATE_NOTE_TITLE_ERROR = "UPDATE_NOTE_TITLE_ERROR";
@@ -17,8 +18,9 @@ const notesActions = {
         response: (res) => ({type: GET_ALL_NOTES_RESPONSE, res})
     },
     createNote: {
-        request: () => ({type: CREATE_NOTE_REQUEST}),
-        response: (res) => ({type: CREATE_NOTE_RESPONSE, res})
+        request: (callback) => ({type: CREATE_NOTE_REQUEST, callback}),
+        response: (res) => ({type: CREATE_NOTE_RESPONSE, res}),
+        error: (err) => ({type: CREATE_NOTE_ERROR, err})
     },
     updateNoteTitle: {
         request: (id, title, sendToServer) => ({type: UPDATE_NOTE_TITLE_REQUEST, id, title, sendToServer}),

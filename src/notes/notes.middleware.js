@@ -17,7 +17,11 @@ const notesMiddleware = ({dispatch, getState}) => next => action => {
             break;
         case CREATE_NOTE_REQUEST:
             services.createNote({title: "", body: ""})
-                .then(res => dispatch(actions.notes.createNote.response(res)))
+                .then(res => {
+                    if (action.callback) action.callback(res);
+                    dispatch(actions.notes.createNote.response(res));
+                })
+                .catch(err => dispatch(actions.notes.createNote.error(err)));
             break;
         case UPDATE_NOTE_TITLE_REQUEST:
             if (action.sendToServer) {

@@ -1,4 +1,6 @@
 import {
+    CREATE_NOTE_ERROR,
+    CREATE_NOTE_REQUEST,
     CREATE_NOTE_RESPONSE,
     DELETE_NOTE_REQUEST,
     GET_ALL_NOTES_RESPONSE,
@@ -13,7 +15,8 @@ import {UPDATE_NOTE_STATUS} from "../constants/notes";
 
 const initialState = {
     allNotes: [],
-    updateNoteStatus: UPDATE_NOTE_STATUS.SAVED
+    updateNoteStatus: UPDATE_NOTE_STATUS.SAVED,
+    createNotePending: false
 }
 
 const notesReducer = (state = initialState, action) => {
@@ -23,10 +26,21 @@ const notesReducer = (state = initialState, action) => {
                 ...state,
                 allNotes: action.res
             }
+        case CREATE_NOTE_REQUEST:
+            return {
+                ...state,
+                createNotePending: true
+            }
         case CREATE_NOTE_RESPONSE:
             return {
                 ...state,
-                allNotes: [action.res, ...state.allNotes]
+                allNotes: [action.res, ...state.allNotes],
+                createNotePending: false
+            }
+        case CREATE_NOTE_ERROR:
+            return {
+                ...state,
+                createNotePending: false
             }
         case UPDATE_NOTE_TITLE_REQUEST:
             return {

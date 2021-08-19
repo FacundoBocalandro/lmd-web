@@ -2,11 +2,20 @@ import React, {useCallback, useEffect, useState} from "react";
 import "./Notes.css";
 import SearchInput from "../../common/components/inputs/SearchInput";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faChevronRight, faPlusCircle} from "@fortawesome/free-solid-svg-icons";
+import {faChevronRight, faPlusCircle, faSpinner} from "@fortawesome/free-solid-svg-icons";
 import {faTimesCircle} from "@fortawesome/free-regular-svg-icons";
 import debounce from "lodash.debounce";
 
-const Notes = ({allNotes, getAllNotes, createNote, updateNoteTitle, updateNoteBody, deleteNote, updateNoteStatus}) => {
+const Notes = ({
+                   allNotes,
+                   getAllNotes,
+                   createNote,
+                   updateNoteTitle,
+                   updateNoteBody,
+                   deleteNote,
+                   updateNoteStatus,
+                   createNotePending
+               }) => {
     const [searchFilter, setSearchFilter] = useState("");
     const [selectedNoteId, setSelectedNoteId] = useState(null);
 
@@ -47,22 +56,25 @@ const Notes = ({allNotes, getAllNotes, createNote, updateNoteTitle, updateNoteBo
                 <SearchInput onChange={value => setSearchFilter(value)} value={searchFilter}/>
                 <div className={"notes-header"}>
                     <span>Notas de consulta</span>
-                    <FontAwesomeIcon icon={faPlusCircle} className={"add-note-icon"} onClick={createNote}/>
+                    <FontAwesomeIcon icon={faPlusCircle} className={"add-note-icon"} onClick={() => createNote(note => setSelectedNoteId(note.id))}/>
                 </div>
                 <div className={"sidebar-notes-list"}>
+
+                    {createNotePending && <FontAwesomeIcon icon={faSpinner} spin size={'2x'} color={'#133D8D'}/>}
                     {allNotes && allNotes
                         .filter(note => note.title.toLowerCase().includes(searchFilter.toLowerCase()))
                         .map(note => (
-                        <div className={"sidebar-note"} key={note.id}>
-                            <input type="text" className={"sidebar-note-title"} value={note.title}
-                                   onChange={event => handleNoteTitleChange(note.id, event.target.value)}
-                                   onFocus={() => setSelectedNoteId(note.id)}/>
-                            {selectedNoteId === note.id ?
-                                <FontAwesomeIcon icon={faChevronRight} className={"selected-note-arrow"}/> :
-                                <FontAwesomeIcon icon={faTimesCircle} className={"delete-note-icon"}
-                                                 onClick={() => handleDeleteNote(note.id)}/>}
-                        </div>)
-                    )}
+                            <div className={"sidebar-note"} key={note.id}>
+                                <input type="text" className={"sidebar-note-title"} value={note.title}
+                                       placeholder={"Escriba aquí el título..."}
+                                       onChange={event => handleNoteTitleChange(note.id, event.target.value)}
+                                       onFocus={() => setSelectedNoteId(note.id)}/>
+                                {selectedNoteId === note.id ?
+                                    <FontAwesomeIcon icon={faChevronRight} className={"selected-note-arrow"}/> :
+                                    <FontAwesomeIcon icon={faTimesCircle} className={"delete-note-icon"}
+                                                     onClick={() => handleDeleteNote(note.id)}/>}
+                            </div>)
+                        )}
                 </div>
             </div>
             <div className={"notes-screen-body"}>
