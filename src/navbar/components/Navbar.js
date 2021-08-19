@@ -32,21 +32,12 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
         history.replace('/');
     }
 
-    const historyPath = () => {
-        return location.pathname;
-    }
-
-    const pathIsHome = () => {
-        return historyPath() === "/inicio";
-    }
-
-    const pathIsReadings = () => {
-        return historyPath() === "/readings";
-    }
-
-    const pathIsImmunizations = () => {
-        return historyPath() === "/inicio/vacunas";
-    }
+    const navbarOptions = [
+        {path: '/inicio', label: 'Inicio'},
+        {path: '/inicio/vacunas', label: "Vacunas"},
+        {path: '/inicio/lecturas', label: 'Lecturas'},
+        {path: '/inicio/notas', label: 'Notas'}
+    ]
 
     const addAccount = () => {
         logout();
@@ -58,11 +49,8 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
         <div className={"navbar"}>
             <p className={"navbar-title"}>Libreta Médica</p>
             <div className={"navbar-list"}>
-                <p className={`navbar-p  ${pathIsHome() ? 'current-location' : ''}`}
-                   onClick={() => history.push('/inicio')}>Inicio</p>
-                <p className={`navbar-p  ${pathIsReadings() ? 'current-location' : ''}`}>Lecturas</p>
-                <p className={`navbar-p  ${pathIsImmunizations() ? 'current-location' : ''}`}
-                   onClick={() => history.push('/inicio/vacunas')}>Vacunas</p>
+                {navbarOptions.map(option => <p className={`navbar-p  ${location.pathname === option.path ? 'current-location' : ''}`}
+                                                onClick={() => history.push(option.path)}>{option.label}</p>)}
                 <div className={`navbar-p session-dropdown`}>
                     <span className={"session-dropdown-text"}>Sesión</span>
                     <div className={"session-dropdown-content"}>
@@ -71,7 +59,8 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
                             {Object.entries(allUsersInfo)
                                 .sort((a, b) => a[1].firstName - b[1].firstName) // a and b are arrays containing [token, info]. sort them by info.firstName
                                 .map(([token, info]) => (
-                                <UserRow info={info} token={token} setSelectedToken={(token) => setSelectedToken(token, logout)}/>))}
+                                    <UserRow info={info} token={token}
+                                             setSelectedToken={(token) => setSelectedToken(token, logout)}/>))}
                         </div>
                         }
                         <span onClick={addAccount}>Agregar cuenta</span>
@@ -86,8 +75,9 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
 const UserRow = ({info, token, setSelectedToken}) => {
     const gender = info.gender === GENDERS.MALE ? 'male' : 'female'
 
-    return(
-        <div className={`user-info-row${token === getToken() ? ' selected' : ''}`} onClick={() => setSelectedToken(token)}>
+    return (
+        <div className={`user-info-row${token === getToken() ? ' selected' : ''}`}
+             onClick={() => setSelectedToken(token)}>
             <div className={`user-row-avatar-container ${gender}`}>
                 <FontAwesomeIcon icon={getAvatar(info.avatar)} className={`user-row-avatar ${gender}`}/>
             </div>
