@@ -4,6 +4,7 @@ import sessionMiddleware from "./session/session.middleware";
 import homeMiddleware from "./home/home.middleware";
 import vaccinesMiddleware from "./vaccines/vaccines.middleware";
 import notesMiddleware from "./notes/notes.middleware";
+import readingsMiddleware from "./readings/readings.middleware";
 
 
 const store = createStore(
@@ -13,7 +14,8 @@ const store = createStore(
         sessionMiddleware,
         homeMiddleware,
         vaccinesMiddleware,
-        notesMiddleware
+        notesMiddleware,
+        readingsMiddleware
     ))
 )
 

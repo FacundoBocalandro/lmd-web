@@ -4,12 +4,14 @@ import {LOGOUT} from "../session/session.actions";
 import homeReducer from "../home/home.reducer";
 import vaccinesReducer from "../vaccines/vaccines.reducer";
 import notesReducer from "../notes/notes.reducer";
+import readingsReducer from "../readings/readings.reducer";
 
 const appReducer = combineReducers({
     session: sessionReducer,
     home: homeReducer,
     vaccines: vaccinesReducer,
-    notes: notesReducer
+    notes: notesReducer,
+    readings: readingsReducer
 })
 
 const rootReducer = (state, action) => {
