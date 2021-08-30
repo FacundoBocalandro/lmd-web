@@ -24,6 +24,7 @@ const Register = ({
         dni: "",
         birthDate: "",
         email: "",
+        matriculationCode: "",
         username: "",
         password: "",
         confirmPassword: "",
@@ -221,6 +222,13 @@ const Register = ({
                            }}
                     />
                     <span className={errors.username ? 'error-message' : 'error-message no-message'}>El usuario ya existe</span>
+                </div>
+                <div className={"register-input-container"}>
+                    <input placeholder={"Matrícula (Sólo pediatras)"}
+                           type={"matriculationCode"}
+                           className={"input"}
+                           value={form.matriculationCode}
+                           onChange={event => setField('matriculationCode', event.target.value)}/>
                 </div>
                 <div className={"register-input-container"}>
                     <input placeholder={"Contraseña"}

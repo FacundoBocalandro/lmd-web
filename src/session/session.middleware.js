@@ -12,7 +12,9 @@ const sessionMiddleware = ({dispatch, getState}) => next => action => {
 
     switch (action.type) {
         case REGISTER_USER_REQUEST:
-            services.registerUser(action.user)
+            const registerAction = action.user.matriculationCode ? services.registerDoctor : services.registerPatient;
+
+            registerAction(action.user)
                 .then(res => {
                     if (action.callback) action.callback(res);
                     dispatch(actions.session.registerUser.response(res));

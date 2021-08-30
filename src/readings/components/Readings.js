@@ -52,7 +52,7 @@ const SelectedCategoryBody = ({selectedCategory, getReadingsByCategory, searchFi
     const [selectedReading, setSelectedReading] = useState(null);
 
     useEffect(() => {
-        getReadingsByCategory(selectedCategory.name, (res) => setReadings(res));
+        getReadingsByCategory(selectedCategory.id, (res) => setReadings(res));
         setSelectedReading(null);
 
         // eslint-disable-next-line
