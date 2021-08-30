@@ -11,6 +11,7 @@ import AppFrame from "./common/components/app-frame/AppFrame";
 import Vaccines from "./vaccines/containers/Vaccines";
 import ReversePrivateRoute from "./security/ReversePrivateRoute";
 import Notes from "./notes/containers/Notes";
+import Readings from "./readings/containers/Readings";
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                         <Switch style={{width: '100%', height: '100%'}}>
                             <PrivateRoute exact path={`${url}`} component={Home}/>
                             <PrivateRoute path={`${url}/vacunas`} component={Vaccines}/>
+                            <PrivateRoute exact path={`${url}/lecturas`} component={Readings}/>
                             <PrivateRoute exact path={`${url}/notas`} component={Notes}/>
                         </Switch>
                     </AppFrame>
