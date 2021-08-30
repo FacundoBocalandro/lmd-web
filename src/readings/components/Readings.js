@@ -68,7 +68,7 @@ const SelectedCategoryBody = ({selectedCategory, getReadingsByCategory, searchFi
                 <div className={"reading-card-container"}>
                     <div className={"reading-card"} onClick={() => setSelectedReading(reading)}>
                         <img src={index % 2 === 0 ? "/images/diet.jpeg" : "/images/vaccine.jpeg"}
-                             className={"reading-card-image"} alt={"reading image"}/>
+                             className={"reading-card-image"} alt={"reading"}/>
                         <div className={"reading-card-header"}><span>{reading.title}</span></div>
                     </div>
                 </div>
