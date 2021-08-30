@@ -3,15 +3,27 @@ import {connect} from "react-redux";
 import "./AppFrame.css";
 import actions from "../../../actions";
 import Navbar from "../../../navbar/containers/Navbar";
+import {USER_ROLES} from "../../../constants/roles";
+import InProcessScreen from "../in-process/InProcessScreen";
+import {removeCurrentToken} from "../../../utils/tokens";
+import {useHistory} from "react-router";
 
-const AppFrame = ({userInfo, getUserInfo, children}) => {
+const AppFrame = ({userInfo, getUserInfo, children, logout}) => {
+    const history = useHistory();
+
     useEffect(() => {
         if (!userInfo) getUserInfo();
 
         // eslint-disable-next-line
     }, [])
 
-    return (
+    const logoutAction = () => {
+        logout();
+        removeCurrentToken();
+        history.replace('/');
+    }
+
+    return userInfo && userInfo.userRole === USER_ROLES.DOCTOR ? <InProcessScreen logout={logoutAction}/> : (
         <div className={"app-frame"}>
             <Navbar/>
             <div className={"content"}>
@@ -26,7 +38,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    getUserInfo: () => dispatch(actions.session.getUserInfo.request())
+    getUserInfo: () => dispatch(actions.session.getUserInfo.request()),
+    logout: () => dispatch(actions.session.logout())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppFrame);
