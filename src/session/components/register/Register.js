@@ -148,7 +148,7 @@ const Register = ({
         <div className={"register-screen"}>
             <Toaster/>
             <div className={"register-header-container"}>
-                <span className={"header"}>Registro de Paciente</span>
+                <span className={"header"}>Registro</span>
             </div>
             <div className={"register-form"}>
                 <div className={"register-input-container"}>
