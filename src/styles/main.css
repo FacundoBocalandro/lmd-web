@@ -1,12 +1,12 @@
 :root {
-    --primary: #649CCD;
+    --primary: #6686CC;
     --secondary: #FAA645;
-    --grey: #EBEBEB;
+    --grey: #DDDDDD;
     --blue: #133D8D;
     --green: green;
     --red: red;
     --navbar-size: 80px;
-    --dark-grey: #878787
+    --dark-grey: #969696
 }
 
 .hover-icon {

@@ -19,7 +19,7 @@ const PerimeterChart = ({getAveragePerimeterData, averagePerimeterData, getUserP
                                                   yStep={2}
                                                   yLabel={"Perímetro Cefálico (cm)"}
                                                   data={userPerimeterHistory}
-                                                  colors={{grid: gender === GENDERS.MALE ? '#649CCD' : 'pink', stroke: 'red'}}/> : null}
+                                                  colors={{grid: gender === GENDERS.MALE ? '#6686CC' : 'pink', stroke: 'red'}}/> : null}
         </DelayedRendering>
     )
 }
