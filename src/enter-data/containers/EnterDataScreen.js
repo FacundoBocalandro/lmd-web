@@ -3,13 +3,13 @@ import {connect} from "react-redux";
 import EnterDataScreen from "../components/EnterDataScreen";
 
 const mapStateToProps = state => ({
-    age: state.session.userInfo.age
+    birthDate: state.session.userInfo.birthDate
 })
 
 const mapDispatchToProps = dispatch => ({
-    createNewWeightRecord: (weight, callback, errorCallback) => dispatch(actions.home.createNewWeightRecord.request(weight, callback, errorCallback)),
-    createNewPerimeterRecord: (perimeter, callback, errorCallback) => dispatch(actions.home.createNewPerimeterRecord.request(perimeter, callback, errorCallback)),
-    createNewHeightRecord: (height, callback, errorCallback) => dispatch(actions.home.createNewHeightRecord.request(height, callback, errorCallback))
+    createNewWeightRecord: (weight, timeRecorded, callback, errorCallback) => dispatch(actions.home.createNewWeightRecord.request(weight, timeRecorded, callback, errorCallback)),
+    createNewPerimeterRecord: (perimeter, timeRecorded, callback, errorCallback) => dispatch(actions.home.createNewPerimeterRecord.request(perimeter, timeRecorded, callback, errorCallback)),
+    createNewHeightRecord: (height, timeRecorded, callback, errorCallback) => dispatch(actions.home.createNewHeightRecord.request(height, timeRecorded, callback, errorCallback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EnterDataScreen);
