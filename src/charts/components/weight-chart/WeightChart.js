@@ -18,7 +18,7 @@ const WeightChart = ({getAverageWeightData, averageWeightData, getUserWeightHist
                                                yStep={5}
                                                yLabel={"Peso (kg)"}
                                                data={userWeightHistory}
-                                               colors={{grid: gender === GENDERS.MALE ? '#649CCD' : 'pink', stroke: 'red'}}/> : null}
+                                               colors={{grid: gender === GENDERS.MALE ? '#6686CC' : 'pink', stroke: 'red'}}/> : null}
         </DelayedRendering>
     )
 }

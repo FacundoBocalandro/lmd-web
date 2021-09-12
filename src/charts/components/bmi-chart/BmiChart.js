@@ -19,7 +19,7 @@ const BmiChart = ({getAverageBmiData, averageBmiData, getUserBmiHistory, userBmi
                                                yStep={2}
                                                yLabel={"IMC"}
                                                data={userBmiHistory}
-                                               colors={{grid: gender === GENDERS.MALE ? '#649CCD' : 'pink', stroke: 'red'}}/> : null}
+                                               colors={{grid: gender === GENDERS.MALE ? '#6686CC' : 'pink', stroke: 'red'}}/> : null}
         </DelayedRendering>
     )
 }

@@ -19,7 +19,7 @@ const HeightChart = ({getAverageHeightData, averageHeightData, getUserHeightHist
                                                yStep={10}
                                                yLabel={"Estatura (cm)"}
                                                data={userHeightHistory}
-                                               colors={{grid: gender === GENDERS.MALE ? '#649CCD' : 'pink', stroke: 'red'}}/> : null}
+                                               colors={{grid: gender === GENDERS.MALE ? '#6686CC' : 'pink', stroke: 'red'}}/> : null}
         </DelayedRendering>
     )
 }
