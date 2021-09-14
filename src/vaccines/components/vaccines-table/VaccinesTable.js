@@ -6,26 +6,21 @@ import Modal from 'react-modal';
 import DateInput from "../../../common/components/inputs/DateInput";
 import {dateIsValid, isOnOrBeforeToday} from "../../../utils/dates";
 import toast, { Toaster } from 'react-hot-toast';
-import {faCircle} from "@fortawesome/free-regular-svg-icons";
 
 const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRowId, submitNewVaccination}) => {
 
     const [modalInfo, setModalInfo] = useState({open: false})
     const [appliedDateError, setAppliedDateError] = useState(false);
 
-    const appliedDosagesIds = userVaccines.filter(vaccineData => vaccineData.hasBeenApplied).flatMap(vaccineData => vaccineData.vaccineDto.dosages).map(dosage => dosage.id);
-
-    const canApplyDose = (dosageId, vaccineDosages, dosageIndex) => {
-        return !hasBeenApplied(dosageId) && (dosageIndex === 0 || hasBeenApplied(vaccineDosages[dosageIndex - 1].id));
-    }
+    const appliedVaccineIds = userVaccines.filter(vaccineData => vaccineData.hasBeenApplied).map(vaccineData => vaccineData.vaccineDto.id);
 
     const hasBeenApplied = (id) => {
-        return appliedDosagesIds.includes(id);
+        return appliedVaccineIds.includes(id);
     }
 
-    const openModal = (dosageId, vaccine, dosageIndex) => {
-        if (canApplyDose(dosageId, vaccine.dosages, dosageIndex)) {
-            setModalInfo({open: true, vaccinationInfo: {dosageId}, vaccineName: vaccine.name, dosageNumber: dosageIndex + 1})
+    const openModal = (vaccineId, vaccineName) => {
+        if (!hasBeenApplied(vaccineId)) {
+            setModalInfo({open: true, vaccinationInfo: {vaccineId}, vaccineName})
         }
     }
 
@@ -69,8 +64,7 @@ const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRow
                 }, content: {width: 'fit-content', height: 'fit-content', inset: 'auto'}
             }}>
                 <div className={"new-vaccination-modal"}>
-                    <div className={"new-vaccination-modal-title"}>Vacuna: {modalInfo.vaccineName}</div>
-                    <div className={"new-vaccination-modal-subtitle"}>Dosis {modalInfo.dosageNumber}</div>
+                    <span className={"new-vaccination-modal-title"}>Vacuna: {modalInfo.vaccineName}</span>
                     <DateInput date={modalInfo.vaccinationInfo.appliedDate} onChange={changeAppliedDate}
                                className={appliedDateError ? 'input input-error' : 'input'} label={"Fecha de vacunación"}/>
                     <div className={"new-vaccination-button-container"}>
@@ -80,21 +74,19 @@ const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRow
             </Modal>}
             <div className={"vaccines-table-row vaccines-table-header"}>
                 <div className={"vaccines-table-cell"}>Nombre</div>
-                <div className={"vaccines-table-cell"}>Dosis</div>
+                <div className={"vaccines-table-cell align-center"}>Aplicada</div>
             </div>
             <div className={"vaccines-table-body"}>
                 {allVaccines.map(vaccine => (
                     <div className={`vaccines-table-row${vaccine.id === selectedRowId ? ' selected-row' : ''}`}
                          onClick={() => setSelectedRowId(vaccine.id)}>
                         <div className={"vaccines-table-cell"}>{vaccine.name}</div>
-                        <div className={"vaccines-table-cell"}>
-                            {vaccine.dosages.map((dosage, index) => (
-                                <FontAwesomeIcon icon={hasBeenApplied(dosage.id) ? faCheckCircle : faCircle} onClick={e => {
-                                    openModal(dosage.id, vaccine, index);
-                                    e.stopPropagation();
-                                }} className={hasBeenApplied(dosage.id) ? 'checked-icon' : 'unchecked-icon'}/>
-                            ))}
-                        </div>
+                        <div className={"vaccines-table-cell align-center"}>{<FontAwesomeIcon icon={faCheckCircle}
+                                                                                              onClick={(e) => {
+                                                                                                  openModal(vaccine.id, vaccine.name);
+                                                                                                  e.stopPropagation();
+                                                                                              }}
+                                                                                              className={hasBeenApplied(vaccine.id) ? 'checked-icon' : 'unchecked-icon'}/>}</div>
                     </div>
                 ))}
             </div>

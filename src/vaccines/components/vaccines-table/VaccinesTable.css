@@ -11,7 +11,7 @@
 
 .vaccines-table-row {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 3fr 1fr;
 }
 
 :not(.vaccines-table-header) .vaccines-table-row {
@@ -44,6 +44,10 @@
     font-size: 25px;
 }
 
+.vaccines-table-cell.align-center {
+    text-align: center;
+}
+
 .vaccines-table-header .vaccines-table-cell {
     font-size: 30px;
     font-weight: bold;
@@ -63,11 +67,6 @@
 
 .new-vaccination-modal-title {
     font-size: 30px;
-    font-weight: bold;
-}
-
-.new-vaccination-modal-subtitle {
-    font-size: 20px;
     font-weight: bold;
 }
 
