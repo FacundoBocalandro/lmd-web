@@ -60,7 +60,7 @@ const homeMiddleware = ({dispatch, getState}) => next => action => {
                 .catch(err => dispatch(actions.home.getUserBmiHistory.error(err)));
             break;
         case CREATE_NEW_WEIGHT_RECORD_REQUEST:
-            services.createNewWeightRecord(action.weight)
+            services.createNewWeightRecord(action.weight, action.timeRecorded)
                 .then(res => {
                     if (action.callback) action.callback();
                     dispatch(actions.home.createNewWeightRecord.response(res))
@@ -71,7 +71,7 @@ const homeMiddleware = ({dispatch, getState}) => next => action => {
                 });
             break;
         case CREATE_NEW_PERIMETER_RECORD_REQUEST:
-            services.createNewPerimeterRecord(action.perimeter)
+            services.createNewPerimeterRecord(action.perimeter, action.timeRecorded)
                 .then(res => {
                     if (action.callback) action.callback();
                     dispatch(actions.home.createNewPerimeterRecord.response(res))
@@ -82,7 +82,7 @@ const homeMiddleware = ({dispatch, getState}) => next => action => {
                 });
             break;
         case CREATE_NEW_HEIGHT_RECORD_REQUEST:
-            services.createNewHeightRecord(action.height)
+            services.createNewHeightRecord(action.height, action.timeRecorded)
                 .then(res => {
                     if (action.callback) action.callback();
                     dispatch(actions.home.createNewHeightRecord.response(res))
