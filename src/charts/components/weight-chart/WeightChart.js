@@ -17,7 +17,7 @@ const WeightChart = ({getAverageWeightData, averageWeightData, getUserWeightHist
                                                maxY={90}
                                                yStep={5}
                                                yLabel={"Peso (kg)"}
-                                               data={userWeightHistory}
+                                               data={userWeightHistory} zoomOptions={[{min: 0, max: 2}, {min: 0, max: 6},{min: 0, max: 19}]}
                                                colors={{grid: gender === GENDERS.MALE ? '#6686CC' : 'pink', stroke: 'red'}}/> : null}
         </DelayedRendering>
     )

@@ -105,7 +105,7 @@ const homeActions = {
      * Create new weight record to keep track of growth history
      */
     createNewWeightRecord: {
-        request: (weight, callback, errorCallback) => ({type: CREATE_NEW_WEIGHT_RECORD_REQUEST, weight, callback, errorCallback}),
+        request: (weight, timeRecorded, callback, errorCallback) => ({type: CREATE_NEW_WEIGHT_RECORD_REQUEST, weight, timeRecorded, callback, errorCallback}),
         response: (res) => ({type: CREATE_NEW_WEIGHT_RECORD_RESPONSE, res}),
         error: (err) => ({type: CREATE_NEW_WEIGHT_RECORD_ERROR, err}),
     },
@@ -113,7 +113,7 @@ const homeActions = {
      * Create new perimeter record to keep track of growth history
      */
     createNewPerimeterRecord: {
-        request: (perimeter, callback, errorCallback) => ({type: CREATE_NEW_PERIMETER_RECORD_REQUEST, perimeter, callback, errorCallback}),
+        request: (perimeter, timeRecorded, callback, errorCallback) => ({type: CREATE_NEW_PERIMETER_RECORD_REQUEST, perimeter, timeRecorded, callback, errorCallback}),
         response: (res) => ({type: CREATE_NEW_PERIMETER_RECORD_RESPONSE, res}),
         error: (err) => ({type: CREATE_NEW_PERIMETER_RECORD_ERROR, err}),
     },
@@ -121,7 +121,7 @@ const homeActions = {
      * Create new height record to keep track of growth history
      */
     createNewHeightRecord: {
-        request: (height, callback, errorCallback) => ({type: CREATE_NEW_HEIGHT_RECORD_REQUEST, height, callback, errorCallback}),
+        request: (height, timeRecorded, callback, errorCallback) => ({type: CREATE_NEW_HEIGHT_RECORD_REQUEST, height, timeRecorded, callback, errorCallback}),
         response: (res) => ({type: CREATE_NEW_HEIGHT_RECORD_RESPONSE, res}),
         error: (err) => ({type: CREATE_NEW_HEIGHT_RECORD_ERROR, err}),
     },
