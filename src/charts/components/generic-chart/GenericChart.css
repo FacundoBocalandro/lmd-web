@@ -1,0 +1,14 @@
+.generic-chart-container {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 5fr;
+    position: relative;
+}
+
+.generic-chart-zoom-options-list {
+    display: flex;
+}
+
+.VictoryContainer {
+    height: 80% !important;
+}
