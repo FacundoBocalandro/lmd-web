@@ -7,8 +7,9 @@ import {getAvatar} from "../../utils/avatars";
 import {GENDERS} from "../../constants/PersonalData";
 import {getToken} from "../../utils/http";
 import {clearSelectedUser, getAllStoredTokens, removeCurrentToken, setSelectedToken} from "../../utils/tokens";
+import {USER_ROLES} from "../../constants/roles";
 
-const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
+const Navbar = ({logout, getUserInfoFromToken, allUsersInfo, userRole}) => {
 
     /**
      *  Fetch information of all logged in users.
@@ -32,12 +33,18 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
         history.replace('/');
     }
 
-    const navbarOptions = [
-        {path: '/inicio', label: 'Inicio'},
-        {path: '/inicio/vacunas', label: "Vacunas"},
-        {path: '/inicio/lecturas', label: 'Lecturas'},
-        {path: '/inicio/notas', label: 'Notas'}
-    ]
+    const navbarOptions = userRole === USER_ROLES.DOCTOR ? [
+            {path: '/inicio', label: "Inicio"},
+            {path: '/inicio/vacunas', label: "Vacunas"},
+            {path: '/inicio/pacientes', label: "Pacientes"},
+        ] :
+        [
+            {path: '/inicio', label: 'Inicio'},
+            {path: '/inicio/vacunas', label: "Vacunas"},
+            {path: '/inicio/lecturas', label: 'Lecturas'},
+            {path: '/inicio/notas', label: 'Notas'},
+            {path: '/inicio/pediatras', label: 'Pediatras'},
+        ]
 
     const addAccount = () => {
         logout();
@@ -49,8 +56,9 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
         <div className={"navbar"}>
             <p className={"navbar-title"}>Libreta Médica</p>
             <div className={"navbar-list"}>
-                {navbarOptions.map(option => <p className={`navbar-p  ${location.pathname === option.path ? 'current-location' : ''}`}
-                                                onClick={() => history.push(option.path)}>{option.label}</p>)}
+                {navbarOptions.map(option => <p
+                    className={`navbar-p  ${location.pathname === option.path ? 'current-location' : ''}`}
+                    onClick={() => history.push(option.path)}>{option.label}</p>)}
                 <div className={`navbar-p session-dropdown`}>
                     <span className={"session-dropdown-text"}>Sesión</span>
                     <div className={"session-dropdown-content"}>

@@ -2,7 +2,8 @@ import actions from "../../actions";
 import {connect} from "react-redux";
 import Navbar from '../components/Navbar'
 const mapStateToProps = state => ({
-    allUsersInfo: state.session.allUsersInfo
+    allUsersInfo: state.session.allUsersInfo,
+    userRole: state.session.userInfo?.userRole
 })
 
 const mapDispatchToProps = dispatch => ({

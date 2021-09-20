@@ -54,9 +54,9 @@ const Notes = ({
         <div className={"notes-screen"}>
             <div className={"notes-screen-sidebar"}>
                 <SearchInput onChange={value => setSearchFilter(value)} value={searchFilter}/>
-                <div className={"notes-header"}>
+                <div className={"header-with-plus-icon"}>
                     <span>Notas de consulta</span>
-                    <FontAwesomeIcon icon={faPlusCircle} className={"add-note-icon"} onClick={() => createNote(note => setSelectedNoteId(note.id))}/>
+                    <FontAwesomeIcon icon={faPlusCircle} className={"header-add-icon"} onClick={() => createNote(note => setSelectedNoteId(note.id))}/>
                 </div>
                 <div className={"sidebar-notes-list"}>
 
