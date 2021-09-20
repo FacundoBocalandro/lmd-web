@@ -5,6 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronRight, faPlusCircle, faSpinner} from "@fortawesome/free-solid-svg-icons";
 import {faTimesCircle} from "@fortawesome/free-regular-svg-icons";
 import debounce from "lodash.debounce";
+import Modal from "react-modal";
 
 const Notes = ({
                    allNotes,
@@ -18,6 +19,7 @@ const Notes = ({
                }) => {
     const [searchFilter, setSearchFilter] = useState("");
     const [selectedNoteId, setSelectedNoteId] = useState(null);
+    const [modalInfo, setModalInfo] = useState({open: false});
 
     useEffect(() => {
         getAllNotes();
@@ -48,15 +50,32 @@ const Notes = ({
     const handleDeleteNote = (id) => {
         if (selectedNoteId === id) setSelectedNoteId(null);
         deleteNote(id);
+        setModalInfo({open: false})
+    }
+
+    const closeModal = () => {
+        setModalInfo({open: false})
     }
 
     return (
         <div className={"notes-screen"}>
+            {modalInfo.open && <Modal isOpen={true} onRequestClose={closeModal} style={{
+                overlay: {
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }, content: {width: 'fit-content', height: 'fit-content', inset: 'auto'}
+            }}>
+                <div>
+                    <span className={"note-delete-text"}>¿Está seguro que desea eliminar la nota <b>"{modalInfo.note.title}"</b>?</span>
+                    <button className={'submit-button note-delete-button'} onClick={() => handleDeleteNote(modalInfo.note.id)}>Eliminar</button>
+                </div>
+            </Modal>}
             <div className={"notes-screen-sidebar"}>
                 <SearchInput onChange={value => setSearchFilter(value)} value={searchFilter}/>
-                <div className={"notes-header"}>
+                <div className={"header-with-plus-icon"}>
                     <span>Notas de consulta</span>
-                    <FontAwesomeIcon icon={faPlusCircle} className={"add-note-icon"} onClick={() => createNote(note => setSelectedNoteId(note.id))}/>
+                    <FontAwesomeIcon icon={faPlusCircle} className={"header-add-icon"} onClick={() => createNote(note => setSelectedNoteId(note.id))}/>
                 </div>
                 <div className={"sidebar-notes-list"}>
 
@@ -68,11 +87,11 @@ const Notes = ({
                                 <input type="text" className={"sidebar-note-title"} value={note.title}
                                        placeholder={"Escriba aquí el título..."}
                                        onChange={event => handleNoteTitleChange(note.id, event.target.value)}
-                                       onFocus={() => setSelectedNoteId(note.id)}/>
+                                       onFocus={() => setSelectedNoteId(note.id)} autoFocus={true}/>
                                 {selectedNoteId === note.id ?
                                     <FontAwesomeIcon icon={faChevronRight} className={"selected-note-arrow"}/> :
                                     <FontAwesomeIcon icon={faTimesCircle} className={"delete-note-icon"}
-                                                     onClick={() => handleDeleteNote(note.id)}/>}
+                                                     onClick={() => setModalInfo({open: true, note})}/>}
                             </div>)
                         )}
                 </div>

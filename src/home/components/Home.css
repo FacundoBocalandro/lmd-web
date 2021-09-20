@@ -70,6 +70,12 @@
     background-color: var(--primary);
 }
 
+.home-screen-tab:nth-child(6) {
+    margin-top: 100px;
+}
+
 .home-screen-charts-container {
     flex: 1;
+    display: flex;
+    justify-content: center;
 }

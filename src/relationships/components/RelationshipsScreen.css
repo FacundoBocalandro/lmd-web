@@ -1,0 +1,71 @@
+.relationships-screen {
+    display: flex;
+    justify-content: center;
+}
+
+.relationships-list {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+.add-relationship-header:hover .header-add-icon {
+    color: white;
+}
+
+.add-relationship-header:hover {
+    cursor: pointer;
+}
+
+.add-relationship-modal {
+    width: 400px;
+}
+
+.add-relationship-button {
+    margin-top: 20px;
+}
+
+.relationships-screen .user-info-row span {
+    padding: 12px 16px;
+    font-size: 18px;
+}
+
+.relationships-screen .user-info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    border: 1px solid var(--grey);
+    border-radius: 5px;
+}
+
+.user-info-row-name-avatar {
+    flex: 1;
+    display: flex;
+}
+
+.delete-relationship-icon {
+    font-size: 22px;
+    color: var(--dark-grey);
+}
+
+.delete-relationship-icon:hover {
+    cursor: pointer;
+    color: black;
+}
+
+.relationship-modal-doctor-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.relationship-modal-doctor-info span:nth-child(1) {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.relationship-modal-doctor-info span:nth-child(2) {
+    font-style: italic;
+    font-size: 20px;
+}
+

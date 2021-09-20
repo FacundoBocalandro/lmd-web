@@ -9,7 +9,7 @@ export const services = {
     getUserPerimeterHistory: () => get('data/perimeter/list'),
     getUserHeightHistory: () => get('data/height/list'),
     getUserBmiHistory: () => get('data/bmi/list'),
-    createNewWeightRecord: (weight) => post('data/weight/create', {weight}),
-    createNewPerimeterRecord: (perimeter) => post('data/perimeter/create', {perimeter}),
-    createNewHeightRecord: (height) => post('data/height/create', {height}),
+    createNewWeightRecord: (weight, timeRecorded) => post('data/weight/create', {weight, timeRecorded}),
+    createNewPerimeterRecord: (perimeter, timeRecorded) => post('data/perimeter/create', {perimeter, timeRecorded}),
+    createNewHeightRecord: (height, timeRecorded) => post('data/height/create', {height, timeRecorded}),
 }
