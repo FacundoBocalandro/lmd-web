@@ -91,5 +91,5 @@ const adaptDataRecord = (record, accessor, birthDate) => {
     const recordDate = new Date(record.timeRecorded);
     const age = calculateAgeAtDate(new Date(birthDate), recordDate);
 
-    return {x: parseFloat(age), y: record[accessor]}
+    return {x: parseFloat(age), y: record[accessor], ...record}
 }
