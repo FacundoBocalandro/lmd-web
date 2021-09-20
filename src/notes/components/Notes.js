@@ -68,7 +68,7 @@ const Notes = ({
                                 <input type="text" className={"sidebar-note-title"} value={note.title}
                                        placeholder={"Escriba aquí el título..."}
                                        onChange={event => handleNoteTitleChange(note.id, event.target.value)}
-                                       onFocus={() => setSelectedNoteId(note.id)}/>
+                                       onFocus={() => setSelectedNoteId(note.id)} autoFocus={true}/>
                                 {selectedNoteId === note.id ?
                                     <FontAwesomeIcon icon={faChevronRight} className={"selected-note-arrow"}/> :
                                     <FontAwesomeIcon icon={faTimesCircle} className={"delete-note-icon"}
