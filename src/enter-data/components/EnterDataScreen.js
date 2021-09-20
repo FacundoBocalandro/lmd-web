@@ -3,9 +3,12 @@ import "./EnterDataScreen.css";
 import NumberInput from "../../common/components/inputs/NumberInput";
 import TextInput from "../../common/components/inputs/TextInput";
 import toast, { Toaster } from 'react-hot-toast';
+import DateInput from "../../common/components/inputs/DateInput";
+import {dateIsValid, getAge, getDateObject} from "../../utils/dates";
 
-const EnterDataScreen = ({age, createNewWeightRecord, createNewPerimeterRecord, createNewHeightRecord}) => {
-    const today = new Date();
+const EnterDataScreen = ({birthDate, createNewWeightRecord, createNewPerimeterRecord, createNewHeightRecord}) => {
+    const [timeRecorded, setTimeRecorded] = useState("");
+    const [dateError, setDateError] = useState(false);
     const [weight, setWeight] = useState("");
     const [height, setHeight] = useState("");
     const [perimeter, setPerimeter] = useState("");
@@ -19,17 +22,28 @@ const EnterDataScreen = ({age, createNewWeightRecord, createNewPerimeterRecord, 
     }
 
     const onSubmit = () => {
-        if (!!weight) createNewWeightRecord(weight, () => successCallback('peso'), () => errorCallback('peso'));
-        if (!!perimeter) createNewPerimeterRecord(perimeter, () => successCallback('perímetro cefálico'), () => errorCallback('perímetro cefálico'));
-        if (!!height) createNewHeightRecord(height, () => successCallback('estatura'), () => errorCallback('estatura'));
+        if (dateIsValid(timeRecorded)) {
+            const timeRecordedFormatted = getDateObject(timeRecorded);
+            if (!!weight) createNewWeightRecord(weight, timeRecordedFormatted, () => successCallback('peso'), () => errorCallback('peso'));
+            if (!!perimeter) createNewPerimeterRecord(perimeter, timeRecordedFormatted, () => successCallback('perímetro cefálico'), () => errorCallback('perímetro cefálico'));
+            if (!!height) createNewHeightRecord(height, timeRecordedFormatted, () => successCallback('estatura'), () => errorCallback('estatura'));
+        } else {
+            setDateError(true);
+        }
     }
 
     return (
         <div className={"enter-data-screen"}>
             <Toaster/>
             <div className={"enter-data-date-and-age"}>
-                <TextInput value={`${today.getMonth()}/${today.getFullYear()}`} disabled={true} label={"Fecha de registro"}/>
-                <TextInput value={age} disabled={true} label={"Edad"}/>
+                <DateInput date={timeRecorded}
+                           onChange={(value) => {
+                               if (dateError) setDateError(false);
+                               setTimeRecorded(value);
+                           }}
+                           className={dateError ? 'input input-error' : ' input'}
+                           label={"Fecha de registro"}/>
+                <TextInput disabled={true} label={"Edad"} value={dateIsValid(timeRecorded) ? getAge(birthDate, timeRecorded) : ''}/>
             </div>
             <div className={"enter-data-values"}>
                 <NumberInput onChange={setWeight} value={weight} label={"Peso"} min={0}

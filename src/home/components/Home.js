@@ -10,6 +10,7 @@ import BmiChart from "../../charts/containers/BmiChart";
 
 const Home = ({userInfo}) => {
     const [selectedTab, setSelectedTab] = useState(1);
+    const [tableTabSelected, setTableTabSelected] = useState(false);
 
     return userInfo ? (
         <div className={"home-screen"}>
@@ -22,10 +23,10 @@ const Home = ({userInfo}) => {
             </div>
             <div className={"home-screen-charts"}>
                 <div className={"home-screen-charts-container"}>
-                    {selectedTab === 1 && <WeightChart/>}
-                    {selectedTab === 2 && <HeightChart/>}
-                    {selectedTab === 3 && <PerimeterChart/>}
-                    {selectedTab === 4 && <BmiChart/>}
+                    {selectedTab === 1 && <WeightChart tableTabSelected={tableTabSelected}/>}
+                    {selectedTab === 2 && <HeightChart tableTabSelected={tableTabSelected}/>}
+                    {selectedTab === 3 && <PerimeterChart tableTabSelected={tableTabSelected}/>}
+                    {selectedTab === 4 && <BmiChart tableTabSelected={tableTabSelected}/>}
                     {selectedTab === 5 && <EnterDataScreen/>}
                 </div>
                 <div className={"home-screen-tabs-container"}>
@@ -44,6 +45,8 @@ const Home = ({userInfo}) => {
                     <div className={`home-screen-tab${selectedTab === 5 ? ' selected' : ''}`}
                          onClick={() => setSelectedTab(5)}>Cargar Datos
                     </div>
+                    {selectedTab !== 5 && <div className={"home-screen-tab"}
+                         onClick={() => setTableTabSelected(!tableTabSelected)}>Ver {tableTabSelected ? "Gráfico" : "Tabla"}</div>}
                 </div>
             </div>
         </div>

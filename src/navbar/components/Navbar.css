@@ -35,7 +35,16 @@
 }
 
 .session-dropdown-text {
+    display: flex;
+    align-items: center;
+}
+
+.session-dropdown-text:hover {
     cursor: pointer;
+}
+
+.session-dropdown-text span {
+    margin-right: 5px;
 }
 
 .session-dropdown {

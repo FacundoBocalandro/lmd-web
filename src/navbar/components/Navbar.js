@@ -7,6 +7,7 @@ import {getAvatar} from "../../utils/avatars";
 import {GENDERS} from "../../constants/PersonalData";
 import {getToken} from "../../utils/http";
 import {clearSelectedUser, getAllStoredTokens, removeCurrentToken, setSelectedToken} from "../../utils/tokens";
+import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
 import {USER_ROLES} from "../../constants/roles";
 
 const Navbar = ({logout, getUserInfoFromToken, allUsersInfo, userRole}) => {
@@ -60,7 +61,10 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo, userRole}) => {
                     className={`navbar-p  ${location.pathname === option.path ? 'current-location' : ''}`}
                     onClick={() => history.push(option.path)}>{option.label}</p>)}
                 <div className={`navbar-p session-dropdown`}>
-                    <span className={"session-dropdown-text"}>Sesión</span>
+                    <div className={"session-dropdown-text"}>
+                        <span>Sesión</span>
+                        <FontAwesomeIcon icon={faAngleDown}/>
+                    </div>
                     <div className={"session-dropdown-content"}>
                         {allUsersInfo &&
                         <div className={"navbar-users-container"}>
