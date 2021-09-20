@@ -8,8 +8,9 @@ import {GENDERS} from "../../constants/PersonalData";
 import {getToken} from "../../utils/http";
 import {clearSelectedUser, getAllStoredTokens, removeCurrentToken, setSelectedToken} from "../../utils/tokens";
 import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
+import {USER_ROLES} from "../../constants/roles";
 
-const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
+const Navbar = ({logout, getUserInfoFromToken, allUsersInfo, userRole}) => {
 
     /**
      *  Fetch information of all logged in users.
@@ -33,12 +34,18 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
         history.replace('/');
     }
 
-    const navbarOptions = [
-        {path: '/inicio', label: 'Inicio'},
-        {path: '/inicio/vacunas', label: "Vacunas"},
-        {path: '/inicio/lecturas', label: 'Lecturas'},
-        {path: '/inicio/notas', label: 'Notas'}
-    ]
+    const navbarOptions = userRole === USER_ROLES.DOCTOR ? [
+            {path: '/inicio', label: "Inicio"},
+            {path: '/inicio/vacunas', label: "Vacunas"},
+            {path: '/inicio/pacientes', label: "Pacientes"},
+        ] :
+        [
+            {path: '/inicio', label: 'Inicio'},
+            {path: '/inicio/vacunas', label: "Vacunas"},
+            {path: '/inicio/lecturas', label: 'Lecturas'},
+            {path: '/inicio/notas', label: 'Notas'},
+            {path: '/inicio/pediatras', label: 'Pediatras'},
+        ]
 
     const addAccount = () => {
         logout();
