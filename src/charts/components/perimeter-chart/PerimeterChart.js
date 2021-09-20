@@ -20,7 +20,7 @@ const PerimeterChart = ({getAveragePerimeterData, averagePerimeterData, getUserP
                                                   minY={28}
                                                   yStep={2}
                                                   yLabel={"Perímetro Cefálico (cm)"}
-                                                  data={userPerimeterHistory}
+                                                  data={userPerimeterHistory} zoomOptions={[{min: 0, max: 2}, {min: 0, max: 6}]} selectedXRange={{min: 0, max: 6}}
                                                   colors={{grid: gender === GENDERS.MALE ? '#6686CC' : 'pink', stroke: 'red'}}/>}
         </DelayedRendering>
     )
