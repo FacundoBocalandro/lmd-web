@@ -6,7 +6,13 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {getAvatar} from "../../utils/avatars";
 import {GENDERS} from "../../constants/PersonalData";
 import {getToken} from "../../utils/http";
-import {clearSelectedUser, getAllStoredTokens, removeCurrentToken, setSelectedToken} from "../../utils/tokens";
+import {
+    clearSelectedUser,
+    getAllStoredTokens,
+    removeCurrentToken,
+    removeSelectedPatient,
+    setSelectedToken
+} from "../../utils/tokens";
 import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
 import {USER_ROLES} from "../../constants/roles";
 
@@ -31,13 +37,14 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo, userRole}) => {
     const logoutAction = () => {
         logout();
         removeCurrentToken();
+        removeSelectedPatient();
         history.replace('/');
     }
 
     const navbarOptions = userRole === USER_ROLES.DOCTOR ? [
             {path: '/inicio', label: "Inicio"},
+            {path: '/inicio/datos', label: "Datos"},
             {path: '/inicio/vacunas', label: "Vacunas"},
-            {path: '/inicio/pacientes', label: "Pacientes"},
         ] :
         [
             {path: '/inicio', label: 'Inicio'},
@@ -50,6 +57,7 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo, userRole}) => {
     const addAccount = () => {
         logout();
         clearSelectedUser();
+        removeSelectedPatient();
         history.push('/');
     }
 
@@ -72,7 +80,10 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo, userRole}) => {
                                 .sort((a, b) => a[1].firstName - b[1].firstName) // a and b are arrays containing [token, info]. sort them by info.firstName
                                 .map(([token, info]) => (
                                     <UserRow info={info} token={token}
-                                             setSelectedToken={(token) => setSelectedToken(token, logout)}/>))}
+                                             setSelectedToken={(token) => {
+                                                 setSelectedToken(token, logout);
+                                                 removeSelectedPatient();
+                                             }}/>))}
                         </div>
                         }
                         <span onClick={addAccount}>Agregar cuenta</span>

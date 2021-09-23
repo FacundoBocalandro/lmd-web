@@ -6,6 +6,7 @@ import {
 } from "./vaccines.actions";
 import {services} from "./vaccines.services";
 import actions from "../actions";
+import {getSelectedPatient} from "../utils/tokens";
 
 const vaccinesMiddleware = ({dispatch, getState}) => next => action => {
     next(action);
@@ -22,7 +23,7 @@ const vaccinesMiddleware = ({dispatch, getState}) => next => action => {
                 .catch(err => dispatch(actions.vaccines.getUserVaccines.error(err)));
             break;
         case SUBMIT_NEW_VACCINATION_REQUEST:
-            services.submitNewVaccination(action.vaccinationInfo)
+            services.submitNewVaccination({...action.vaccinationInfo, patientId: getSelectedPatient()})
                 .then(res => {
                     if (action.callback) action.callback();
                     dispatch(actions.vaccines.submitNewVaccination.response(res))

@@ -1,4 +1,8 @@
-import {ADD_NEW_RELATIONSHIP_RESPONSE, DELETE_RELATIONSHIP_REQUEST, GET_ALL_RELATIONSHIPS_RESPONSE} from "./relationships.actions";
+import {
+    ADD_NEW_RELATIONSHIP_RESPONSE,
+    DELETE_RELATIONSHIP_REQUEST,
+    GET_ALL_RELATIONSHIPS_RESPONSE
+} from "./relationships.actions";
 
 const initialState = {
     relationships: []

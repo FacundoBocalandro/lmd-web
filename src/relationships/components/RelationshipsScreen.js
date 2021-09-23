@@ -7,8 +7,16 @@ import {GENDERS} from "../../constants/PersonalData";
 import {getAvatar} from "../../utils/avatars";
 import {USER_ROLES} from "../../constants/roles";
 import RelationshipModal from "./relationship-modal/RelationshipModal";
+import {getSelectedPatient, removeSelectedPatient, saveSelectedPatient} from "../../utils/tokens";
 
-const RelationshipsScreen = ({relationships, getAllRelationships, addNewRelationship, deleteRelationship, userInfo, searchDoctors}) => {
+const RelationshipsScreen = ({
+                                 relationships,
+                                 getAllRelationships,
+                                 addNewRelationship,
+                                 deleteRelationship,
+                                 userInfo,
+                                 searchDoctors
+                             }) => {
     const [modalInfo, setModalInfo] = useState({open: false});
 
     useEffect(() => {
@@ -44,10 +52,16 @@ const RelationshipsScreen = ({relationships, getAllRelationships, addNewRelation
         <Toaster/>
         {modalInfo.open && <RelationshipModal closeModal={closeModal} modalInfo={modalInfo}
                                               setModalInfo={setModalInfo}
-                                              handleAddNewRelationship={handleAddNewRelationship} searchDoctors={searchDoctors}/>}
+                                              handleAddNewRelationship={handleAddNewRelationship}
+                                              searchDoctors={searchDoctors}/>}
         <div className={"relationships-list"}>
-            {relationships && relationships.map(relationship => <UserRow info={relationship} deleteRelationship={deleteRelationship} userId={userInfo.id} isPatient={isPatient()}/>)}
-            {isPatient() && <div className={"header-with-plus-icon add-relationship-header"} onClick={() => setModalInfo({open: true})}>
+            {relationships && relationships.map(relationship => <UserRow info={relationship}
+                                                                         deleteRelationship={deleteRelationship}
+                                                                         userId={userInfo.id} isPatient={isPatient()}
+                                                                         saveSelectedPatient={saveSelectedPatient}
+                                                                         />)}
+            {isPatient() &&
+            <div className={"header-with-plus-icon add-relationship-header"} onClick={() => setModalInfo({open: true})}>
                 <span>Agregar pediatra</span>
                 <FontAwesomeIcon icon={faPlusCircle} className={"header-add-icon"}/>
             </div>}
@@ -56,17 +70,32 @@ const RelationshipsScreen = ({relationships, getAllRelationships, addNewRelation
 }
 
 const UserRow = ({info, deleteRelationship, userId, isPatient}) => {
+    const [selected, setSelected] = useState(getSelectedPatient() === info.id);
+
     const gender = info.gender === GENDERS.MALE ? 'male' : 'female'
 
+    const handleRowClick = () => {
+        if (!isPatient) {
+            if (selected) {
+                removeSelectedPatient();
+                setSelected(false);
+            } else {
+                saveSelectedPatient(info.id);
+                setSelected(true);
+            }
+        }
+    }
+
     return (
-        <div className={"user-info-row"}>
+        <div className={`user-info-row${selected ? ' selected' : ''}`} onClick={handleRowClick}>
             <div className={"user-info-row-name-avatar"}>
                 <div className={`user-row-avatar-container ${gender}`}>
                     <FontAwesomeIcon icon={getAvatar(info.avatar)} className={`user-row-avatar ${gender}`}/>
                 </div>
                 <span>{info.firstName} {info.lastName}</span>
             </div>
-            {isPatient && <FontAwesomeIcon icon={faTimesCircle} className={"delete-relationship-icon"} onClick={() => deleteRelationship({patientId: userId, doctorId: info.id})}/>}
+            {isPatient && <FontAwesomeIcon icon={faTimesCircle} className={"delete-relationship-icon"}
+                                           onClick={() => deleteRelationship({patientId: userId, doctorId: info.id})}/>}
         </div>
     )
 }
