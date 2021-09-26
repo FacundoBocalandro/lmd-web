@@ -17,9 +17,15 @@ const PERIMETER_TAB = "PERIMETER_TAB";
 const BMI_TAB = "BMI_TAB";
 const ENTER_DATA_TAB = "ENTER_DATA_TAB";
 
-const Home = ({userInfo, userRole}) => {
+const Home = ({userInfo, userRole, relationships}) => {
     const [selectedTab, setSelectedTab] = useState(WEIGHT_TAB);
     const [tableTabSelected, setTableTabSelected] = useState(false);
+
+    /**
+     * If user is patient, display his/her information
+     * If user is doctor, display selected patients information
+     */
+    const userInfoToDisplay = userRole === USER_ROLES.PATIENT ? userInfo : relationships.find(user => user.id === getSelectedPatient());
 
     /**
      * If page should be rendered or not:
@@ -35,10 +41,10 @@ const Home = ({userInfo, userRole}) => {
         <div className={"home-screen"}>
             <div className={"home-personal-data"}>
                 <div className={"home-avatar-container"}>
-                    <FontAwesomeIcon icon={getAvatar(userInfo.avatar)} className={"home-avatar"}/>
+                    <FontAwesomeIcon icon={getAvatar(userInfoToDisplay.avatar)} className={"home-avatar"}/>
                 </div>
-                <span className={"home-name"}>{userInfo.firstName} {userInfo.lastName}</span>
-                <span className={"home-age-and-id"}>{userInfo.age} - {userInfo.dni}</span>
+                <span className={"home-name"}>{userInfoToDisplay.firstName} {userInfoToDisplay.lastName}</span>
+                <span className={"home-age-and-id"}>{userInfoToDisplay.age} - {userInfoToDisplay.dni}</span>
             </div>
             <div className={"home-screen-charts"}>
                 <div className={"home-screen-charts-container"}>

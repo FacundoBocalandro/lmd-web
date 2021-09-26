@@ -18,7 +18,7 @@ const vaccinesMiddleware = ({dispatch, getState}) => next => action => {
                 .catch(err => dispatch(actions.vaccines.getAllVaccines.error(err)));
             break;
         case GET_USER_VACCINES_REQUEST:
-            services.getUserVaccines()
+            services.getUserVaccines(getSelectedPatient())
                 .then(res => dispatch(actions.vaccines.getUserVaccines.response(res.vaccineApplications)))
                 .catch(err => dispatch(actions.vaccines.getUserVaccines.error(err)));
             break;

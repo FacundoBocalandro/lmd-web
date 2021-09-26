@@ -4,7 +4,8 @@ import {connect} from "react-redux";
 
 const mapStateToProps = state => ({
     userInfo: state.session.userInfo,
-    userRole: state.session.userInfo?.userRole
+    userRole: state.session.userInfo?.userRole,
+    relationships: state.relationships.relationships,
 })
 
 const mapDispatchToProps = dispatch => ({
