@@ -3,7 +3,7 @@ import {numbersOnly} from "../../../utils/numbers";
 
 const dateSeparator = '/'
 
-const DateInput = ({date, onChange, placeholder = "DD/MM/YYYY", label, className}) => {
+const DateInput = ({date, onChange, placeholder = "DD/MM/YYYY", label, className, disabled}) => {
 
     const dateFormat = (value) => {
         const temp = numbersOnly(value)
@@ -39,6 +39,7 @@ const DateInput = ({date, onChange, placeholder = "DD/MM/YYYY", label, className
             {label && <span className={"input-label"}>{label}</span>}
             <input placeholder={placeholder}
                    value={date}
+                   disabled={disabled}
                    className={className ?? "input"}
                    onChange={(e) => onChange(dateFormat(e.target.value))}/>
         </div>

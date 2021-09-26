@@ -14,7 +14,7 @@ const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRow
     const [modalInfo, setModalInfo] = useState({open: false})
     const [appliedDateError, setAppliedDateError] = useState(false);
 
-    const appliedDosagesIds = userVaccines.filter(vaccineData => vaccineData.hasBeenApplied).flatMap(vaccineData => vaccineData.vaccineDto.dosages).map(dosage => dosage.id);
+    const appliedDosagesIds = userVaccines.filter(vaccinationInfo => vaccinationInfo.hasBeenApplied).map(vaccinationInfo => vaccinationInfo.dosageDto.id);
 
     const canApplyDose = (dosageId, vaccineDosages, dosageIndex) => {
         return userRole === USER_ROLES.DOCTOR && !hasBeenApplied(dosageId) && (dosageIndex === 0 || hasBeenApplied(vaccineDosages[dosageIndex - 1].id));
@@ -25,7 +25,10 @@ const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRow
     }
 
     const openModal = (dosageId, vaccine, dosageIndex) => {
-        if (canApplyDose(dosageId, vaccine.dosages, dosageIndex)) {
+        if (hasBeenApplied(dosageId)) {
+            const vaccinationInfo = userVaccines.filter(vaccinationInfo => vaccinationInfo.hasBeenApplied).find(vaccinationInfo => vaccinationInfo.dosageDto.id === dosageId);
+            setModalInfo({open: true, vaccinationInfo, vaccineName: vaccine.name, dosageNumber: dosageIndex + 1, hasBeenApplied: true})
+        } else if (canApplyDose(dosageId, vaccine.dosages, dosageIndex)) {
             setModalInfo({open: true, vaccinationInfo: {dosageId}, vaccineName: vaccine.name, dosageNumber: dosageIndex + 1})
         }
     }
@@ -73,9 +76,11 @@ const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRow
                     <div className={"new-vaccination-modal-title"}>Vacuna: {modalInfo.vaccineName}</div>
                     <div className={"new-vaccination-modal-subtitle"}>Dosis {modalInfo.dosageNumber}</div>
                     <DateInput date={modalInfo.vaccinationInfo.appliedDate} onChange={changeAppliedDate}
+                               disabled={modalInfo.hasBeenApplied}
                                className={appliedDateError ? 'input input-error' : 'input'} label={"Fecha de vacunación"}/>
                     <div className={"new-vaccination-button-container"}>
-                        <button className={'submit-button'} onClick={saveVaccinationInfo}>Guardar</button>
+                        {!modalInfo.hasBeenApplied && <button className={'submit-button'} onClick={saveVaccinationInfo}>Guardar</button>}
+                        {modalInfo.hasBeenApplied && <span className={"new-vaccination-modal-subtitle"}>Pediatra responsable: {modalInfo.vaccinationInfo.responsibleDoctor.firstName} {modalInfo.vaccinationInfo.responsibleDoctor.lastName}</span>}
                     </div>
                 </div>
             </Modal>}
