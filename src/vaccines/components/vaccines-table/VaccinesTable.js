@@ -6,9 +6,10 @@ import Modal from 'react-modal';
 import DateInput from "../../../common/components/inputs/DateInput";
 import {dateIsValid, isOnOrBeforeToday} from "../../../utils/dates";
 import toast, { Toaster } from 'react-hot-toast';
+import {USER_ROLES} from "../../../constants/roles";
 import {faCircle} from "@fortawesome/free-regular-svg-icons";
 
-const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRowId, submitNewVaccination}) => {
+const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRowId, submitNewVaccination, userRole}) => {
 
     const [modalInfo, setModalInfo] = useState({open: false})
     const [appliedDateError, setAppliedDateError] = useState(false);
@@ -16,7 +17,7 @@ const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRow
     const appliedDosagesIds = userVaccines.filter(vaccineData => vaccineData.hasBeenApplied).flatMap(vaccineData => vaccineData.vaccineDto.dosages).map(dosage => dosage.id);
 
     const canApplyDose = (dosageId, vaccineDosages, dosageIndex) => {
-        return !hasBeenApplied(dosageId) && (dosageIndex === 0 || hasBeenApplied(vaccineDosages[dosageIndex - 1].id));
+        return userRole === USER_ROLES.DOCTOR && !hasBeenApplied(dosageId) && (dosageIndex === 0 || hasBeenApplied(vaccineDosages[dosageIndex - 1].id));
     }
 
     const hasBeenApplied = (id) => {

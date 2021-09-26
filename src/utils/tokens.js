@@ -92,3 +92,26 @@ export const removeCurrentToken = () => {
 
     clearSelectedUser();
 }
+
+/**
+ * Save patient id in localstorage for use by doctor
+ * @param id
+ */
+export const saveSelectedPatient = (id) => {
+    window.localStorage.setItem('selected-patient', id);
+}
+
+/**
+ * Remove selected patient id from localstorage
+ */
+export const removeSelectedPatient = () => {
+    window.localStorage.removeItem('selected-patient');
+}
+
+/**
+ * Fetch selected patient id saved in localstorage
+ * @returns {string}
+ */
+export const getSelectedPatient = () => {
+    return window.localStorage.getItem('selected-patient');
+}
