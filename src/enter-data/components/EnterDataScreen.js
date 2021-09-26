@@ -5,13 +5,21 @@ import TextInput from "../../common/components/inputs/TextInput";
 import toast, { Toaster } from 'react-hot-toast';
 import DateInput from "../../common/components/inputs/DateInput";
 import {dateIsValid, getAge, getDateObject} from "../../utils/dates";
+import {USER_ROLES} from "../../constants/roles";
+import {getSelectedPatient} from "../../utils/tokens";
 
-const EnterDataScreen = ({birthDate, createNewWeightRecord, createNewPerimeterRecord, createNewHeightRecord}) => {
+const EnterDataScreen = ({userInfo, userRole, relationships, createNewWeightRecord, createNewPerimeterRecord, createNewHeightRecord}) => {
     const [timeRecorded, setTimeRecorded] = useState("");
     const [dateError, setDateError] = useState(false);
     const [weight, setWeight] = useState("");
     const [height, setHeight] = useState("");
     const [perimeter, setPerimeter] = useState("");
+
+    /**
+     * If user is patient, use his/her birth date
+     * If user is doctor, use selected patients birth date
+     */
+    const birthDate = userRole === USER_ROLES.PATIENT ? userInfo.birthDate : relationships.find(user => user.id === getSelectedPatient())?.birthDate;
 
     const errorCallback = (dataType) => {
         toast.error(`Error creando registro de ${dataType}`);

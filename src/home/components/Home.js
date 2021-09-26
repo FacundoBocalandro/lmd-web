@@ -27,17 +27,7 @@ const Home = ({userInfo, userRole, relationships}) => {
      */
     const userInfoToDisplay = userRole === USER_ROLES.PATIENT ? userInfo : relationships.find(user => user.id === getSelectedPatient());
 
-    /**
-     * If page should be rendered or not:
-     * In case it's a doctor, a patient should be selected
-     * In case it's a patient, info should've been fetched
-     * @returns {boolean}
-     */
-    const shouldRender = () => {
-        return (userRole === USER_ROLES.DOCTOR && getSelectedPatient()) || (userRole === USER_ROLES.PATIENT && userInfo)
-    }
-
-    return shouldRender() ? (
+    return userInfoToDisplay ? (
         <div className={"home-screen"}>
             <div className={"home-personal-data"}>
                 <div className={"home-avatar-container"}>
