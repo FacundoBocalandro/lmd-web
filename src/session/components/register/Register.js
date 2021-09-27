@@ -5,7 +5,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import NumberInput from "../../../common/components/inputs/NumberInput";
 import {GENDERS} from "../../../constants/PersonalData";
 import DateInput from "../../../common/components/inputs/DateInput";
-import {dateIsValid, getDateObject} from "../../../utils/dates";
+import {dateIsValid} from "../../../utils/dates";
 
 const Register = ({
                       registerUser,
@@ -107,10 +107,7 @@ const Register = ({
         })
 
         if (!Object.values(newErrors).some(error => error)) {
-            registerUser({
-                    ...form,
-                    birthDate: getDateObject(form.birthDate)
-                },
+            registerUser(form,
                 successCallback,
                 errorCallback)
         } else {

@@ -44,9 +44,7 @@ const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRow
 
     const saveVaccinationInfo = () => {
         if (dateIsValid(modalInfo.vaccinationInfo.appliedDate) && isOnOrBeforeToday(modalInfo.vaccinationInfo.appliedDate)) {
-            const dateParts = modalInfo.vaccinationInfo.appliedDate.split("/");
-            const appliedDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]).toISOString().substring(0, 10);
-            submitNewVaccination({...modalInfo.vaccinationInfo, appliedDate}, successCallback, errorCallback)
+            submitNewVaccination(modalInfo.vaccinationInfo, successCallback, errorCallback)
             closeModal();
         } else {
             setAppliedDateError(true)

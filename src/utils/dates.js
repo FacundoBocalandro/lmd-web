@@ -8,24 +8,22 @@ const millisToYears = (millis) => {
 }
 
 export const dateIsValid = (date) => {
-    return !!date && (new RegExp("^(?:31([/\\-.])(?:0?[13578]|1[02])\\1|(?:29|30)([/\\-.])(?:0?[13-9]|1[0-2])\\2)(?:1[6-9]|[2-9]\\d)?\\d{2}$|^29([/\\-.])0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))$|^(?:0?[1-9]|1\\d|2[0-8])([/\\-.])(?:0?[1-9]|1[0-2])\\4(?:1[6-9]|[2-9]\\d)?\\d{2}$"))
+    return !!date && (new RegExp("^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$"))
         .test(date)
 }
 
 export const isOnOrBeforeToday = (dateString) => {
-    const invertedDateString = dateString.slice(3,5) + '/' + dateString.slice(0,2) + '/' + dateString.slice(6,10);
-    return (new Date(invertedDateString)) <= (new Date());
+    return new Date(dateString) <= new Date();
 }
 
 export const getDateObject = (dateString) => {
-    const dateParts = dateString.split("/");
+    const dateParts = dateString.split("-");
     return new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]).toISOString().substring(0, 10)
 }
 
 export const getAge = (birthDateString, toDateString) =>
 {
-    const dateParts = toDateString.split("/");
-    const toDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+    const toDate = new Date(toDateString);
     const birthDate = new Date(birthDateString);
     let age = toDate.getFullYear() - birthDate.getFullYear();
     const m = toDate.getMonth() - birthDate.getMonth();
