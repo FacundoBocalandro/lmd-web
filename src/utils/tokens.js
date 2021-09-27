@@ -12,7 +12,7 @@ export const setSelectedToken = (token, logout) => {
             if (tokenNumber !== window.localStorage.getItem('selected-user')) {
                 logout();
                 window.localStorage.setItem('selected-user', tokenNumber)
-                window.location.reload()
+                window.location.replace('/inicio');
             }
         }
     })
