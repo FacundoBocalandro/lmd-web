@@ -3,8 +3,6 @@ import "./Readings.css";
 import SearchInput from "../../common/components/inputs/SearchInput";
 import {faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import RichTextEditor from "../../common/components/rich-text/RichTextEditor";
-import {EditorState, convertFromRaw} from "draft-js";
 import richUtils from "../../utils/richUtils";
 import ReadOnlyRichText from "../../common/components/rich-text/ReadOnlyRichText";
 
