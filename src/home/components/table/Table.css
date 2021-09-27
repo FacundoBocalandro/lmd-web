@@ -1,0 +1,41 @@
+.home-table-container {
+    width: 80%;
+    margin-top: 60px;
+    overflow: auto;
+    max-height: 80%;
+}
+
+.home-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.home-table-row:nth-child(2n + 1) {
+    background: var(--grey);
+}
+
+.home-table-cell-header {
+    font-size: 25px;
+    border: 1px solid #000000;
+    position: sticky;
+    top: 0;
+    background: white;
+}
+
+.home-table-cell {
+    font-size: 20px;
+    border: 1px solid #000000;
+    text-align: center;
+    line-height: 40px;
+}
+
+.home-table-no-data {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.home-table-no-data-text {
+    font-size: 25px;
+    font-weight: bold;
+}

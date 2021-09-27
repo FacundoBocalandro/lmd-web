@@ -3,6 +3,9 @@ import appReducer from "./reducers";
 import sessionMiddleware from "./session/session.middleware";
 import homeMiddleware from "./home/home.middleware";
 import vaccinesMiddleware from "./vaccines/vaccines.middleware";
+import notesMiddleware from "./notes/notes.middleware";
+import readingsMiddleware from "./readings/readings.middleware";
+import relationshipsMiddleware from "./relationships/relationships.middleware";
 
 
 const store = createStore(
@@ -11,7 +14,10 @@ const store = createStore(
     compose(applyMiddleware(
         sessionMiddleware,
         homeMiddleware,
-        vaccinesMiddleware
+        vaccinesMiddleware,
+        notesMiddleware,
+        readingsMiddleware,
+        relationshipsMiddleware
     ))
 )
 

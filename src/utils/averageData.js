@@ -81,15 +81,15 @@ export const adapt3PercentileData = (data) => {
 }
 
 export const adaptUserHistoryData = (data, accessor, birthDate) => {
-    const result = [...data.pastRecords.map(record => adaptDataRecord(record, accessor, birthDate)[0]), ...adaptDataRecord(data.lastRecord, accessor, birthDate)];
+    const result = data.records.map(record => adaptDataRecord(record, accessor, birthDate));
     return result.filter((value, index) => result.findIndex(elem => elem.x === value.x) === index)
 }
 
 const adaptDataRecord = (record, accessor, birthDate) => {
-    if (!record) return [];
+    if (!record) return null;
 
     const recordDate = new Date(record.timeRecorded);
     const age = calculateAgeAtDate(new Date(birthDate), recordDate);
 
-    return [{x: parseFloat(age), y: record[accessor]}]
+    return {x: parseFloat(age), y: record[accessor], ...record}
 }

@@ -6,13 +6,26 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {getAvatar} from "../../utils/avatars";
 import {GENDERS} from "../../constants/PersonalData";
 import {getToken} from "../../utils/http";
+import {
+    clearSelectedUser,
+    getAllStoredTokens,
+    removeCurrentToken,
+    removeSelectedPatient,
+    setSelectedToken
+} from "../../utils/tokens";
+import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
+import {USER_ROLES} from "../../constants/roles";
 
-const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
+const Navbar = ({logout, getUserInfoFromToken, allUsersInfo, userRole}) => {
 
+    /**
+     *  Fetch information of all logged in users.
+     *  Used to display information on navbar "session" dropdown, where user can change the selected profile.
+     */
     useEffect(() => {
-        const tokens = Object.keys(window.localStorage).filter(key => key.startsWith('token-'));
-        tokens.forEach(key => {
-            getUserInfoFromToken(window.localStorage.getItem(key));
+        const tokens = getAllStoredTokens();
+        tokens.forEach(token => {
+            getUserInfoFromToken(token);
         })
 
         // eslint-disable-next-line
@@ -23,79 +36,62 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
 
     const logoutAction = () => {
         logout();
-
-        //rearrange tokens to be in order
-        const selectedUser = window.localStorage.getItem('selected-user');
-        const tokens = Object.keys(window.localStorage).filter(key => key.startsWith('token-'));
-        let lastToken = selectedUser;
-        //get last token, which will be moved to the localstorage key where the removed token was.
-        tokens.forEach(tokenString => {
-            const tokenNumber = tokenString.split('-')[1]
-            if (tokenNumber > lastToken) lastToken = parseFloat(tokenNumber);
-        })
-
-        window.localStorage.removeItem(`token-${selectedUser}`);
-        if (lastToken !== selectedUser) {
-            window.localStorage.setItem(`token-${selectedUser}`, window.localStorage.getItem(`token-${lastToken}`))
-            window.localStorage.removeItem(`token-${lastToken}`)
-        }
-
-        window.localStorage.removeItem('selected-user');
-
+        removeCurrentToken();
+        removeSelectedPatient();
         history.replace('/');
     }
 
-    const historyPath = () => {
-        return location.pathname;
-    }
-
-    const pathIsHome = () => {
-        return historyPath() === "/inicio";
-    }
-
-    const pathIsReadings = () => {
-        return historyPath() === "/readings";
-    }
-
-    const pathIsImmunizations = () => {
-        return historyPath() === "/inicio/vacunas";
+    const navbarOptions = () => {
+        switch (userRole) {
+            case USER_ROLES.DOCTOR: return [
+                {path: '/inicio', label: "Inicio"},
+                {path: '/inicio/datos', label: "Datos"},
+                {path: '/inicio/vacunas', label: "Vacunas"},
+            ]
+            case USER_ROLES.PATIENT: return [
+                    {path: '/inicio', label: 'Inicio'},
+                    {path: '/inicio/vacunas', label: "Vacunas"},
+                    {path: '/inicio/lecturas', label: 'Lecturas'},
+                    {path: '/inicio/notas', label: 'Notas'},
+                    {path: '/inicio/pediatras', label: 'Pediatras'},
+                ]
+            case USER_ROLES.ADMIN: return [
+                {path: '/inicio', label: "Inicio"}
+            ]
+            default: return []
+        }
     }
 
     const addAccount = () => {
         logout();
+        clearSelectedUser();
+        removeSelectedPatient();
         history.push('/');
-    }
-
-    const setSelectedToken = (token) => {
-        const tokens = Object.keys(window.localStorage).filter(key => key.startsWith('token-'));
-        tokens.forEach(tokenKey => {
-            if (window.localStorage.getItem(tokenKey) === token) {
-                const tokenNumber = tokenKey.split('-')[1];
-                if (tokenNumber !== window.localStorage.getItem('selected-user')) {
-                    logout();
-                    window.localStorage.setItem('selected-user', tokenNumber)
-                    window.location.reload()
-                }
-            }
-        })
     }
 
     return (
         <div className={"navbar"}>
             <p className={"navbar-title"}>Libreta Médica</p>
             <div className={"navbar-list"}>
-                <p className={`navbar-p  ${pathIsHome() ? 'current-location' : ''}`}
-                   onClick={() => history.push('/inicio')}>Inicio</p>
-                <p className={`navbar-p  ${pathIsReadings() ? 'current-location' : ''}`}>Lecturas</p>
-                <p className={`navbar-p  ${pathIsImmunizations() ? 'current-location' : ''}`}
-                   onClick={() => history.push('/inicio/vacunas')}>Vacunas</p>
+                {navbarOptions().map(option => <p
+                    className={`navbar-p  ${location.pathname === option.path ? 'current-location' : ''}`}
+                    onClick={() => history.push(option.path)}>{option.label}</p>)}
                 <div className={`navbar-p session-dropdown`}>
-                    <span className={"session-dropdown-text"}>Sesión</span>
+                    <div className={"session-dropdown-text"}>
+                        <span>Sesión</span>
+                        <FontAwesomeIcon icon={faAngleDown}/>
+                    </div>
                     <div className={"session-dropdown-content"}>
                         {allUsersInfo &&
                         <div className={"navbar-users-container"}>
-                            {Object.entries(allUsersInfo).map(([token, info]) => (
-                                <UserRow info={info} token={token} setSelectedToken={setSelectedToken}/>))}
+                            {Object.entries(allUsersInfo)
+                                .sort((a, b) => a[1].firstName - b[1].firstName) // a and b are arrays containing [token, info]. sort them by info.firstName
+                                .map(([token, info]) => (
+                                    <UserRow info={info} token={token}
+                                             setSelectedToken={(token) => {
+                                                 setSelectedToken(token, logout);
+                                                 removeSelectedPatient();
+                                             }}/>))}
                         </div>
                         }
                         <span onClick={addAccount}>Agregar cuenta</span>
@@ -110,8 +106,9 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo}) => {
 const UserRow = ({info, token, setSelectedToken}) => {
     const gender = info.gender === GENDERS.MALE ? 'male' : 'female'
 
-    return(
-        <div className={`user-info-row${token === getToken() ? ' selected' : ''}`} onClick={() => setSelectedToken(token)}>
+    return (
+        <div className={`user-info-row${token === getToken() ? ' selected' : ''}`}
+             onClick={() => setSelectedToken(token)}>
             <div className={`user-row-avatar-container ${gender}`}>
                 <FontAwesomeIcon icon={getAvatar(info.avatar)} className={`user-row-avatar ${gender}`}/>
             </div>

@@ -17,6 +17,7 @@
 
 .enter-data-values {
     display: flex;
+    align-items: flex-end;
     padding-top: 50px;
 }
 

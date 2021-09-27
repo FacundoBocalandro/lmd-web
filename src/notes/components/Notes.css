@@ -1,0 +1,132 @@
+.notes-screen {
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    position: relative;
+    height: 100%;
+}
+
+.notes-screen-sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.header-with-plus-icon {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: var(--blue);
+    border-radius: 5px;
+    padding: 0 20px;
+}
+
+.header-with-plus-icon span {
+    font-size: 25px;
+    color: white;
+    flex: 1;
+    text-align: center;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-add-icon {
+    font-size: 25px;
+    color: #cbcbcb;
+    transition: all 200ms;
+}
+
+.header-add-icon:hover {
+    cursor: pointer;
+    color: white;
+}
+
+.sidebar-notes-list {
+    height: 100%;
+    overflow: auto;
+    margin-top: 20px;
+}
+
+.sidebar-note {
+    width: 100%;
+    background: var(--grey);
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    height: 50px;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.sidebar-note:first-child {
+    margin-top: 0;
+}
+
+.sidebar-note-title {
+    background: transparent;
+    outline: none;
+    border: none;
+    font-size: 20px;
+    flex: 1;
+    padding-right: 10px;
+}
+
+.selected-note-arrow {
+    font-size: 22px;
+}
+
+.delete-note-icon {
+    font-size: 22px;
+    color: var(--red);
+}
+
+.delete-note-icon:hover {
+    cursor: pointer;
+}
+
+.notes-screen-body {
+    padding: 0 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.notes-description-box-container {
+    background: var(--grey);
+    width: 90%;
+    height: 90%;
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 3px 5px 5px 1px #B7B7B7;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.update-note-status {
+    font-size: 22px;
+    color: rgb(136,136,136);
+}
+
+.notes-description-box {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    border: none;
+    font-family: Arial, serif;
+    font-size: 25px;
+    resize: none;
+}
+
+.note-delete-text {
+    font-size: 20px;
+}
+
+.note-delete-button {
+    margin-top: 20px;
+}

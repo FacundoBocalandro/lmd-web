@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {removeCurrentToken} from "./tokens";
 
 const httpClient = axios.create();
 httpClient.defaults.timeout = 1200000;
@@ -19,8 +20,7 @@ const _request = async (url, method, data, config = {}) => {
     }).catch(errorResponse => {
         // JWT expired: logout
         if (!config.noAuth && errorResponse.response?.status === 403) {
-            window.localStorage.removeItem(`token-${window.localStorage.getItem('selected-user')}`);
-            window.localStorage.removeItem('selected-user');
+            removeCurrentToken();
             window.location.href = window.location.origin
         }
         else throw (errorResponse.response || {status: 500})
@@ -34,7 +34,7 @@ export const patch = (url, body, config = {}) => _request(url, "PATCH", body, co
 export const deleteRequest = (url, body, config = {}) => _request(url, "DELETE", body, config);
 
 export const isAuthenticated = () => {
-    return window.localStorage.getItem(`token-${window.localStorage.getItem('selected-user')}`) !== null;
+    return getToken() !== null;
 }
 
 export const getToken = () => {

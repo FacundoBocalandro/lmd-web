@@ -5,7 +5,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import NumberInput from "../../../common/components/inputs/NumberInput";
 import {GENDERS} from "../../../constants/PersonalData";
 import DateInput from "../../../common/components/inputs/DateInput";
-import {dateIsValid} from "../../../utils/dates";
+import {dateIsValid, getDateObject} from "../../../utils/dates";
 
 const Register = ({
                       registerUser,
@@ -24,6 +24,7 @@ const Register = ({
         dni: "",
         birthDate: "",
         email: "",
+        matriculationCode: "",
         username: "",
         password: "",
         confirmPassword: "",
@@ -106,10 +107,9 @@ const Register = ({
         })
 
         if (!Object.values(newErrors).some(error => error)) {
-            const dateParts = form.birthDate.split("/");
             registerUser({
                     ...form,
-                    birthDate: new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]).toISOString().substring(0, 10)
+                    birthDate: getDateObject(form.birthDate)
                 },
                 successCallback,
                 errorCallback)
@@ -147,7 +147,7 @@ const Register = ({
         <div className={"register-screen"}>
             <Toaster/>
             <div className={"register-header-container"}>
-                <span className={"header"}>Registro de Paciente</span>
+                <span className={"header"}>Registro</span>
             </div>
             <div className={"register-form"}>
                 <div className={"register-input-container"}>
@@ -221,6 +221,13 @@ const Register = ({
                            }}
                     />
                     <span className={errors.username ? 'error-message' : 'error-message no-message'}>El usuario ya existe</span>
+                </div>
+                <div className={"register-input-container"}>
+                    <input placeholder={"Matrícula (Sólo pediatras)"}
+                           type={"matriculationCode"}
+                           className={"input"}
+                           value={form.matriculationCode}
+                           onChange={event => setField('matriculationCode', event.target.value)}/>
                 </div>
                 <div className={"register-input-container"}>
                     <input placeholder={"Contraseña"}

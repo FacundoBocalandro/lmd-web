@@ -5,6 +5,7 @@ import actions from "../../../actions";
 import Navbar from "../../../navbar/containers/Navbar";
 
 const AppFrame = ({userInfo, getUserInfo, children}) => {
+
     useEffect(() => {
         if (!userInfo) getUserInfo();
 

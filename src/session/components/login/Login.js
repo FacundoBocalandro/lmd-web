@@ -1,27 +1,35 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./Login.css";
 import {useHistory} from "react-router";
 import toast, { Toaster } from 'react-hot-toast';
+import {getAllStoredTokens, saveNewToken, setSelectedToken} from "../../../utils/tokens";
 
 const initialForm = {
     username: "",
     password: ""
 }
 
-const Login = ({login, loginPending}) => {
+const Login = ({login, logout, loginPending, allUsersInfo, getUserInfoFromToken}) => {
+
+    /**
+     * Get all logged in users information.
+     * In case the user inputted is already logged in, replace token
+     */
+    useEffect(() => {
+        const tokens = getAllStoredTokens();
+        tokens.forEach(token => {
+            getUserInfoFromToken(token);
+        })
+
+        // eslint-disable-next-line
+    }, [])
+
     const history = useHistory();
 
     const [form, setForm] = useState({...initialForm});
 
     const successCallback = (token) => {
-        const tokens = Object.keys(window.localStorage).filter(key => key.startsWith('token-'));
-        let lastToken = 0;
-        tokens.forEach(tokenString => {
-            const tokenNumber = tokenString.split('-')[1]
-            if (tokenNumber > lastToken) lastToken = parseFloat(tokenNumber);
-        })
-        window.localStorage.setItem(`token-${lastToken + 1}`, token);
-        window.localStorage.setItem('selected-user', `${lastToken + 1}`);
+        saveNewToken(token);
         history.push("/inicio");
     }
 
@@ -31,7 +39,19 @@ const Login = ({login, loginPending}) => {
 
     const submitForm = () => {
         if (!isDisabled()) {
-            login(form, successCallback, errorCallback)
+            //check if inputted user is already logged in
+            let alreadyLoggedInToken;
+            if (allUsersInfo) {
+                Object.entries(allUsersInfo).forEach(([token, info]) => {
+                    if (info.username === form.username) alreadyLoggedInToken = token;
+                })
+            }
+
+            if (alreadyLoggedInToken) {
+                setSelectedToken(alreadyLoggedInToken, logout);
+                history.push('/inicio');
+            }
+            else login(form, successCallback, errorCallback)
         }
     }
 

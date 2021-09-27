@@ -1,10 +1,12 @@
 :root {
-    --primary: #649CCD;
+    --primary: #6686CC;
     --secondary: #FAA645;
-    --grey: #EBEBEB;
+    --grey: #DDDDDD;
     --blue: #133D8D;
     --green: green;
+    --red: red;
     --navbar-size: 80px;
+    --dark-grey: #969696
 }
 
 .hover-icon {
@@ -31,7 +33,7 @@
 }
 
 .input-label {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bolder;
 }
 
@@ -62,6 +64,34 @@
 
 .input-error {
     border: 1px solid red;
+}
+
+.search-input-container {
+    width: 100%;
+    background: var(--grey);
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    border-radius: 50px;
+}
+
+.search-input-icon {
+    font-size: 20px;
+}
+
+.search-input-icon.empty-search {
+    opacity: .5;
+}
+
+.search-input {
+    color: #000;
+    padding: 10px;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    height: 50px;
+    flex: 1;
+    background: transparent;
 }
 
 .submit-button {

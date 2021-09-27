@@ -16,3 +16,22 @@ export const isOnOrBeforeToday = (dateString) => {
     const invertedDateString = dateString.slice(3,5) + '/' + dateString.slice(0,2) + '/' + dateString.slice(6,10);
     return (new Date(invertedDateString)) <= (new Date());
 }
+
+export const getDateObject = (dateString) => {
+    const dateParts = dateString.split("/");
+    return new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]).toISOString().substring(0, 10)
+}
+
+export const getAge = (birthDateString, toDateString) =>
+{
+    const dateParts = toDateString.split("/");
+    const toDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+    const birthDate = new Date(birthDateString);
+    let age = toDate.getFullYear() - birthDate.getFullYear();
+    const m = toDate.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && toDate.getDate() < birthDate.getDate()))
+    {
+        age--;
+    }
+    return age;
+}
