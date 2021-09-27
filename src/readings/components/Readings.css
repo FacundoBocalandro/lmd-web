@@ -162,6 +162,7 @@
 .reading-details-container {
     padding: 10px 50px;
     height: 100%;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -184,5 +185,6 @@
     font-size: 20px;
     overflow: auto;
     height: 100%;
+    width: 100%;
     line-height: 1.4;
 }

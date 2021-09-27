@@ -1,0 +1,30 @@
+.rich-text-editor-buttons {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+
+.rich-text-editor-button {
+    width: 30px;
+    height: 35px;
+    margin-right: 5px;
+    background: var(--blue);
+    color: white;
+    border-radius: 3px;
+    border: none;
+    transition: all 200ms;
+}
+
+.rich-text-editor-button:active {
+    background-color: var(--primary);
+}
+
+.rich-text-editor-input {
+    padding: 15px;
+    font-size: 18px;
+    width: 70vw;
+    height: 50vh;
+    overflow: auto;
+    background: var(--grey);
+    border-radius: 5px;
+}
