@@ -21,9 +21,9 @@ function App({userRole}) {
             <PrivateRoute path='/inicio' component={({match: {url}}) => ([
                 <AppFrame key={'app-frame'}>
                     <Switch style={{width: '100%', height: '100%'}}>
-                        <PrivateRoute exact path={`${url}`} component={Home}/>
+                        <PrivateRoute exact path={`${url}`} component={userRole === USER_ROLES.PATIENT ? Home : DoctorsScreen}/>
                         <PrivateRoute path={`${url}/vacunas`} component={Vaccines}/>
-                        {userRole === USER_ROLES.DOCTOR && <PrivateRoute exact path={`${url}/pacientes`} component={DoctorsScreen}/>}
+                        {userRole === USER_ROLES.DOCTOR && <PrivateRoute exact path={`${url}/datos`} component={Home}/>}
                         {userRole === USER_ROLES.PATIENT && <>
                             <PrivateRoute exact path={`${url}/lecturas`} component={Readings}/>
                             <PrivateRoute exact path={`${url}/notas`} component={Notes}/>

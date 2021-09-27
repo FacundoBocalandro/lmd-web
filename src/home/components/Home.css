@@ -70,7 +70,7 @@
     background-color: var(--primary);
 }
 
-.home-screen-tab:nth-child(6) {
+.home-screen-tab.table-tab {
     margin-top: 100px;
 }
 

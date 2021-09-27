@@ -4,8 +4,7 @@ import WeightChart from "../components/weight-chart/WeightChart";
 
 const mapStateToProps = state => ({
     averageWeightData: state.home.averageWeightData,
-    userWeightHistory: state.home.userWeightHistory,
-    gender: state.session.userInfo.gender
+    userWeightHistory: state.home.userWeightHistory
 })
 
 const mapDispatchToProps = dispatch => ({

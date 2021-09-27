@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DateInput = ({date, onChange, placeholder, label, className}) => {
+const DateInput = ({date, onChange, placeholder, label, className, disabled}) => {
 
     return (
         <div className={"input-container"}>
@@ -14,6 +14,7 @@ const DateInput = ({date, onChange, placeholder, label, className}) => {
                    onBlur={e => {
                        if (placeholder && !date) e.target.type = 'text'
                    }}
+                   disabled={disabled}
                    className={className ?? "input"}
                    onChange={(e) => onChange(e.target.value)}/>
         </div>

@@ -4,7 +4,9 @@ import actions from "../../actions";
 
 const mapStateToProps = state => ({
     allVaccines: state.vaccines.allVaccines,
-    userVaccines: state.vaccines.userVaccines
+    userVaccines: state.vaccines.userVaccines,
+    userRole: state.session.userInfo?.userRole
+
 })
 
 const mapDispatchToProps = dispatch => ({
