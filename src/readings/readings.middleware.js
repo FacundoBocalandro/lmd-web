@@ -24,7 +24,6 @@ const readingsMiddleware = ({dispatch, getState}) => next => action => {
                 .catch(err => dispatch(actions.readings.getReadingsByCategory.error(err)));
             break;
         case ADD_READING_REQUEST:
-            debugger
             services.addReading(action.reading)
                 .then(res => {
                     if (action.callback) action.callback();
