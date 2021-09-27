@@ -16,11 +16,6 @@ export const isOnOrBeforeToday = (dateString) => {
     return new Date(dateString) <= new Date();
 }
 
-export const getDateObject = (dateString) => {
-    const dateParts = dateString.split("-");
-    return new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]).toISOString().substring(0, 10)
-}
-
 export const getAge = (birthDateString, toDateString) =>
 {
     const toDate = new Date(toDateString);

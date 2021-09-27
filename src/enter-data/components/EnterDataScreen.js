@@ -4,7 +4,7 @@ import NumberInput from "../../common/components/inputs/NumberInput";
 import TextInput from "../../common/components/inputs/TextInput";
 import toast, { Toaster } from 'react-hot-toast';
 import DateInput from "../../common/components/inputs/DateInput";
-import {dateIsValid, getAge, getDateObject} from "../../utils/dates";
+import {dateIsValid, getAge} from "../../utils/dates";
 
 const EnterDataScreen = ({birthDate, createNewWeightRecord, createNewPerimeterRecord, createNewHeightRecord}) => {
     const [timeRecorded, setTimeRecorded] = useState("");
@@ -23,10 +23,9 @@ const EnterDataScreen = ({birthDate, createNewWeightRecord, createNewPerimeterRe
 
     const onSubmit = () => {
         if (dateIsValid(timeRecorded)) {
-            const timeRecordedFormatted = getDateObject(timeRecorded);
-            if (!!weight) createNewWeightRecord(weight, timeRecordedFormatted, () => successCallback('peso'), () => errorCallback('peso'));
-            if (!!perimeter) createNewPerimeterRecord(perimeter, timeRecordedFormatted, () => successCallback('perímetro cefálico'), () => errorCallback('perímetro cefálico'));
-            if (!!height) createNewHeightRecord(height, timeRecordedFormatted, () => successCallback('estatura'), () => errorCallback('estatura'));
+            if (!!weight) createNewWeightRecord(weight, timeRecorded, () => successCallback('peso'), () => errorCallback('peso'));
+            if (!!perimeter) createNewPerimeterRecord(perimeter, timeRecorded, () => successCallback('perímetro cefálico'), () => errorCallback('perímetro cefálico'));
+            if (!!height) createNewHeightRecord(height, timeRecorded, () => successCallback('estatura'), () => errorCallback('estatura'));
         } else {
             setDateError(true);
         }
