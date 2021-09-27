@@ -6,8 +6,9 @@ import Modal from 'react-modal';
 import DateInput from "../../../common/components/inputs/DateInput";
 import {dateIsValid, isOnOrBeforeToday} from "../../../utils/dates";
 import toast, { Toaster } from 'react-hot-toast';
+import {USER_ROLES} from "../../../constants/roles";
 
-const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRowId, submitNewVaccination}) => {
+const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRowId, submitNewVaccination, userRole}) => {
 
     const [modalInfo, setModalInfo] = useState({open: false})
     const [appliedDateError, setAppliedDateError] = useState(false);
@@ -19,7 +20,8 @@ const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRow
     }
 
     const openModal = (vaccineId, vaccineName) => {
-        if (!hasBeenApplied(vaccineId)) {
+        // just the doctor can register vaccine
+        if (userRole === USER_ROLES.DOCTOR && !hasBeenApplied(vaccineId)) {
             setModalInfo({open: true, vaccinationInfo: {vaccineId}, vaccineName})
         }
     }
