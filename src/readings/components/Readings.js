@@ -3,6 +3,8 @@ import "./Readings.css";
 import SearchInput from "../../common/components/inputs/SearchInput";
 import {faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import richUtils from "../../utils/richUtils";
+import ReadOnlyRichText from "../../common/components/rich-text/ReadOnlyRichText";
 
 const Readings = ({categories, getReadingCategories, getReadingsByCategory}) => {
     const [searchFilter, setSearchFilter] = useState("");
@@ -61,7 +63,10 @@ const SelectedCategoryBody = ({selectedCategory, getReadingsByCategory, searchFi
     return selectedReading ?
         <div className={"reading-details-container"}>
             <div className={"reading-header"}><span>{selectedReading.title}</span></div>
-            <p className={"reading-body"}>{selectedReading.body}</p>
+            <div className={"reading-body"}>
+                <ReadOnlyRichText editorState={richUtils.textToEditorState(selectedReading.body)}/>
+            </div>
+            {/*<p className={"reading-body"}>{selectedReading.body}</p>*/}
         </div> :
         <div className={"selected-category-body"}>
             {readings.filter(reading => reading.title.toLowerCase().includes(searchFilter.toLowerCase())).map((reading, index) => (

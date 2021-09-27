@@ -41,18 +41,26 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo, userRole}) => {
         history.replace('/');
     }
 
-    const navbarOptions = userRole === USER_ROLES.DOCTOR ? [
-            {path: '/inicio', label: "Inicio"},
-            {path: '/inicio/datos', label: "Datos"},
-            {path: '/inicio/vacunas', label: "Vacunas"},
-        ] :
-        [
-            {path: '/inicio', label: 'Inicio'},
-            {path: '/inicio/vacunas', label: "Vacunas"},
-            {path: '/inicio/lecturas', label: 'Lecturas'},
-            {path: '/inicio/notas', label: 'Notas'},
-            {path: '/inicio/pediatras', label: 'Pediatras'},
-        ]
+    const navbarOptions = () => {
+        switch (userRole) {
+            case USER_ROLES.DOCTOR: return [
+                {path: '/inicio', label: "Inicio"},
+                {path: '/inicio/datos', label: "Datos"},
+                {path: '/inicio/vacunas', label: "Vacunas"},
+            ]
+            case USER_ROLES.PATIENT: return [
+                    {path: '/inicio', label: 'Inicio'},
+                    {path: '/inicio/vacunas', label: "Vacunas"},
+                    {path: '/inicio/lecturas', label: 'Lecturas'},
+                    {path: '/inicio/notas', label: 'Notas'},
+                    {path: '/inicio/pediatras', label: 'Pediatras'},
+                ]
+            case USER_ROLES.ADMIN: return [
+                {path: '/inicio', label: "Inicio"}
+            ]
+            default: return []
+        }
+    }
 
     const addAccount = () => {
         logout();
@@ -65,7 +73,7 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo, userRole}) => {
         <div className={"navbar"}>
             <p className={"navbar-title"}>Libreta Médica</p>
             <div className={"navbar-list"}>
-                {navbarOptions.map(option => <p
+                {navbarOptions().map(option => <p
                     className={`navbar-p  ${location.pathname === option.path ? 'current-location' : ''}`}
                     onClick={() => history.push(option.path)}>{option.label}</p>)}
                 <div className={`navbar-p session-dropdown`}>

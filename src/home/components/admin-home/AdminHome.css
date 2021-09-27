@@ -1,0 +1,32 @@
+.admin-home {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-home .submit-button {
+    font-size: 20px;
+}
+
+.add-reading-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+}
+
+.add-reading-modal .rich-text-editor {
+    margin-top: 20px;
+}
+
+.add-reading-modal .submit-button {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.add-reading-modal-category {
+    margin-top: 20px;
+    width: 100%;
+}

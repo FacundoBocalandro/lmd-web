@@ -12,6 +12,7 @@ import Readings from "./readings/containers/Readings";
 import {connect} from "react-redux";
 import {USER_ROLES} from "./constants/roles";
 import DoctorsScreen from "./relationships/containers/RelationshipsScreen";
+import AdminHome from "./home/containers/AdminHome";
 
 function App({userRole}) {
     return (
@@ -21,10 +22,14 @@ function App({userRole}) {
             <PrivateRoute path='/inicio' component={({match: {url}}) => ([
                 <AppFrame key={'app-frame'}>
                     <Switch style={{width: '100%', height: '100%'}}>
-                        <PrivateRoute exact path={`${url}`} component={userRole === USER_ROLES.PATIENT ? Home : DoctorsScreen}/>
                         <PrivateRoute path={`${url}/vacunas`} component={Vaccines}/>
-                        {userRole === USER_ROLES.DOCTOR && <PrivateRoute exact path={`${url}/datos`} component={Home}/>}
+                        {userRole === USER_ROLES.DOCTOR && <>
+                            <PrivateRoute exact path={`${url}`} component={DoctorsScreen}/>
+                            <PrivateRoute exact path={`${url}/datos`} component={Home}/>
+                        </>}
+                        {userRole === USER_ROLES.ADMIN && <PrivateRoute exact path={`${url}`} component={AdminHome}/>}
                         {userRole === USER_ROLES.PATIENT && <>
+                            <PrivateRoute exact path={`${url}`} component={Home}/>
                             <PrivateRoute exact path={`${url}/lecturas`} component={Readings}/>
                             <PrivateRoute exact path={`${url}/notas`} component={Notes}/>
                             <PrivateRoute exact path={`${url}/pediatras`} component={DoctorsScreen}/>
