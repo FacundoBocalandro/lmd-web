@@ -1,10 +1,9 @@
 import React, {useEffect} from "react";
 import GenericChart from "../generic-chart/GenericChart";
 import DelayedRendering from "../../../common/components/delayed-rendering/DelayedRendering";
-import {GENDERS} from "../../../constants/PersonalData";
 import Table from "../../../home/components/table/Table";
 
-const WeightChart = ({getAverageWeightData, averageWeightData, getUserWeightHistory, userWeightHistory, gender, tableTabSelected}) => {
+const WeightChart = ({getAverageWeightData, averageWeightData, getUserWeightHistory, userWeightHistory, tableTabSelected}) => {
 
     useEffect(() => {
         if (!averageWeightData) getAverageWeightData();
@@ -20,8 +19,7 @@ const WeightChart = ({getAverageWeightData, averageWeightData, getUserWeightHist
                                                maxY={90}
                                                yStep={5}
                                                yLabel={"Peso (kg)"}
-                                               data={userWeightHistory} zoomOptions={[{min: 0, max: 2}, {min: 0, max: 6},{min: 0, max: 19}]}
-                                               colors={{grid: gender === GENDERS.MALE ? '#6686CC' : 'pink', stroke: 'red'}}/>}
+                                               data={userWeightHistory} zoomOptions={[{min: 0, max: 2}, {min: 0, max: 6},{min: 0, max: 19}]}/>}
         </DelayedRendering>
     )
 }

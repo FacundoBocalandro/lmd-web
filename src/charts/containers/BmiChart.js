@@ -5,8 +5,7 @@ import BmiChart from "../components/bmi-chart/BmiChart";
 
 const mapStateToProps = state => ({
     averageBmiData: state.home.averageBmiData,
-    userBmiHistory: state.home.userBmiHistory,
-    gender: state.session.userInfo.gender
+    userBmiHistory: state.home.userBmiHistory
 })
 
 const mapDispatchToProps = dispatch => ({
