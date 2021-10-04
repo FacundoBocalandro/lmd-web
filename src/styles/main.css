@@ -6,14 +6,6 @@ text {
     font-family: Lato, serif !important;
 }
 
-h4,
-h6,
-p,
-th,
-span {
-    cursor: default;
-}
-
 :root {
     --primary: #6686CC;
     --secondary: #FAA645;
