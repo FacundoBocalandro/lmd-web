@@ -20,7 +20,7 @@ import {USER_ROLES} from "../constants/roles";
 const homeMiddleware = ({dispatch, getState}) => next => action => {
     next(action);
 
-    const getBirthDate = () => getState().session.userInfo.role === USER_ROLES.PATIENT ? getState().session.userInfo.birthDate : getState().relationships.relationships.find(user => user.id === getSelectedPatient())?.birthDate
+    const getBirthDate = () => getState().session.userInfo.userRole === USER_ROLES.PATIENT ? getState().session.userInfo.birthDate : getState().relationships.relationships.find(user => user.id === getSelectedPatient())?.birthDate
 
     switch (action.type) {
         case GET_AVERAGE_WEIGHT_DATA_REQUEST:
