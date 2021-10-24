@@ -6,6 +6,7 @@ import vaccinesMiddleware from "./vaccines/vaccines.middleware";
 import notesMiddleware from "./notes/notes.middleware";
 import readingsMiddleware from "./readings/readings.middleware";
 import relationshipsMiddleware from "./relationships/relationships.middleware";
+import notificationsMiddleware from "./notifications/notifications.middleware";
 
 
 const store = createStore(
@@ -17,7 +18,8 @@ const store = createStore(
         vaccinesMiddleware,
         notesMiddleware,
         readingsMiddleware,
-        relationshipsMiddleware
+        relationshipsMiddleware,
+        notificationsMiddleware
     ))
 )
 

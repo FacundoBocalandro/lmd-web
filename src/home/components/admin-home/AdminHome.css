@@ -2,15 +2,17 @@
     height: 100%;
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
 .admin-home .submit-button {
     font-size: 20px;
+    margin-top: 20px;
 }
 
-.add-reading-modal {
+.add-reading-modal, .global-notification-modal{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,7 +23,7 @@
     margin-top: 20px;
 }
 
-.add-reading-modal .submit-button {
+.add-reading-modal .submit-button, .global-notification-modal .submit-button {
     margin-top: 20px;
     font-size: 20px;
 }
@@ -29,4 +31,21 @@
 .add-reading-modal-category {
     margin-top: 20px;
     width: 100%;
+}
+
+.global-notification-modal .text-box-container {
+    width: 70vw;
+    height: 50vh;
+    margin-top: 3px;
+    box-shadow: none;
+    padding: 10px;
+}
+
+.global-notification-modal .text-box {
+    font-family: Lato, serif;
+    font-size: 20px;
+}
+
+.global-notification-modal .input-container {
+    margin-top: 20px;
 }

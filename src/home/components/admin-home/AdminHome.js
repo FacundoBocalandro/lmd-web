@@ -9,12 +9,17 @@ import Autocomplete from "../../../common/components/inputs/Autocomplete";
 import toast, {Toaster} from "react-hot-toast";
 
 const ADD_READING = "ADD_READING";
+const GLOBAL_NOTIFICATION = "GLOBAL_NOTIFICATION";
 
-const AdminHome = ({getReadingCategories, readingCategories, addReading}) => {
+const AdminHome = ({getReadingCategories, readingCategories, addReading, sendNotification}) => {
     const [modalInfo, setModalInfo] = useState({});
 
     const openAddReadingModal = () => {
         setModalInfo({open: true, type: ADD_READING})
+    }
+
+    const openGlobalNotificationModal = () => {
+        setModalInfo({open: true, type: GLOBAL_NOTIFICATION})
     }
 
     const closeModal = () => setModalInfo({})
@@ -23,7 +28,10 @@ const AdminHome = ({getReadingCategories, readingCategories, addReading}) => {
         switch (type) {
             case ADD_READING:
                 return <AddReadingModalBody getReadingCategories={getReadingCategories}
-                                            readingCategories={readingCategories} addReading={addReading} setModalInfo={setModalInfo}/>
+                                            readingCategories={readingCategories} addReading={addReading}
+                                            setModalInfo={setModalInfo}/>
+            case GLOBAL_NOTIFICATION:
+                return <GlobalNotificationModalBody setModalInfo={setModalInfo} sendNotification={sendNotification}/>
             default:
                 return <></>
         }
@@ -43,7 +51,47 @@ const AdminHome = ({getReadingCategories, readingCategories, addReading}) => {
         <button className={'submit-button'}
                 onClick={openAddReadingModal}>Agregar lectura recomendada
         </button>
+        <button className={'submit-button'}
+                onClick={openGlobalNotificationModal}>Enviar notificación global
+        </button>
     </div>
+}
+
+const GlobalNotificationModalBody = ({sendNotification, setModalInfo}) => {
+    const [notification, setNotification] = useState({
+        title: "",
+        body: ""
+    })
+
+    const errorCallback = () => {
+        toast.error("Error enviando notificación");
+    }
+
+    const successCallback = () => {
+        setModalInfo({open: false})
+        toast.success("Notificación enviada exitosamente");
+    }
+
+    const handleSendNotification = () => {
+        sendNotification(notification, successCallback, errorCallback)
+    }
+
+    return (
+        <div className={"global-notification-modal"}>
+            <TextInput label={"Titulo"} value={notification.title}
+                       onChange={(title) => setNotification({...notification, title})}/>
+            <div className={"input-container"}>
+                <span className={"input-label"}>Cuerpo</span>
+                <div className={"text-box-container"}>
+                <textarea className={"text-box"}
+                          value={notification.body}
+                          onChange={event => setNotification({...notification, body: event.target.value})}
+                />
+                </div>
+            </div>
+            <button onClick={handleSendNotification} className={`submit-button`}>Enviar notificación</button>
+        </div>
+    )
 }
 
 const AddReadingModalBody = ({getReadingCategories, readingCategories, addReading, setModalInfo}) => {
@@ -79,7 +127,8 @@ const AddReadingModalBody = ({getReadingCategories, readingCategories, addReadin
             <RichTextEditor label={"Cuerpo"} editorState={reading.body}
                             setEditorState={body => setReading({...reading, body})}/>
             <div className={"add-reading-modal-category"}>
-                <Autocomplete label={"Categoría"} options={readingCategories.map(option => option.name)} value={reading.category}
+                <Autocomplete label={"Categoría"} options={readingCategories.map(option => option.name)}
+                              value={reading.category}
                               onChange={category => setReading({...reading, category})}/>
             </div>
             <button onClick={handleAddReading} className={`submit-button`}>Agregar lectura</button>
