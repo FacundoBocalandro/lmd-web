@@ -97,8 +97,8 @@ const Notes = ({
                 </div>
             </div>
             <div className={"notes-screen-body"}>
-                <div className={"notes-description-box-container"}>
-                    <textarea className={"notes-description-box"}
+                <div className={"text-box-container"}>
+                    <textarea className={"text-box"}
                               placeholder={selectedNoteId ? "Escriba aquí su consulta..." : "Seleccione o cree una nota"}
                               value={allNotes.find(note => note.id === selectedNoteId)?.body}
                               onChange={event => handleNoteBodyChange(selectedNoteId, event.target.value)}

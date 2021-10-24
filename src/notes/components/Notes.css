@@ -94,33 +94,20 @@
     justify-content: center;
 }
 
-.notes-description-box-container {
-    background: var(--grey);
+.notes-screen-body .text-box-container {
     width: 90%;
     height: 90%;
-    position: relative;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 3px 5px 5px 1px #B7B7B7;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+}
+
+.notes-screen-body .text-box {
+    font-family: Arial, serif;
+    font-size: 25px;
 }
 
 .update-note-status {
     font-size: 22px;
     color: rgb(136,136,136);
-}
-
-.notes-description-box {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    outline: none;
-    border: none;
-    font-family: Arial, serif;
-    font-size: 25px;
-    resize: none;
 }
 
 .note-delete-text {
