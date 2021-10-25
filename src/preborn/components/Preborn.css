@@ -10,6 +10,9 @@
 .preborn-screen-body {
     padding: 0 40px;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .preborn-accordion-summary {
@@ -44,7 +47,7 @@
 }
 
 .preborn-measurements {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-gap: 40px;
 }
 
@@ -83,14 +86,34 @@
     color: white !important;
 }
 
+.preborn-basic-measurements {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
 .preborn-apgar-body {
     display: flex;
-    gap: 5px;
+    gap: 30px;
+}
+
+.preborn-apgar-element {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .preborn-studies-body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+.preborn-export-button {
+    margin-bottom: 30px !important;
+}
+
+.preborn-screen-accordions {
+    width: 100%;
 }
 

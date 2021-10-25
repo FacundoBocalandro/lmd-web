@@ -14,8 +14,10 @@ import {
 } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import debounce from "lodash.debounce";
+import GetAppIcon from '@material-ui/icons/GetApp';
+import { jsPDF } from "jspdf";
 
-const Preborn = ({userRole, prebornData, getPrebornData, setPrebornData}) => {
+const Preborn = ({userRole, prebornData, getPrebornData, setPrebornData, exportPrebornData}) => {
 
     useEffect(() => {
         getPrebornData();
@@ -39,14 +41,14 @@ const Preborn = ({userRole, prebornData, getPrebornData, setPrebornData}) => {
 
     return shouldRender() ?
         <PrebornBody reducerPrebornData={prebornData} disabled={isDisabled()}
-                     setReducerPrebornData={setPrebornData}/> : (userRole === USER_ROLES.DOCTOR ?
+                     setReducerPrebornData={setPrebornData} exportPrebornData={exportPrebornData}/> : (userRole === USER_ROLES.DOCTOR ?
             <NoPatientScreen/> : null);
 }
 
 const PERINATAL_HISTORY = "PERINATAL_HISTORY";
 const NEWBORN = "NEWBORN";
 
-const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled}) => {
+const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, exportPrebornData}) => {
     const [selectedTab, setSelectedTab] = useState(PERINATAL_HISTORY);
     const [prebornData, setPrebornData] = useState(reducerPrebornData);
 
@@ -64,6 +66,13 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled}) => {
         debouncedOnChange(newPrebornData);
     }
 
+    const exportCallback = (body) => {
+        const doc = new jsPDF()
+
+        doc.text(body, 10, 10)
+        doc.save('perinatal.pdf');
+    }
+
     return (
         <div className={"preborn-screen"}>
             <Tabs
@@ -77,7 +86,16 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled}) => {
                 <Tab label="Recién Nacido" value={NEWBORN}/>
             </Tabs>
             <div className={"preborn-screen-body"}>
-                {selectedTab === PERINATAL_HISTORY && <div>
+                {!disabled && <Button
+                    variant="contained"
+                    color="default"
+                    startIcon={<GetAppIcon />}
+                    className={"preborn-export-button"}
+                    onClick={() => exportPrebornData(exportCallback)}
+                >
+                    Exportar
+                </Button>}
+                {selectedTab === PERINATAL_HISTORY && <div className={"preborn-screen-accordions"}>
                     <Accordion>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon className={"preborn-accordion-icon"}/>}
@@ -303,7 +321,7 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled}) => {
                         </AccordionDetails>
                     </Accordion>
                 </div>}
-                {selectedTab === NEWBORN && <div>
+                {selectedTab === NEWBORN && <div className={"preborn-screen-accordions"}>
                     <Accordion>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon className={"preborn-accordion-icon"}/>}
@@ -313,23 +331,70 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled}) => {
                         </AccordionSummary>
                         <AccordionDetails>
                             <div className={"preborn-accordion-body preborn-measurements"}>
-                                <div>
-                                    <InputLabel itemID={"gestational-age"} shrink>Edad gestacional</InputLabel>
-                                    <Input
-                                        value={prebornData.gestationalAge}
-                                        onChange={event => {
-                                            if (event.target.value >= 0 && event.target.value <= 99) onChange(Number.parseInt(event.target.value), "gestationalAge")
-                                        }}
-                                        type={"number"}
-                                        inputProps={{min: 0, max: 99}}
-                                        id={"gestational-age"}
-                                        endAdornment={<InputAdornment position="end">Sem</InputAdornment>}
-                                        disabled={disabled}
-                                        fullWidth
-                                    />
+                                <div className={"preborn-basic-measurements"}>
+                                    <div>
+                                        <InputLabel itemID={"gestational-age"} shrink>Edad gestacional</InputLabel>
+                                        <Input
+                                            value={prebornData.gestationalAge}
+                                            onChange={event => {
+                                                if (event.target.value >= 0 && event.target.value <= 99) onChange(Number.parseInt(event.target.value), "gestationalAge")
+                                            }}
+                                            type={"number"}
+                                            inputProps={{min: 0, max: 99}}
+                                            id={"gestational-age"}
+                                            endAdornment={<InputAdornment position="end">Sem</InputAdornment>}
+                                            disabled={disabled}
+                                            fullWidth
+                                        />
+                                    </div>
+                                    <div>
+                                        <InputLabel itemID={"weight"} shrink>Peso</InputLabel>
+                                        <Input
+                                            value={prebornData.weight}
+                                            onChange={event => {
+                                                if (event.target.value >= 0 && event.target.value <= 9999) onChange(Number.parseInt(event.target.value), "weight")
+                                            }}
+                                            type={"number"}
+                                            inputProps={{min: 0, max: 9999}}
+                                            id={"weight"}
+                                            endAdornment={<InputAdornment position="end">g</InputAdornment>}
+                                            disabled={disabled}
+                                            fullWidth
+                                        />
+                                    </div>
+                                    <div>
+                                        <InputLabel itemID={"height"} shrink>Talla</InputLabel>
+                                        <Input
+                                            value={prebornData.height}
+                                            onChange={event => {
+                                                if (event.target.value >= 0 && event.target.value <= 999) onChange(Number.parseInt(event.target.value), "height")
+                                            }}
+                                            type={"number"}
+                                            inputProps={{min: 0, max: 999}}
+                                            id={"height"}
+                                            endAdornment={<InputAdornment position="end">cm</InputAdornment>}
+                                            disabled={disabled}
+                                            fullWidth
+                                        />
+                                    </div>
+                                    <div>
+                                        <InputLabel itemID={"perimeter"} shrink>Perim. cefálico</InputLabel>
+                                        <Input
+                                            value={prebornData.perimeter}
+                                            onChange={event => {
+                                                if (event.target.value >= 0 && event.target.value <= 999) onChange(Number.parseInt(event.target.value), "perimeter")
+                                            }}
+                                            type={"number"}
+                                            inputProps={{min: 0, max: 999}}
+                                            id={"perimeter"}
+                                            endAdornment={<InputAdornment position="end">cm</InputAdornment>}
+                                            disabled={disabled}
+                                            fullWidth
+                                        />
+                                    </div>
                                 </div>
                                 <div className={"preborn-apgar-body"}>
-                                    <div>
+                                    <div className={"preborn-apgar-element"}>
                                         <span className={"preborn-accordion-body-title"}>Apgar 1'</span>
                                         <ButtonGroup color={"secondary"}>
                                             <Button disabled={disabled}
@@ -343,7 +408,7 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled}) => {
                                                     onClick={() => onChange(2, "apgar1Score")}>2</Button>
                                         </ButtonGroup>
                                     </div>
-                                    <div>
+                                    <div className={"preborn-apgar-element"}>
                                         <span className={"preborn-accordion-body-title"}>Apgar 5'</span>
                                         <ButtonGroup color={"secondary"}>
                                             <Button disabled={disabled}
@@ -524,6 +589,20 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled}) => {
                                         <FormControlLabel value={false} control={<Radio/>} label="No"
                                                           disabled={disabled}/>
                                     </RadioGroup>
+                                    {prebornData.endocrineMetabolicFEI && <>
+                                        <InputLabel itemID={"gestational-age"} shrink>N° de determinaciones</InputLabel>
+                                        <Input
+                                            value={prebornData.ammountOfDeterminations}
+                                            onChange={event => {
+                                                if (event.target.value >= 0 && event.target.value <= 99) onChange(Number.parseInt(event.target.value), "ammountOfDeterminations")
+                                            }}
+                                            type={"number"}
+                                            inputProps={{min: 0, max: 99}}
+                                            id={"gestational-age"}
+                                            disabled={disabled}
+                                            fullWidth
+                                        />
+                                    </>}
                                 </div>
                                 <div>
                                     <span className={"preborn-accordion-body-title"}>Auditiva (OEA)</span>

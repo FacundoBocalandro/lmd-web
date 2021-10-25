@@ -9,7 +9,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getPrebornData: () => dispatch(actions.preborn.getPrebornData.request()),
-    setPrebornData: (prebornData) => dispatch(actions.preborn.setPrebornData.request(prebornData))
+    setPrebornData: (prebornData) => dispatch(actions.preborn.setPrebornData.request(prebornData)),
+    exportPrebornData: (callback) => dispatch(actions.preborn.exportPrebornData.request(callback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Preborn);
