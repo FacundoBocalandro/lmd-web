@@ -7,6 +7,7 @@ import notesMiddleware from "./notes/notes.middleware";
 import readingsMiddleware from "./readings/readings.middleware";
 import relationshipsMiddleware from "./relationships/relationships.middleware";
 import prebornMiddleware from "./preborn/preborn.middleware";
+import notificationsMiddleware from "./notifications/notifications.middleware";
 
 
 const store = createStore(
@@ -19,7 +20,8 @@ const store = createStore(
         notesMiddleware,
         readingsMiddleware,
         relationshipsMiddleware,
-        prebornMiddleware
+        prebornMiddleware,
+        notificationsMiddleware
     ))
 )
 

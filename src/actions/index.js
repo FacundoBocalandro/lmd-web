@@ -5,6 +5,7 @@ import notesActions from "../notes/notes.actions";
 import readingsActions from "../readings/readings.actions";
 import relationshipsActions from "../relationships/relationships.actions";
 import prebornActions from "../preborn/preborn.actions";
+import notificationsActions from "../notifications/notifications.actions";
 
 const actions = {
     session: sessionActions,
@@ -13,6 +14,7 @@ const actions = {
     notes: notesActions,
     readings: readingsActions,
     relationships: relationshipsActions,
+    notifications: notificationsActions,
     preborn: prebornActions
 }
 
