@@ -1,0 +1,96 @@
+.preborn-screen {
+    padding-top: 20px;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    overflow: hidden;
+}
+
+.preborn-screen-body {
+    padding: 0 40px;
+    overflow: auto;
+}
+
+.preborn-accordion-summary {
+    background: var(--blue) !important;
+}
+
+.preborn-accordion-summary-text {
+    font-size: 20px;
+    color: white;
+}
+
+.preborn-accordion-icon {
+    color: white;
+}
+
+.preborn-accordion-body {
+    display: grid;
+    width: 100%;
+}
+
+.preborn-pregnancy {
+    grid-template-columns: 1fr 1fr 2fr;
+}
+
+.preborn-birth {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-row-gap: 20px;
+}
+
+.preborn-puerperium {
+    grid-template-columns: 1fr 3fr;
+}
+
+.preborn-measurements {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 40px;
+}
+
+.preborn-diagnosis {
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 20px;
+}
+
+.preborn-searches {
+    grid-template-columns: 1fr 1fr 1fr 2fr;
+}
+
+.preborn-accordion-body-title {
+    font-weight: bold;
+}
+
+.serology-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.serology-option {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    align-items: center;
+    grid-gap: 10px;
+}
+
+.birth-observations-field {
+    grid-column: 2 / span 3;
+}
+
+.preborn-selected-button {
+    border-color: #f50057 !important;
+    background: #f50057 !important;
+    color: white !important;
+}
+
+.preborn-apgar-body {
+    display: flex;
+    gap: 5px;
+}
+
+.preborn-studies-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+

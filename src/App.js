@@ -13,6 +13,7 @@ import {connect} from "react-redux";
 import {USER_ROLES} from "./constants/roles";
 import DoctorsScreen from "./relationships/containers/RelationshipsScreen";
 import AdminHome from "./home/containers/AdminHome";
+import Preborn from "./preborn/containers/Preborn";
 
 function App({userRole}) {
     return (
@@ -26,10 +27,12 @@ function App({userRole}) {
                         {userRole === USER_ROLES.DOCTOR && <>
                             <PrivateRoute exact path={`${url}`} component={DoctorsScreen}/>
                             <PrivateRoute exact path={`${url}/datos`} component={Home}/>
+                            <PrivateRoute exact path={`${url}/perinatal`} component={Preborn}/>
                         </>}
                         {userRole === USER_ROLES.ADMIN && <PrivateRoute exact path={`${url}`} component={AdminHome}/>}
                         {userRole === USER_ROLES.PATIENT && <>
                             <PrivateRoute exact path={`${url}`} component={Home}/>
+                            <PrivateRoute exact path={`${url}/perinatal`} component={Preborn}/>
                             <PrivateRoute exact path={`${url}/lecturas`} component={Readings}/>
                             <PrivateRoute exact path={`${url}/notas`} component={Notes}/>
                             <PrivateRoute exact path={`${url}/pediatras`} component={DoctorsScreen}/>
