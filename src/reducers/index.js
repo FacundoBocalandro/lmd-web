@@ -7,6 +7,7 @@ import notesReducer from "../notes/notes.reducer";
 import readingsReducer from "../readings/readings.reducer";
 import relationshipsReducer from "../relationships/relationships.reducer";
 import notificationsReducer from "../notifications/notifications.reducer";
+import prebornReducer from "../preborn/preborn.reducer";
 
 const appReducer = combineReducers({
     session: sessionReducer,
@@ -15,6 +16,7 @@ const appReducer = combineReducers({
     notes: notesReducer,
     readings: readingsReducer,
     relationships: relationshipsReducer,
+    preborn: prebornReducer,
     notifications: notificationsReducer
 })
 
