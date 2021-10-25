@@ -9,15 +9,20 @@ import toast, { Toaster } from 'react-hot-toast';
 import {USER_ROLES} from "../../../constants/roles";
 import {faCircle} from "@fortawesome/free-regular-svg-icons";
 
-const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRowId, submitNewVaccination, userRole}) => {
+const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRowId, submitNewVaccination, userRole, updateVaccination, deleteVaccination}) => {
 
     const [modalInfo, setModalInfo] = useState({open: false})
     const [appliedDateError, setAppliedDateError] = useState(false);
+    const [deleteDosageModal, setDeleteDosageModal] = useState({open: false});
 
     const appliedDosagesIds = userVaccines.filter(vaccinationInfo => vaccinationInfo.hasBeenApplied).map(vaccinationInfo => vaccinationInfo.dosageDto.id);
 
     const canApplyDose = (dosageId, vaccineDosages, dosageIndex) => {
         return userRole === USER_ROLES.DOCTOR && !hasBeenApplied(dosageId) && (dosageIndex === 0 || hasBeenApplied(vaccineDosages[dosageIndex - 1].id));
+    }
+
+    const isDoctor = () => {
+        return userRole === USER_ROLES.DOCTOR
     }
 
     const hasBeenApplied = (id) => {
@@ -47,8 +52,16 @@ const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRow
         toast.success("Vacunación registrada exitosamente")
     }
 
+    const successUpdateCallback = () => {
+        toast.success("Vacunación modificada exitosamente")
+    }
+
+    const successDeleteCallback = () => {
+        toast.success("Vacunación eliminada exitosamente")
+    }
+
     const errorCallback = () => {
-        toast.error("Error registrando la vacunación")
+        toast.error("Hubo un error en la operación")
     }
 
     const saveVaccinationInfo = () => {
@@ -60,9 +73,45 @@ const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRow
         }
     }
 
+    const updateVaccineDate = () => {
+        if (dateIsValid(modalInfo.vaccinationInfo.appliedDate) && isOnOrBeforeToday(modalInfo.vaccinationInfo.appliedDate)) {
+            updateVaccination(modalInfo.vaccinationInfo.id, {appliedDate: modalInfo.vaccinationInfo.appliedDate, doctorId: modalInfo.vaccinationInfo.responsibleDoctor.id}, successUpdateCallback(), errorCallback)
+            closeModal();
+        } else {
+            setAppliedDateError(true)
+        }
+    }
+
+    const deleteVaccineApplication = () => {
+        deleteVaccination(modalInfo.vaccinationInfo.id, successDeleteCallback(), errorCallback)
+        closeDeleteModal();
+    }
+
+    const openDeleteModal = () => {
+        setModalInfo({...modalInfo, open: false})
+        setDeleteDosageModal({open: true});
+    }
+
+    const closeDeleteModal = () => {
+        closeModal();
+        setDeleteDosageModal({open: false});
+    }
+
     return userVaccines ? (
         <div className={"vaccines-table"}>
             <Toaster/>
+            {deleteDosageModal.open && <Modal isOpen={true} onRequestClose={closeDeleteModal} style={{
+                overlay: {
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }, content: {width: 'fit-content', height: 'fit-content', inset: 'auto'}
+            }}>
+                <div>
+                    <span className={"note-delete-text"}>¿Está seguro que desea eliminar la dosis {modalInfo.dosageNumber} de la vacuna {modalInfo.vaccineName}?</span>
+                    <button className={'submit-button note-delete-button delete-button'} style={{margin: 'auto', marginTop: '10px'}} onClick={deleteVaccineApplication}>Eliminar</button>
+                </div>
+            </Modal>}
             {modalInfo.open && <Modal isOpen={true} onRequestClose={closeModal} style={{
                 overlay: {
                     display: 'flex',
@@ -74,11 +123,18 @@ const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRow
                     <div className={"new-vaccination-modal-title"}>Vacuna: {modalInfo.vaccineName}</div>
                     <div className={"new-vaccination-modal-subtitle"}>Dosis {modalInfo.dosageNumber}</div>
                     <DateInput date={modalInfo.vaccinationInfo.appliedDate} onChange={changeAppliedDate}
-                               disabled={modalInfo.hasBeenApplied}
-                               className={appliedDateError ? 'input input-error' : 'input'} label={"Fecha de vacunación"}/>
+                               disabled={modalInfo.hasBeenApplied && !isDoctor()}
+                               className={appliedDateError ? 'input input-error' : 'input'}
+                               label={"Fecha de vacunación"}/>
                     <div className={"new-vaccination-button-container"}>
-                        {!modalInfo.hasBeenApplied && <button className={'submit-button'} onClick={saveVaccinationInfo}>Guardar</button>}
-                        {modalInfo.hasBeenApplied && <span className={"new-vaccination-modal-subtitle"}>Pediatra responsable: {modalInfo.vaccinationInfo.responsibleDoctor.firstName} {modalInfo.vaccinationInfo.responsibleDoctor.lastName}</span>}
+                        {modalInfo.hasBeenApplied && <span className={"new-vaccination-modal-subtitle container-data"}>Pediatra responsable: {modalInfo.vaccinationInfo.responsibleDoctor.firstName} {modalInfo.vaccinationInfo.responsibleDoctor.lastName}</span>}
+                        {isDoctor() && !modalInfo.hasBeenApplied &&
+                        <button className={'submit-button container-data'} onClick={saveVaccinationInfo}>Guardar</button>}
+                        {isDoctor() && modalInfo.hasBeenApplied &&
+                        <button className={'submit-button container-data'} onClick={updateVaccineDate}>Guardar</button>}
+                        {isDoctor() && modalInfo.hasBeenApplied &&
+                        <button className={'delete-button submit-button container-data'} onClick={openDeleteModal}>Eliminar</button>}
+
                     </div>
                 </div>
             </Modal>}
