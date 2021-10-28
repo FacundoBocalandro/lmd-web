@@ -42,7 +42,7 @@ const vaccinesMiddleware = ({dispatch, getState}) => next => action => {
                 .catch(err => dispatch(actions.vaccines.getVaccineDetails.error(err)));
             break;
         case UPDATE_VACCINATION_REQUEST:
-            services.updateVaccination(action.id, action.vaccinationInfo)
+            services.updateVaccination(action.id, action.vaccinationInfo, getSelectedPatient())
                 .then(res => {
                     if (action.callback) action.callback();
                     dispatch(actions.vaccines.updateVaccination.response(res))
@@ -54,7 +54,7 @@ const vaccinesMiddleware = ({dispatch, getState}) => next => action => {
                 });
             break;
         case DELETE_VACCINATION_REQUEST:
-            services.deleteVaccination(action.id)
+            services.deleteVaccination(action.id, getSelectedPatient())
                 .then(res => {
                     if (action.callback) action.callback();
                     dispatch(actions.vaccines.deleteVaccination.response(res))
