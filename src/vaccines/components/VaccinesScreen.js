@@ -5,8 +5,11 @@ import VaccineDetails from "../containers/VaccineDetails";
 import {USER_ROLES} from "../../constants/roles";
 import {getSelectedPatient} from "../../utils/tokens";
 import NoPatientScreen from "../../common/components/no-patient/NoPatientScreen";
+import {Button} from "@material-ui/core";
+import GetAppIcon from "@material-ui/icons/GetApp";
+import {jsPDF} from "jspdf";
 
-const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVaccines, userRole}) => {
+const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVaccines, userRole, exportVaccines}) => {
     const [selectedRowId, setSelectedRowId] = useState(null);
 
     useEffect(() => {
@@ -16,6 +19,12 @@ const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVacci
 
         // eslint-disable-next-line
     }, [])
+
+    const exportCallback = (body) => {
+        const doc = new jsPDF()
+        doc.text(body, 10, 10)
+        doc.save('vacunas.pdf');
+    }
 
     /**
      * If page should be rendered or not:
@@ -34,6 +43,17 @@ const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVacci
                                selectedRowId={selectedRowId}/>
             </div>
             <div className={"vaccines-screen-right-panel"}>
+                <div className={"export-div"}>
+                    <Button
+                        variant="contained"
+                        color="default"
+                        startIcon={<GetAppIcon />}
+                        className={"export-button"}
+                        onClick={() => exportVaccines(exportCallback)}
+                    >
+                        Exportar vacunas
+                    </Button>
+                </div>
                 <VaccineDetails selectedRowId={selectedRowId}/>
             </div>
         </div>

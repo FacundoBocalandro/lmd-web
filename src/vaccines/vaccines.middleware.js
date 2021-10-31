@@ -1,4 +1,5 @@
 import {
+    EXPORT_VACCINES_DATA_REQUEST,
     GET_ALL_VACCINES_REQUEST,
     GET_USER_VACCINES_REQUEST,
     GET_VACCINE_DETAILS_REQUEST,
@@ -13,7 +14,7 @@ const vaccinesMiddleware = ({dispatch, getState}) => next => action => {
 
     switch (action.type) {
         case GET_ALL_VACCINES_REQUEST:
-            services.getAllVaccines()
+            services.getAllVaccines(getSelectedPatient() ? getSelectedPatient() : "")
                 .then(res => dispatch(actions.vaccines.getAllVaccines.response(res.vaccines)))
                 .catch(err => dispatch(actions.vaccines.getAllVaccines.error(err)));
             break;
@@ -38,6 +39,18 @@ const vaccinesMiddleware = ({dispatch, getState}) => next => action => {
             services.getVaccineDetails(action.id)
                 .then(res => dispatch(actions.vaccines.getVaccineDetails.response(res)))
                 .catch(err => dispatch(actions.vaccines.getVaccineDetails.error(err)));
+            break;
+        case EXPORT_VACCINES_DATA_REQUEST:
+            console.log("id");
+            console.log(getSelectedPatient())
+            services.exportVaccines(getSelectedPatient())
+                .then(res => {
+                    if (action.callback) action.callback(res.body);
+                    dispatch(actions.vaccines.exportVaccines.response(res));
+                })
+                .catch(err => {
+                    dispatch(actions.vaccines.exportVaccines.error(err))
+                });
             break;
         default:
             break;

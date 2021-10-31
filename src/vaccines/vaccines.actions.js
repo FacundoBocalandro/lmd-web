@@ -10,6 +10,9 @@ export const SUBMIT_NEW_VACCINATION_ERROR = "SUBMIT_NEW_VACCINATION_ERROR";
 export const GET_VACCINE_DETAILS_REQUEST = "GET_VACCINE_DETAILS_REQUEST";
 export const GET_VACCINE_DETAILS_RESPONSE = "GET_VACCINE_DETAILS_RESPONSE";
 export const GET_VACCINE_DETAILS_ERROR = "GET_VACCINE_DETAILS_ERROR";
+export const EXPORT_VACCINES_DATA_REQUEST = "EXPORT_VACCINES_DATA_REQUEST";
+export const EXPORT_VACCINES_DATA_RESPONSE = "EXPORT_VACCINES_DATA_RESPONSE";
+export const EXPORT_VACCINES_DATA_ERROR = "EXPORT_VACCINES_DATA_ERROR";
 
 const vaccinesActions = {
     getAllVaccines: {
@@ -31,6 +34,11 @@ const vaccinesActions = {
         request: (id) => ({type: GET_VACCINE_DETAILS_REQUEST, id}),
         response: (res) => ({type: GET_VACCINE_DETAILS_RESPONSE, res}),
         error: (err) => ({type: GET_VACCINE_DETAILS_ERROR, err})
+    },
+    exportVaccines: {
+        request: (callback) => ({type: EXPORT_VACCINES_DATA_REQUEST, callback}),
+        response: (res) => ({type: EXPORT_VACCINES_DATA_RESPONSE, res}),
+        error: (err) => ({type: EXPORT_VACCINES_DATA_ERROR, err}),
     }
 }
 

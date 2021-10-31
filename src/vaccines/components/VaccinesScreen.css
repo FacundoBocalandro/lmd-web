@@ -16,3 +16,12 @@
     height: 100%;
     overflow: hidden;
 }
+
+.export-div {
+    padding: 10px 40px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    background: var(--grey);
+}
