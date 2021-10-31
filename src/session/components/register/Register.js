@@ -6,7 +6,7 @@ import NumberInput from "../../../common/components/inputs/NumberInput";
 import {GENDERS} from "../../../constants/PersonalData";
 import DateInput from "../../../common/components/inputs/DateInput";
 import {dateIsValid} from "../../../utils/dates";
-import {Card, Fade, FormControlLabel, Switch} from "@material-ui/core";
+import {Card} from "@material-ui/core";
 
 const Register = ({
                     registerUser,
@@ -18,11 +18,6 @@ const Register = ({
 
   const history = useHistory();
 
-  const [checked, setChecked] = React.useState(false);
-
-  const handleChange = () => {
-    setChecked((prev) => !prev);
-  };
 
   const [form, setForm] = useState({
     firstName: "",
