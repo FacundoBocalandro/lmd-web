@@ -107,7 +107,7 @@ text {
 }
 
 .cancel-button {
-    background: var(--primary);
+    background: #D11A2A;
 }
 
 .submit-button:hover, .cancel-button:hover {
