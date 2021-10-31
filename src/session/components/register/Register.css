@@ -3,6 +3,16 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
+    background-image: url("https://saludybienestar.com.ar/wp-content/uploads/2020/09/foto-hospital-austral-v2.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.register-card {
+    border-radius: 10px;
+    box-shadow: 10px 4px 36px 0px rgba(0,0,0,0.58);
+    -webkit-box-shadow: 10px 4px 36px 0px rgba(0,0,0,0.58);
+    -moz-box-shadow: 10px 4px 36px 0px rgba(0,0,0,0.58);
 }
 
 .register-header-container{

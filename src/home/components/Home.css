@@ -47,12 +47,12 @@
 }
 
 .home-screen-tab {
+    margin: 10px;
     font-size: 22px;
     padding: 10px 25px;
     text-align: center;
     height: 50px;
     width: 250px;
-    margin-top: 10px;
     border-radius: 10px;
     background-color: var(--blue);
     color: white;
