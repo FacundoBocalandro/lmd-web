@@ -13,23 +13,23 @@
 }
 
 .home-avatar-container {
-    padding: 40px;
+    padding: 30px;
     border-radius: 50%;
     border: 1px solid var(--blue);
 }
 
 .home-avatar {
-    font-size: 100px;
+    font-size: 50px;
     color: var(--blue);
 }
 
 .home-name {
-    font-size: 52px;
+    font-size: 30px;
     text-align: center;
 }
 
 .home-age-and-id {
-    font-size: 36px;
+    font-size: 25px;
     text-align: center;
 }
 
@@ -48,7 +48,7 @@
 
 .home-screen-tab {
     margin: 10px;
-    font-size: 22px;
+    font-size: 18px;
     padding: 10px 25px;
     text-align: center;
     height: 50px;

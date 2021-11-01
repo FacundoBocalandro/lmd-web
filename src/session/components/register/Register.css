@@ -31,7 +31,7 @@
 .register-input-container {
     display: flex;
     flex-direction: column;
-    padding: 25px;
+    padding: 20px;
 }
 
 .register-gender-container {
