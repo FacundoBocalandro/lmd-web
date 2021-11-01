@@ -75,7 +75,7 @@ const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRow
 
     const updateVaccineDate = () => {
         if (dateIsValid(modalInfo.vaccinationInfo.appliedDate) && isOnOrBeforeToday(modalInfo.vaccinationInfo.appliedDate)) {
-            updateVaccination(modalInfo.vaccinationInfo.id, {appliedDate: modalInfo.vaccinationInfo.appliedDate, doctorId: modalInfo.vaccinationInfo.responsibleDoctor.id}, successUpdateCallback(), errorCallback)
+            updateVaccination(modalInfo.vaccinationInfo.id, {appliedDate: modalInfo.vaccinationInfo.appliedDate, doctorId: modalInfo.vaccinationInfo.responsibleDoctor.id}, successUpdateCallback, errorCallback)
             closeModal();
         } else {
             setAppliedDateError(true)
@@ -83,7 +83,7 @@ const VaccinesTable = ({allVaccines, userVaccines, selectedRowId, setSelectedRow
     }
 
     const deleteVaccineApplication = () => {
-        deleteVaccination(modalInfo.vaccinationInfo.id, successDeleteCallback(), errorCallback)
+        deleteVaccination(modalInfo.vaccinationInfo.id, successDeleteCallback, errorCallback)
         closeDeleteModal();
     }
 
