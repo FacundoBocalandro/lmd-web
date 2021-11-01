@@ -13,6 +13,12 @@ export const GET_VACCINE_DETAILS_ERROR = "GET_VACCINE_DETAILS_ERROR";
 export const EXPORT_VACCINES_DATA_REQUEST = "EXPORT_VACCINES_DATA_REQUEST";
 export const EXPORT_VACCINES_DATA_RESPONSE = "EXPORT_VACCINES_DATA_RESPONSE";
 export const EXPORT_VACCINES_DATA_ERROR = "EXPORT_VACCINES_DATA_ERROR";
+export const UPDATE_VACCINATION_REQUEST = "UPDATE_VACCINATION_REQUEST";
+export const UPDATE_VACCINATION_RESPONSE = "UPDATE_VACCINATION_RESPONSE";
+export const UPDATE_VACCINATION_ERROR = "UPDATE_VACCINATION_ERROR";
+export const DELETE_VACCINATION_REQUEST = "DELETE_VACCINATION_REQUEST";
+export const DELETE_VACCINATION_RESPONSE = "DELETE_VACCINATION_RESPONSE";
+export const DELETE_VACCINATION_ERROR = "DELETE_VACCINATION_ERROR";
 
 const vaccinesActions = {
     getAllVaccines: {
@@ -29,6 +35,16 @@ const vaccinesActions = {
         request: (vaccinationInfo, callback, errorCallback) => ({type: SUBMIT_NEW_VACCINATION_REQUEST, vaccinationInfo, callback, errorCallback}),
         response: (res) => ({type: SUBMIT_NEW_VACCINATION_RESPONSE, res}),
         error: (err) => ({type: SUBMIT_NEW_VACCINATION_ERROR, err})
+    },
+    updateVaccination: {
+        request: (id, vaccinationInfo, callback, errorCallback) => ({type: UPDATE_VACCINATION_REQUEST, id, vaccinationInfo, callback, errorCallback}),
+        response: (res) => ({type: UPDATE_VACCINATION_RESPONSE, res}),
+        error: (err) => ({type: UPDATE_VACCINATION_ERROR, err})
+    },
+    deleteVaccination: {
+        request: (id, callback, errorCallback) => ({type: DELETE_VACCINATION_REQUEST, id, callback, errorCallback}),
+        response: (res) => ({type: DELETE_VACCINATION_RESPONSE, res}),
+        error: (err) => ({type: DELETE_VACCINATION_ERROR, err})
     },
     getVaccineDetails: {
         request: (id) => ({type: GET_VACCINE_DETAILS_REQUEST, id}),
