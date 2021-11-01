@@ -42,7 +42,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 100px;
+    margin-top: 75px;
     padding-right: 20px;
 }
 
@@ -78,4 +78,14 @@
     flex: 1;
     display: flex;
     justify-content: center;
+}
+
+.home-screen-right-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.growth-export-button {
+    margin-top: 10px !important;
 }

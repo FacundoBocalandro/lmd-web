@@ -31,6 +31,9 @@ export const CREATE_NEW_PERIMETER_RECORD_ERROR = "CREATE_NEW_PERIMETER_RECORD_ER
 export const CREATE_NEW_HEIGHT_RECORD_REQUEST = "CREATE_NEW_HEIGHT_RECORD_REQUEST";
 export const CREATE_NEW_HEIGHT_RECORD_RESPONSE = "CREATE_NEW_HEIGHT_RECORD_RESPONSE";
 export const CREATE_NEW_HEIGHT_RECORD_ERROR = "CREATE_NEW_HEIGHT_RECORD_ERROR";
+export const EXPORT_GROWTH_DATA_REQUEST = "EXPORT_GROWTH_DATA_REQUEST";
+export const EXPORT_GROWTH_DATA_RESPONSE = "EXPORT_GROWTH_DATA_RESPONSE";
+export const EXPORT_GROWTH_DATA_ERROR = "EXPORT_GROWTH_DATA_ERROR";
 
 const homeActions = {
     /**
@@ -125,6 +128,11 @@ const homeActions = {
         response: (res) => ({type: CREATE_NEW_HEIGHT_RECORD_RESPONSE, res}),
         error: (err) => ({type: CREATE_NEW_HEIGHT_RECORD_ERROR, err}),
     },
+    exportGrowthData: {
+        request: (callback) => ({type: EXPORT_GROWTH_DATA_REQUEST, callback}),
+        response: (res) => ({type: EXPORT_GROWTH_DATA_RESPONSE, res}),
+        error: (err) => ({type: EXPORT_GROWTH_DATA_ERROR, err}),
+    }
 }
 
 export default homeActions;

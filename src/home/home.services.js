@@ -12,4 +12,5 @@ export const services = {
     createNewWeightRecord: (weight, timeRecorded, patientId) => post('data/weight/create', {weight, timeRecorded, patientId}),
     createNewPerimeterRecord: (perimeter, timeRecorded, patientId) => post('data/perimeter/create', {perimeter, timeRecorded, patientId}),
     createNewHeightRecord: (height, timeRecorded, patientId) => post('data/height/create', {height, timeRecorded, patientId}),
+    exportGrowthData: (patientId) => get('export/data', {options: {params: {patientId}}}),
 }

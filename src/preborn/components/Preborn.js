@@ -69,8 +69,8 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
     const exportCallback = (body) => {
         const doc = new jsPDF()
 
-        doc.text(body, 10, 10)
-        doc.save('perinatal.pdf');
+        doc.text(doc.splitTextToSize(body, 180), 10, 10);
+        doc.save(`perinatal-${new Date().toISOString()}.pdf`);
     }
 
     return (

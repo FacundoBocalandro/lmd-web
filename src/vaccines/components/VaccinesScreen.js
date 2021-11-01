@@ -22,8 +22,8 @@ const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVacci
 
     const exportCallback = (body) => {
         const doc = new jsPDF()
-        doc.text(body, 10, 10)
-        doc.save('vacunas.pdf');
+        doc.text(doc.splitTextToSize(body, 180), 10, 10);
+        doc.save(`vacunas-${new Date().toISOString()}.pdf`);
     }
 
     /**
