@@ -1,7 +1,7 @@
 import {GET_READING_CATEGORIES_RESPONSE} from "./readings.actions";
 
 const initialState = {
-    categories: []
+    categories: [],
 }
 
 const readingsReducer = (state = initialState, action) => {

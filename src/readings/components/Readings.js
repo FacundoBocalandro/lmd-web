@@ -72,7 +72,7 @@ const SelectedCategoryBody = ({selectedCategory, getReadingsByCategory, searchFi
             {readings.filter(reading => reading.title.toLowerCase().includes(searchFilter.toLowerCase())).map((reading, index) => (
                 <div className={"reading-card-container"}>
                     <div className={"reading-card"} onClick={() => setSelectedReading(reading)}>
-                        <img src={index % 2 === 0 ? "/images/diet.jpeg" : "/images/vaccine.jpeg"}
+                        <img src={reading.imgUrl}
                              className={"reading-card-image"} alt={"reading"}/>
                         <div className={"reading-card-header"}><span>{reading.title}</span></div>
                     </div>

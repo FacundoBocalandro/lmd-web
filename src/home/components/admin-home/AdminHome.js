@@ -7,11 +7,14 @@ import TextInput from "../../../common/components/inputs/TextInput";
 import richUtils from "../../../utils/richUtils";
 import Autocomplete from "../../../common/components/inputs/Autocomplete";
 import toast, {Toaster} from "react-hot-toast";
+import AttachFile from "@material-ui/icons/AttachFile";
+import {Button} from "@material-ui/core";
+import Close from "@material-ui/icons/Close";
 
 const ADD_READING = "ADD_READING";
 const GLOBAL_NOTIFICATION = "GLOBAL_NOTIFICATION";
 
-const AdminHome = ({getReadingCategories, readingCategories, addReading, sendNotification}) => {
+const AdminHome = ({getReadingCategories, readingCategories, addReading, sendNotification, uploadImage}) => {
     const [modalInfo, setModalInfo] = useState({});
 
     const openAddReadingModal = () => {
@@ -29,6 +32,7 @@ const AdminHome = ({getReadingCategories, readingCategories, addReading, sendNot
             case ADD_READING:
                 return <AddReadingModalBody getReadingCategories={getReadingCategories}
                                             readingCategories={readingCategories} addReading={addReading}
+                                            uploadImage={uploadImage}
                                             setModalInfo={setModalInfo}/>
             case GLOBAL_NOTIFICATION:
                 return <GlobalNotificationModalBody setModalInfo={setModalInfo} sendNotification={sendNotification}/>
@@ -94,7 +98,7 @@ const GlobalNotificationModalBody = ({sendNotification, setModalInfo}) => {
     )
 }
 
-const AddReadingModalBody = ({getReadingCategories, readingCategories, addReading, setModalInfo}) => {
+const AddReadingModalBody = ({getReadingCategories, readingCategories, addReading, setModalInfo, uploadImage}) => {
     useEffect(() => {
         getReadingCategories();
 
@@ -105,8 +109,35 @@ const AddReadingModalBody = ({getReadingCategories, readingCategories, addReadin
         title: "",
         body: EditorState.createEmpty(),
         tags: [],
-        category: ""
+        category: "",
+        imgUrl: ""
     })
+
+    const [file, setFile] = useState()
+
+    const saveUploadImage = (event) => {
+        setFile(event.target.files[0]);
+    };
+
+    const handleUpload = () => {
+        if (file) {
+            const fd = new FormData();
+            fd.append("file", file, file.name);
+            uploadImage(fd, fileSuccessCallback, fileErrorCallback);
+        } else handleAddReading("");
+    }
+
+    const handleDeleteImage = () => {
+        setFile(undefined)
+    }
+
+    const fileErrorCallback = () => {
+        toast.error("Error cargando imagen");
+    }
+
+    const fileSuccessCallback = (url) => {
+        handleAddReading(url.link);
+    }
 
     const errorCallback = () => {
         toast.error("Error agregando lectura");
@@ -117,8 +148,12 @@ const AddReadingModalBody = ({getReadingCategories, readingCategories, addReadin
         toast.success("Lectura agregada exitosamente");
     }
 
-    const handleAddReading = () => {
-        addReading({...reading, body: richUtils.parseEditorState(reading.body)}, successCallback, errorCallback)
+    const handleAddReading = (imgUrl) => {
+        addReading({
+            ...reading,
+            body: richUtils.parseEditorState(reading.body),
+            imgUrl: imgUrl
+        }, successCallback, errorCallback)
     }
 
     return (
@@ -126,12 +161,24 @@ const AddReadingModalBody = ({getReadingCategories, readingCategories, addReadin
             <TextInput label={"Titulo"} value={reading.title} onChange={(title) => setReading({...reading, title})}/>
             <RichTextEditor label={"Cuerpo"} editorState={reading.body}
                             setEditorState={body => setReading({...reading, body})}/>
+            <div className={"upload-image-container"}>
+                <Button
+                    color="default"
+                    startIcon={<AttachFile/>}
+                    variant="contained"
+                    component="label"
+                >
+                    {file ? file.name : "Cargar imagen"}
+                    <input accept="image/*" type="file" hidden onChange={saveUploadImage}/>
+                </Button>
+                {file && <Button startIcon={<Close/>} onClick={handleDeleteImage}/>}
+            </div>
             <div className={"add-reading-modal-category"}>
                 <Autocomplete label={"Categoría"} options={readingCategories.map(option => option.name)}
                               value={reading.category}
                               onChange={category => setReading({...reading, category})}/>
             </div>
-            <button onClick={handleAddReading} className={`submit-button`}>Agregar lectura</button>
+            <button onClick={handleUpload} className={`submit-button`}>Agregar lectura</button>
         </div>
     )
 }

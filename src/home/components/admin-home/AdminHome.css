@@ -49,3 +49,11 @@
 .global-notification-modal .input-container {
     margin-top: 20px;
 }
+
+.upload-image-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 20px;
+}
