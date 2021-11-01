@@ -110,6 +110,10 @@ text {
     background: #D11A2A;
 }
 
+.delete-button {
+    background: var(--red);
+}
+
 .submit-button:hover, .cancel-button:hover {
     cursor: pointer;
 }
