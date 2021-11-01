@@ -14,7 +14,7 @@ const vaccinesMiddleware = ({dispatch, getState}) => next => action => {
 
     switch (action.type) {
         case GET_ALL_VACCINES_REQUEST:
-            services.getAllVaccines(getSelectedPatient() ? getSelectedPatient() : "")
+            services.getAllVaccines(getSelectedPatient())
                 .then(res => dispatch(actions.vaccines.getAllVaccines.response(res.vaccines)))
                 .catch(err => dispatch(actions.vaccines.getAllVaccines.error(err)));
             break;
@@ -41,8 +41,6 @@ const vaccinesMiddleware = ({dispatch, getState}) => next => action => {
                 .catch(err => dispatch(actions.vaccines.getVaccineDetails.error(err)));
             break;
         case EXPORT_VACCINES_DATA_REQUEST:
-            console.log("id");
-            console.log(getSelectedPatient())
             services.exportVaccines(getSelectedPatient())
                 .then(res => {
                     if (action.callback) action.callback(res.body);

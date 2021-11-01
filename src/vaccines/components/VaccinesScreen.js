@@ -46,9 +46,8 @@ const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVacci
                 <div className={"export-div"}>
                     <Button
                         variant="contained"
-                        color="default"
                         startIcon={<GetAppIcon />}
-                        className={"export-button"}
+                        className={"export-vaccines-button"}
                         onClick={() => exportVaccines(exportCallback)}
                     >
                         Exportar vacunas
