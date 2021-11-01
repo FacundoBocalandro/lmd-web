@@ -3,7 +3,7 @@ import actions from "../actions";
 import {
     ADD_READING_REQUEST,
     GET_READING_CATEGORIES_REQUEST,
-    GET_READINGS_BY_CATEGORY_REQUEST
+    GET_READINGS_BY_CATEGORY_REQUEST, UPLOAD_IMAGE_REQUEST
 } from "./readings.actions";
 
 const readingsMiddleware = ({dispatch, getState}) => next => action => {
@@ -32,6 +32,17 @@ const readingsMiddleware = ({dispatch, getState}) => next => action => {
                 .catch(err => {
                     if (action.errorCallback) action.errorCallback();
                     dispatch(actions.readings.addReading.error(err));
+                });
+            break;
+        case UPLOAD_IMAGE_REQUEST:
+            services.uploadImage(action.image)
+                .then(res => {
+                    if (action.callback) action.callback(res);
+                    dispatch(actions.readings.uploadImage.response(res));
+                })
+                .catch(err => {
+                    if (action.errorCallback) action.errorCallback();
+                    dispatch(actions.readings.uploadImage.error(err));
                 });
             break;
         default:
