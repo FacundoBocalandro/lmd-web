@@ -67,10 +67,12 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
     }
 
     const exportCallback = (body) => {
-        const doc = new jsPDF()
-
-        doc.text(body, 10, 10)
-        doc.save('perinatal.pdf');
+        navigator.clipboard.writeText(body)
+        //
+        // const doc = new jsPDF()
+        //
+        // doc.text(body, 10, 10)
+        // doc.save('perinatal.pdf');
     }
 
     return (
@@ -93,7 +95,7 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                     className={"preborn-export-button"}
                     onClick={() => exportPrebornData(exportCallback)}
                 >
-                    Exportar
+                    Exportar datos
                 </Button>}
                 {selectedTab === PERINATAL_HISTORY && <div className={"preborn-screen-accordions"}>
                     <Accordion>
@@ -396,31 +398,53 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                 <div className={"preborn-apgar-body"}>
                                     <div className={"preborn-apgar-element"}>
                                         <span className={"preborn-accordion-body-title"}>Apgar 1'</span>
-                                        <ButtonGroup color={"secondary"}>
-                                            <Button disabled={disabled}
-                                                    className={prebornData.apgar1Score === 0 ? "preborn-selected-button" : ""}
-                                                    onClick={() => onChange(0, "apgar1Score")}>0</Button>
-                                            <Button disabled={disabled}
-                                                    className={prebornData.apgar1Score === 1 ? "preborn-selected-button" : ""}
-                                                    onClick={() => onChange(1, "apgar1Score")}>1</Button>
-                                            <Button disabled={disabled}
-                                                    className={prebornData.apgar1Score === 2 ? "preborn-selected-button" : ""}
-                                                    onClick={() => onChange(2, "apgar1Score")}>2</Button>
-                                        </ButtonGroup>
+                                        <Input
+                                            value={prebornData.apgar1Score}
+                                            onChange={event => {
+                                                if (event.target.value >= 0 && event.target.value <= 999) onChange(Number.parseInt(event.target.value), "apgar1Score")
+                                            }}
+                                            type={"number"}
+                                            inputProps={{min: 0, max: 10}}
+                                            id={"apgar1Score"}
+                                            disabled={disabled}
+                                            fullWidth
+                                        />
+                                        {/*<ButtonGroup color={"secondary"}>*/}
+                                        {/*    <Button disabled={disabled}*/}
+                                        {/*            className={prebornData.apgar1Score === 0 ? "preborn-selected-button" : ""}*/}
+                                        {/*            onClick={() => onChange(0, "apgar1Score")}>0</Button>*/}
+                                        {/*    <Button disabled={disabled}*/}
+                                        {/*            className={prebornData.apgar1Score === 1 ? "preborn-selected-button" : ""}*/}
+                                        {/*            onClick={() => onChange(1, "apgar1Score")}>1</Button>*/}
+                                        {/*    <Button disabled={disabled}*/}
+                                        {/*            className={prebornData.apgar1Score === 2 ? "preborn-selected-button" : ""}*/}
+                                        {/*            onClick={() => onChange(2, "apgar1Score")}>2</Button>*/}
+                                        {/*</ButtonGroup>*/}
                                     </div>
                                     <div className={"preborn-apgar-element"}>
                                         <span className={"preborn-accordion-body-title"}>Apgar 5'</span>
-                                        <ButtonGroup color={"secondary"}>
-                                            <Button disabled={disabled}
-                                                    className={prebornData.apgar5Score === 0 ? "preborn-selected-button" : ""}
-                                                    onClick={() => onChange(0, "apgar5Score")}>0</Button>
-                                            <Button disabled={disabled}
-                                                    className={prebornData.apgar5Score === 1 ? "preborn-selected-button" : ""}
-                                                    onClick={() => onChange(1, "apgar5Score")}>1</Button>
-                                            <Button disabled={disabled}
-                                                    className={prebornData.apgar5Score === 2 ? "preborn-selected-button" : ""}
-                                                    onClick={() => onChange(2, "apgar5Score")}>2</Button>
-                                        </ButtonGroup>
+                                        <Input
+                                            value={prebornData.apgar5Score}
+                                            onChange={event => {
+                                                if (event.target.value >= 0 && event.target.value <= 999) onChange(Number.parseInt(event.target.value), "apgar5Score")
+                                            }}
+                                            type={"number"}
+                                            inputProps={{min: 0, max: 10}}
+                                            id={"apgar5Score"}
+                                            disabled={disabled}
+                                            fullWidth
+                                        />
+                                        {/*<ButtonGroup color={"secondary"}>*/}
+                                        {/*    <Button disabled={disabled}*/}
+                                        {/*            className={prebornData.apgar5Score === 0 ? "preborn-selected-button" : ""}*/}
+                                        {/*            onClick={() => onChange(0, "apgar5Score")}>0</Button>*/}
+                                        {/*    <Button disabled={disabled}*/}
+                                        {/*            className={prebornData.apgar5Score === 1 ? "preborn-selected-button" : ""}*/}
+                                        {/*            onClick={() => onChange(1, "apgar5Score")}>1</Button>*/}
+                                        {/*    <Button disabled={disabled}*/}
+                                        {/*            className={prebornData.apgar5Score === 2 ? "preborn-selected-button" : ""}*/}
+                                        {/*            onClick={() => onChange(2, "apgar5Score")}>2</Button>*/}
+                                        {/*</ButtonGroup>*/}
                                     </div>
                                 </div>
                             </div>

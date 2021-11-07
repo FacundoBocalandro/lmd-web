@@ -55,6 +55,9 @@ const RelationshipsScreen = ({
                                               handleAddNewRelationship={handleAddNewRelationship}
                                               searchDoctors={searchDoctors}/>}
         <div className={"relationships-list"}>
+            {!isPatient() && <div className={"relationship-doctor-instructions-text-container"}>
+                Seleccione un paciente de la lista:
+            </div>}
             {relationships && relationships.map(relationship => <UserRow info={relationship}
                                                                          deleteRelationship={deleteRelationship}
                                                                          userId={userInfo.id} isPatient={isPatient()}
