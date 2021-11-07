@@ -21,11 +21,17 @@
     padding: 10px 40px;
     overflow: auto;
     display: flex;
-    flex-direction: column;
+    flex-direction: row-reverse;
     align-items: flex-end;
     background: var(--grey);
 }
 
 .export-vaccines-button {
     background: white !important;
+}
+
+.divider{
+    width:10px;
+    height:auto;
+    display:inline-block;
 }
