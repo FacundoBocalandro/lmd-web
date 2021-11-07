@@ -397,7 +397,8 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                 </div>
                                 <div className={"preborn-apgar-body"}>
                                     <div className={"preborn-apgar-element"}>
-                                        <span className={"preborn-accordion-body-title"}>Apgar 1'</span>
+                                        {/*<span className={"preborn-accordion-body-title"}>Apgar 1'</span>*/}
+                                        <InputLabel itemID={"apgar1Score"} shrink>Apgar 1'</InputLabel>
                                         <Input
                                             value={prebornData.apgar1Score}
                                             onChange={event => {
@@ -422,7 +423,8 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                         {/*</ButtonGroup>*/}
                                     </div>
                                     <div className={"preborn-apgar-element"}>
-                                        <span className={"preborn-accordion-body-title"}>Apgar 5'</span>
+                                        {/*<span className={"preborn-accordion-body-title"}>Apgar 5'</span>*/}
+                                        <InputLabel itemID={"apgar5Score"} shrink>Apgar 5'</InputLabel>
                                         <Input
                                             value={prebornData.apgar5Score}
                                             onChange={event => {
