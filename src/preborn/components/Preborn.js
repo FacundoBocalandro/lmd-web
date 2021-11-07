@@ -394,10 +394,7 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                             fullWidth
                                         />
                                     </div>
-                                </div>
-                                <div className={"preborn-apgar-body"}>
-                                    <div className={"preborn-apgar-element"}>
-                                        {/*<span className={"preborn-accordion-body-title"}>Apgar 1'</span>*/}
+                                    <div>
                                         <InputLabel itemID={"apgar1Score"} shrink>Apgar 1'</InputLabel>
                                         <Input
                                             value={prebornData.apgar1Score}
@@ -410,20 +407,8 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                             disabled={disabled}
                                             fullWidth
                                         />
-                                        {/*<ButtonGroup color={"secondary"}>*/}
-                                        {/*    <Button disabled={disabled}*/}
-                                        {/*            className={prebornData.apgar1Score === 0 ? "preborn-selected-button" : ""}*/}
-                                        {/*            onClick={() => onChange(0, "apgar1Score")}>0</Button>*/}
-                                        {/*    <Button disabled={disabled}*/}
-                                        {/*            className={prebornData.apgar1Score === 1 ? "preborn-selected-button" : ""}*/}
-                                        {/*            onClick={() => onChange(1, "apgar1Score")}>1</Button>*/}
-                                        {/*    <Button disabled={disabled}*/}
-                                        {/*            className={prebornData.apgar1Score === 2 ? "preborn-selected-button" : ""}*/}
-                                        {/*            onClick={() => onChange(2, "apgar1Score")}>2</Button>*/}
-                                        {/*</ButtonGroup>*/}
                                     </div>
-                                    <div className={"preborn-apgar-element"}>
-                                        {/*<span className={"preborn-accordion-body-title"}>Apgar 5'</span>*/}
+                                    <div>
                                         <InputLabel itemID={"apgar5Score"} shrink>Apgar 5'</InputLabel>
                                         <Input
                                             value={prebornData.apgar5Score}
@@ -436,19 +421,10 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                             disabled={disabled}
                                             fullWidth
                                         />
-                                        {/*<ButtonGroup color={"secondary"}>*/}
-                                        {/*    <Button disabled={disabled}*/}
-                                        {/*            className={prebornData.apgar5Score === 0 ? "preborn-selected-button" : ""}*/}
-                                        {/*            onClick={() => onChange(0, "apgar5Score")}>0</Button>*/}
-                                        {/*    <Button disabled={disabled}*/}
-                                        {/*            className={prebornData.apgar5Score === 1 ? "preborn-selected-button" : ""}*/}
-                                        {/*            onClick={() => onChange(1, "apgar5Score")}>1</Button>*/}
-                                        {/*    <Button disabled={disabled}*/}
-                                        {/*            className={prebornData.apgar5Score === 2 ? "preborn-selected-button" : ""}*/}
-                                        {/*            onClick={() => onChange(2, "apgar5Score")}>2</Button>*/}
-                                        {/*</ButtonGroup>*/}
                                     </div>
                                 </div>
+                                {/*<div className={"preborn-apgar-body"}>*/}
+                                {/*</div>*/}
                             </div>
                         </AccordionDetails>
                     </Accordion>
