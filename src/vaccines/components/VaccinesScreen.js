@@ -57,7 +57,7 @@ const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVacci
                         Imprimir libreta
                     </Button>
                     <div className="divider"/>
-                    {(userRole === USER_ROLES.DOCTOR && getSelectedPatient()) && <Button
+                    {userRole === USER_ROLES.DOCTOR && <Button
                         variant="contained"
                         startIcon={<GetAppIcon />}
                         className={"export-vaccines-button"}

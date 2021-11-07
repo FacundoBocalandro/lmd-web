@@ -6,7 +6,7 @@ import NoPatientScreen from "../../common/components/no-patient/NoPatientScreen"
 import {
     Accordion,
     AccordionDetails,
-    AccordionSummary, Button, ButtonGroup, Checkbox,
+    AccordionSummary, Button, Checkbox,
     FormControlLabel, Input, InputAdornment, InputLabel, Radio,
     RadioGroup,
     Tab,
@@ -15,7 +15,6 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import debounce from "lodash.debounce";
 import GetAppIcon from '@material-ui/icons/GetApp';
-import { jsPDF } from "jspdf";
 
 const Preborn = ({userRole, prebornData, getPrebornData, setPrebornData, exportPrebornData}) => {
 
@@ -68,11 +67,6 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
 
     const exportCallback = (body) => {
         navigator.clipboard.writeText(body)
-        //
-        // const doc = new jsPDF()
-        //
-        // doc.text(body, 10, 10)
-        // doc.save('perinatal.pdf');
     }
 
     return (
@@ -399,7 +393,7 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                         <Input
                                             value={prebornData.apgar1Score}
                                             onChange={event => {
-                                                if (event.target.value >= 0 && event.target.value <= 999) onChange(Number.parseInt(event.target.value), "apgar1Score")
+                                                if (event.target.value >= 0 && event.target.value <= 10) onChange(Number.parseInt(event.target.value), "apgar1Score")
                                             }}
                                             type={"number"}
                                             inputProps={{min: 0, max: 10}}
@@ -413,7 +407,7 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                         <Input
                                             value={prebornData.apgar5Score}
                                             onChange={event => {
-                                                if (event.target.value >= 0 && event.target.value <= 999) onChange(Number.parseInt(event.target.value), "apgar5Score")
+                                                if (event.target.value >= 0 && event.target.value <= 10) onChange(Number.parseInt(event.target.value), "apgar5Score")
                                             }}
                                             type={"number"}
                                             inputProps={{min: 0, max: 10}}
@@ -423,8 +417,6 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                         />
                                     </div>
                                 </div>
-                                {/*<div className={"preborn-apgar-body"}>*/}
-                                {/*</div>*/}
                             </div>
                         </AccordionDetails>
                     </Accordion>
