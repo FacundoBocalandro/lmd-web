@@ -26,6 +26,10 @@ const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVacci
         doc.save(`vacunas-${new Date().toISOString()}.pdf`);
     }
 
+    const copyToClipboardtCallback = (body) => {
+        navigator.clipboard.writeText(body)
+    }
+
     /**
      * If page should be rendered or not:
      * In case it's a doctor, a patient should be selected
@@ -50,8 +54,17 @@ const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVacci
                         className={"export-vaccines-button"}
                         onClick={() => exportVaccines(exportCallback)}
                     >
-                        Exportar vacunas
+                        Imprimir libreta
                     </Button>
+                    <div className="divider"/>
+                    {userRole === USER_ROLES.DOCTOR && <Button
+                        variant="contained"
+                        startIcon={<GetAppIcon />}
+                        className={"export-vaccines-button"}
+                        onClick={() => exportVaccines(copyToClipboardtCallback)}
+                    >
+                        Exportar inmunizaciones
+                    </Button> }
                 </div>
                 <VaccineDetails selectedRowId={selectedRowId}/>
             </div>

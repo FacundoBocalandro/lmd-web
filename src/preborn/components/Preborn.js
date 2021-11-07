@@ -6,7 +6,7 @@ import NoPatientScreen from "../../common/components/no-patient/NoPatientScreen"
 import {
     Accordion,
     AccordionDetails,
-    AccordionSummary, Button, ButtonGroup, Checkbox,
+    AccordionSummary, Button, Checkbox,
     FormControlLabel, Input, InputAdornment, InputLabel, Radio,
     RadioGroup,
     Tab,
@@ -15,7 +15,6 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import debounce from "lodash.debounce";
 import GetAppIcon from '@material-ui/icons/GetApp';
-import { jsPDF } from "jspdf";
 
 const Preborn = ({userRole, prebornData, getPrebornData, setPrebornData, exportPrebornData}) => {
 
@@ -67,10 +66,7 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
     }
 
     const exportCallback = (body) => {
-        const doc = new jsPDF()
-
-        doc.text(doc.splitTextToSize(body, 180), 10, 10);
-        doc.save(`perinatal-${new Date().toISOString()}.pdf`);
+        navigator.clipboard.writeText(body)
     }
 
     return (
@@ -93,7 +89,7 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                     className={"preborn-export-button"}
                     onClick={() => exportPrebornData(exportCallback)}
                 >
-                    Exportar
+                    Exportar datos
                 </Button>}
                 {selectedTab === PERINATAL_HISTORY && <div className={"preborn-screen-accordions"}>
                     <Accordion>
@@ -392,35 +388,33 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                             fullWidth
                                         />
                                     </div>
-                                </div>
-                                <div className={"preborn-apgar-body"}>
-                                    <div className={"preborn-apgar-element"}>
-                                        <span className={"preborn-accordion-body-title"}>Apgar 1'</span>
-                                        <ButtonGroup color={"secondary"}>
-                                            <Button disabled={disabled}
-                                                    className={prebornData.apgar1Score === 0 ? "preborn-selected-button" : ""}
-                                                    onClick={() => onChange(0, "apgar1Score")}>0</Button>
-                                            <Button disabled={disabled}
-                                                    className={prebornData.apgar1Score === 1 ? "preborn-selected-button" : ""}
-                                                    onClick={() => onChange(1, "apgar1Score")}>1</Button>
-                                            <Button disabled={disabled}
-                                                    className={prebornData.apgar1Score === 2 ? "preborn-selected-button" : ""}
-                                                    onClick={() => onChange(2, "apgar1Score")}>2</Button>
-                                        </ButtonGroup>
+                                    <div>
+                                        <InputLabel itemID={"apgar1Score"} shrink>Apgar 1'</InputLabel>
+                                        <Input
+                                            value={prebornData.apgar1Score}
+                                            onChange={event => {
+                                                if (event.target.value >= 0 && event.target.value <= 10) onChange(Number.parseInt(event.target.value), "apgar1Score")
+                                            }}
+                                            type={"number"}
+                                            inputProps={{min: 0, max: 10}}
+                                            id={"apgar1Score"}
+                                            disabled={disabled}
+                                            fullWidth
+                                        />
                                     </div>
-                                    <div className={"preborn-apgar-element"}>
-                                        <span className={"preborn-accordion-body-title"}>Apgar 5'</span>
-                                        <ButtonGroup color={"secondary"}>
-                                            <Button disabled={disabled}
-                                                    className={prebornData.apgar5Score === 0 ? "preborn-selected-button" : ""}
-                                                    onClick={() => onChange(0, "apgar5Score")}>0</Button>
-                                            <Button disabled={disabled}
-                                                    className={prebornData.apgar5Score === 1 ? "preborn-selected-button" : ""}
-                                                    onClick={() => onChange(1, "apgar5Score")}>1</Button>
-                                            <Button disabled={disabled}
-                                                    className={prebornData.apgar5Score === 2 ? "preborn-selected-button" : ""}
-                                                    onClick={() => onChange(2, "apgar5Score")}>2</Button>
-                                        </ButtonGroup>
+                                    <div>
+                                        <InputLabel itemID={"apgar5Score"} shrink>Apgar 5'</InputLabel>
+                                        <Input
+                                            value={prebornData.apgar5Score}
+                                            onChange={event => {
+                                                if (event.target.value >= 0 && event.target.value <= 10) onChange(Number.parseInt(event.target.value), "apgar5Score")
+                                            }}
+                                            type={"number"}
+                                            inputProps={{min: 0, max: 10}}
+                                            id={"apgar5Score"}
+                                            disabled={disabled}
+                                            fullWidth
+                                        />
                                     </div>
                                 </div>
                             </div>

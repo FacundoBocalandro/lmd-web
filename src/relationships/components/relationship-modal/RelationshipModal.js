@@ -27,9 +27,16 @@ const RelationshipModal = ({closeModal, modalInfo, setModalInfo, handleAddNewRel
                             <span className={"doctor-name"}>{doctor.firstName} {doctor.lastName}</span>
                             <span className={"doctor-dni"}>{doctor.dni}</span>
                         </div>
-                        <button className={'submit-button add-relationship-button'}
-                                onClick={handleAddNewRelationship}>Agregar
-                        </button>
+                        <div className={"relationship-modal-buttons-container"}>
+                            <button className={'cancel-button add-relationship-button'}
+                                    onClick={closeModal}>Cancelar
+                            </button>
+                            <div className="divider"/>
+                            <div className="divider"/>
+                            <button className={'submit-button add-relationship-button'}
+                                    onClick={handleAddNewRelationship}>Agregar
+                            </button>
+                        </div>
                     </>
                     : <>
                         <TextInput value={modalInfo.doctorId}

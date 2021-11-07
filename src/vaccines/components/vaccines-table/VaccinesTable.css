@@ -41,7 +41,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .vaccines-table-header .vaccines-table-cell {
@@ -62,12 +62,12 @@
 }
 
 .new-vaccination-modal-title {
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
 }
 
 .new-vaccination-modal-subtitle {
-    font-size: 20px;
+    font-size: 17px;
     font-weight: bold;
 }
 
