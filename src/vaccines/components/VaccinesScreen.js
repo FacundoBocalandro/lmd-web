@@ -102,7 +102,7 @@ const steps = ["Nombre y descripción", "Efectos secundarios", "Dosis"];
 
 const AddVaccineModal = ({setAddVaccineModalOpen, createNewVaccine}) => {
     const [newVaccine, setNewVaccine] = useState({...NEW_VACCINE_INFO})
-    const [activeStep, setActiveStep] = React.useState(3);
+    const [activeStep, setActiveStep] = React.useState(0);
 
     const handleReset = () => {
         setActiveStep(0);
