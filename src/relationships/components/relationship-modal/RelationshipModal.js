@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import TextInput from "../../../common/components/inputs/TextInput";
 import Modal from "react-modal";
+import {MODAL_STYLE} from "../../../constants/modal";
 
 const RelationshipModal = ({closeModal, modalInfo, setModalInfo, handleAddNewRelationship, searchDoctors}) => {
     const [doctor, setDoctor] = useState(null);
@@ -14,13 +15,7 @@ const RelationshipModal = ({closeModal, modalInfo, setModalInfo, handleAddNewRel
     }
 
     return (
-        <Modal isOpen={true} onRequestClose={closeModal} style={{
-            overlay: {
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center'
-            }, content: {width: 'fit-content', height: 'fit-content', inset: 'auto'}
-        }}>
+        <Modal isOpen={true} onRequestClose={closeModal} style={MODAL_STYLE}>
             <div className={"add-relationship-modal"}>
                 {doctor ? <>
                         <div className={"relationship-modal-doctor-info"}>

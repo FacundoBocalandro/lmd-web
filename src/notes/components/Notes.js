@@ -6,6 +6,7 @@ import {faChevronRight, faPlusCircle, faSpinner} from "@fortawesome/free-solid-s
 import {faTimesCircle} from "@fortawesome/free-regular-svg-icons";
 import debounce from "lodash.debounce";
 import Modal from "react-modal";
+import {MODAL_STYLE} from "../../constants/modal";
 
 const Notes = ({
                    allNotes,
@@ -59,13 +60,7 @@ const Notes = ({
 
     return (
         <div className={"notes-screen"}>
-            {modalInfo.open && <Modal isOpen={true} onRequestClose={closeModal} style={{
-                overlay: {
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }, content: {width: 'fit-content', height: 'fit-content', inset: 'auto'}
-            }}>
+            {modalInfo.open && <Modal isOpen={true} onRequestClose={closeModal} style={MODAL_STYLE}>
                 <div>
                     <span className={"note-delete-text"}>¿Está seguro que desea eliminar la nota <b>"{modalInfo.note.title}"</b>?</span>
                     <button className={'submit-button note-delete-button'} onClick={() => handleDeleteNote(modalInfo.note.id)}>Eliminar</button>
