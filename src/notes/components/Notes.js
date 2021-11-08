@@ -1,12 +1,13 @@
 import React, {useCallback, useEffect, useState} from "react";
 import "./Notes.css";
-import SearchInput from "../../common/components/inputs/SearchInput";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronRight, faPlusCircle, faSpinner} from "@fortawesome/free-solid-svg-icons";
 import {faTimesCircle} from "@fortawesome/free-regular-svg-icons";
 import debounce from "lodash.debounce";
 import Modal from "react-modal";
 import {MODAL_STYLE} from "../../constants/modal";
+import {InputAdornment, TextField} from "@material-ui/core";
+import {Search} from "@material-ui/icons";
 
 const Notes = ({
                    allNotes,
@@ -67,7 +68,18 @@ const Notes = ({
                 </div>
             </Modal>}
             <div className={"notes-screen-sidebar"}>
-                <SearchInput onChange={value => setSearchFilter(value)} value={searchFilter}/>
+                <TextField
+                    placeholder="Buscar..."
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Search/>
+                            </InputAdornment>
+                        ),
+                    }}
+                    value={searchFilter}
+                    onChange={e => setSearchFilter(e.target.value)}
+                />
                 <div className={"header-with-plus-icon"}>
                     <span>Notas de consulta</span>
                     <FontAwesomeIcon icon={faPlusCircle} className={"header-add-icon"} onClick={() => createNote(note => setSelectedNoteId(note.id))}/>
