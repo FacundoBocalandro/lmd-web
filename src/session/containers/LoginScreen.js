@@ -1,6 +1,6 @@
-import Login from "../components/login/Login";
 import {connect} from "react-redux";
 import actions from "../../actions";
+import Login from "../components/login/Login";
 
 const mapStateToProps = state => ({
     loginPending: state.session.ui.loginPending,

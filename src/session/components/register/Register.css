@@ -105,9 +105,12 @@
 }
 
 .already-have-account-text {
-    text-decoration: underline;
     color: var(--primary);
     cursor: pointer;
+}
+
+.already-have-account-text:hover {
+    text-decoration: underline;
 }
 
 .matriculation-field-container {
