@@ -23,6 +23,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Modal from "react-modal";
 import {MODAL_STYLE} from "../../constants/modal";
 import {Delete} from "@material-ui/icons";
+import toast, {Toaster} from "react-hot-toast";
 
 const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVaccines, userRole, exportVaccines, createNewVaccine}) => {
     const [selectedRowId, setSelectedRowId] = useState(null);
@@ -42,8 +43,11 @@ const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVacci
         doc.save(`vacunas-${new Date().toISOString()}.pdf`);
     }
 
-    const copyToClipboardtCallback = (body) => {
+    const copyToClipboardCallback = (body) => {
         navigator.clipboard.writeText(body)
+            .then(() => {
+                toast.success("Texto copiado al portapapeles");
+            })
     }
 
     /**
@@ -58,6 +62,7 @@ const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVacci
 
     return shouldRender() ? (
         <div className={"vaccines-screen"}>
+            <Toaster/>
             {addVaccineModalOpen && <AddVaccineModal setAddVaccineModalOpen={setAddVaccineModalOpen} createNewVaccine={createNewVaccine}/>}
             <div className={"vaccines-screen-left-panel"}>
                 <VaccinesTable setSelectedRowId={setSelectedRowId}
@@ -83,7 +88,7 @@ const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVacci
                         variant="contained"
                         color={"secondary"}
                         startIcon={<GetAppIcon />}
-                        onClick={() => exportVaccines(copyToClipboardtCallback)}
+                        onClick={() => exportVaccines(copyToClipboardCallback)}
                     >
                         Exportar inmunizaciones
                     </Button> }

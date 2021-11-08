@@ -13,7 +13,7 @@ import {getSelectedPatient} from "../../utils/tokens";
 import {Button, Tab, Tabs} from "@material-ui/core";
 import {TableChart, Timeline} from "@material-ui/icons";
 import GetAppIcon from "@material-ui/icons/GetApp";
-import {jsPDF} from "jspdf";
+import toast, {Toaster} from "react-hot-toast";
 
 const WEIGHT_TAB = "WEIGHT_TAB";
 const HEIGHT_TAB = "HEIGHT_TAB";
@@ -31,14 +31,16 @@ const Home = ({userInfo, userRole, relationships, exportGrowthData}) => {
      */
     const userInfoToDisplay = userRole === USER_ROLES.PATIENT ? userInfo : relationships.find(user => user.id === getSelectedPatient());
 
-    const exportCallback = (body) => {
-        const doc = new jsPDF()
-        doc.text(doc.splitTextToSize(body, 180), 10, 10);
-        doc.save(`crecimiento-${new Date().toISOString()}.pdf`);
+    const copyToClipboardCallback = (body) => {
+        navigator.clipboard.writeText(body)
+            .then(() => {
+                toast.success("Texto copiado al portapapeles");
+            })
     }
 
     return userInfoToDisplay ? (
         <div className={"home-screen"}>
+            <Toaster/>
             <div className={"home-personal-data"}>
                 <div className={"home-avatar-container"}>
                     <FontAwesomeIcon icon={getAvatar(userInfoToDisplay.avatar)} className={"home-avatar"}/>
@@ -65,9 +67,9 @@ const Home = ({userInfo, userRole, relationships, exportGrowthData}) => {
                                 color="secondary"
                                 startIcon={<GetAppIcon/>}
                                 className={"growth-export-button"}
-                                onClick={() => exportGrowthData(exportCallback)}
+                                onClick={() => exportGrowthData(copyToClipboardCallback)}
                             >
-                                Exportar
+                                Exportar datos
                             </Button>}
                         </>}
                     </div>
