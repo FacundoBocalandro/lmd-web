@@ -62,7 +62,7 @@ const Home = ({userInfo, userRole, relationships, exportGrowthData}) => {
                             </Button>
                             {userRole === USER_ROLES.DOCTOR && <Button
                                 variant="contained"
-                                color="default"
+                                color="secondary"
                                 startIcon={<GetAppIcon/>}
                                 className={"growth-export-button"}
                                 onClick={() => exportGrowthData(exportCallback)}

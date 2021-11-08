@@ -26,10 +26,6 @@
     background: var(--grey);
 }
 
-.export-vaccines-button {
-    background: white !important;
-}
-
 .divider{
     width:10px;
     height:auto;

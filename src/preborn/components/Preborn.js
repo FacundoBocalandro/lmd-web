@@ -84,7 +84,7 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
             <div className={"preborn-screen-body"}>
                 {!disabled && <Button
                     variant="contained"
-                    color="default"
+                    color="secondary"
                     startIcon={<GetAppIcon />}
                     className={"preborn-export-button"}
                     onClick={() => exportPrebornData(exportCallback)}

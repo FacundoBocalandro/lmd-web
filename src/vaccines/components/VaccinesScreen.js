@@ -72,8 +72,8 @@ const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVacci
                 <div className={"export-div"}>
                     <Button
                         variant="contained"
+                        color={"secondary"}
                         startIcon={<GetAppIcon/>}
-                        className={"export-vaccines-button"}
                         onClick={() => exportVaccines(exportCallback)}
                     >
                         Imprimir libreta
@@ -81,8 +81,8 @@ const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVacci
                     <div className="divider"/>
                     {userRole === USER_ROLES.DOCTOR && <Button
                         variant="contained"
+                        color={"secondary"}
                         startIcon={<GetAppIcon />}
-                        className={"export-vaccines-button"}
                         onClick={() => exportVaccines(copyToClipboardtCallback)}
                     >
                         Exportar inmunizaciones
