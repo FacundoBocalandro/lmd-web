@@ -238,13 +238,13 @@ const AddVaccineModal = ({setAddVaccineModalOpen, createNewVaccine}) => {
                                                                 onChange={(e, value) => editDosage("reinforcement", value === 'true')}>
                                                         <FormControlLabel
                                                             value={true}
-                                                            control={<Radio color="primary"/>}
+                                                            control={<Radio color="secondary"/>}
                                                             label="Sí"
                                                             labelPlacement="start"
                                                         />
                                                         <FormControlLabel
                                                             value={false}
-                                                            control={<Radio color="primary"/>}
+                                                            control={<Radio color="secondary"/>}
                                                             label="No"
                                                             labelPlacement="start"
                                                         />
@@ -264,7 +264,7 @@ const AddVaccineModal = ({setAddVaccineModalOpen, createNewVaccine}) => {
                             </Table>
                                 <Button
                                     className={"add-dosage-button"}
-                                    color={"primary"}
+                                    color={"secondary"}
                                     variant={"contained"}
                                     onClick={() => setNewVaccine({
                                         ...newVaccine,
