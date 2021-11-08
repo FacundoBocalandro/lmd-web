@@ -117,7 +117,7 @@
 }
 
 .user-row-avatar-container.female {
-    border: 1px solid pink;
+    border: 1px solid var(--secondary);
 }
 
 
@@ -131,7 +131,7 @@
 }
 
 .user-row-avatar.female {
-    color: pink;
+    color: var(--secondary);
 }
 
 

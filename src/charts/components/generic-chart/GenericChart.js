@@ -6,10 +6,6 @@ import {
     VictoryChart, VictoryLabel,
     VictoryLine, VictoryScatter, VictoryTooltip,
 } from "victory";
-import {USER_ROLES} from "../../../constants/roles";
-import {getSelectedPatient} from "../../../utils/tokens";
-import {connect} from "react-redux";
-import {GENDERS} from "../../../constants/PersonalData";
 import {Button, Slider} from "@material-ui/core";
 
 const GenericChart = ({
@@ -20,23 +16,14 @@ const GenericChart = ({
                           yLabel,
                           data,
                           zoomOptions,
-                          selectedXRange,
-                          userInfo,
-                          userRole,
-                          relationships
+                          selectedXRange
                       }) => {
     const [xRange, setXRange] = useState(selectedXRange ?? {min: 0, max: 19})
 
     const VictoryZoomVoronoiContainer = createContainer("zoom", "voronoi");
     const maxYToDisplay = Math.max(getMaxY(data), maxY);
     const minYToDisplay = Math.min(getMinY(data), minY);
-
-    /**
-     * If user is patient, use his/her gender
-     * If user is doctor, use selected patients gender
-     */
-    const gender = userRole === USER_ROLES.PATIENT ? userInfo.gender : relationships.find(user => user.id === getSelectedPatient())?.gender;
-    const colors = {grid: gender === GENDERS.MALE ? '#6686CC' : 'pink', stroke: 'red'}
+    const colors = {grid: '#6686CC', stroke: 'red'}
 
     const commonLineProps = (percentile) => {
         const lineData = percentileData[`percentile${percentile}`];
@@ -139,10 +126,4 @@ const getMinY = (data) => {
     return minY;
 }
 
-const mapStateToProps = state => ({
-    userInfo: state.session.userInfo,
-    userRole: state.session.userInfo?.userRole,
-    relationships: state.relationships.relationships,
-})
-
-export default connect(mapStateToProps)(GenericChart);
+export default GenericChart;

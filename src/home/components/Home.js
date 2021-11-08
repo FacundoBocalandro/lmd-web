@@ -53,7 +53,7 @@ const Home = ({userInfo, userRole, relationships, exportGrowthData}) => {
                         {selectedTab !== ENTER_DATA_TAB && <>
                             <Button
                                 variant="contained"
-                                color="primary"
+                                color="secondary"
                                 startIcon={tableTabSelected ? <Timeline/> : <TableChart/>}
                                 onClick={() => setTableTabSelected(!tableTabSelected)}
                                 className={"table-tab-button"}
