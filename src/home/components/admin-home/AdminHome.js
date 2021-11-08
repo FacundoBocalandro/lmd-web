@@ -10,6 +10,7 @@ import toast, {Toaster} from "react-hot-toast";
 import AttachFile from "@material-ui/icons/AttachFile";
 import {Button} from "@material-ui/core";
 import Close from "@material-ui/icons/Close";
+import {MODAL_STYLE} from "../../../constants/modal";
 
 const ADD_READING = "ADD_READING";
 const GLOBAL_NOTIFICATION = "GLOBAL_NOTIFICATION";
@@ -43,13 +44,7 @@ const AdminHome = ({getReadingCategories, readingCategories, addReading, sendNot
 
     return <div className={"admin-home"}>
         <Toaster/>
-        {modalInfo.open && <Modal isOpen={true} onRequestClose={closeModal} style={{
-            overlay: {
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center'
-            }, content: {width: 'fit-content', height: 'fit-content', inset: 'auto'}
-        }}>
+        {modalInfo.open && <Modal isOpen={true} onRequestClose={closeModal} style={MODAL_STYLE}>
             {getModalBody(modalInfo.type)}
         </Modal>}
         <button className={'submit-button'}

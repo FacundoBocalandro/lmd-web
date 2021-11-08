@@ -5,7 +5,7 @@ import {
     GET_VACCINE_DETAILS_REQUEST,
     SUBMIT_NEW_VACCINATION_REQUEST,
     UPDATE_VACCINATION_REQUEST,
-    DELETE_VACCINATION_REQUEST
+    DELETE_VACCINATION_REQUEST, GET_VACCINE_APPLICATIONS_REQUEST, CREATE_NEW_VACCINE_REQUEST
 } from "./vaccines.actions";
 import {services} from "./vaccines.services";
 import actions from "../actions";
@@ -75,6 +75,19 @@ const vaccinesMiddleware = ({dispatch, getState}) => next => action => {
                     if (action.errorCallback) action.errorCallback();
                     dispatch(actions.vaccines.deleteVaccination.error(err))
                 });
+            break;
+        case GET_VACCINE_APPLICATIONS_REQUEST:
+            services.getVaccineApplications(action.id, getSelectedPatient())
+                .then(res => dispatch(actions.vaccines.getVaccineApplications.response(res)))
+                .catch(err => dispatch(actions.vaccines.getVaccineApplications.error(err)));
+            break;
+        case CREATE_NEW_VACCINE_REQUEST:
+            services.createNewVaccine(action.vaccine, getSelectedPatient())
+                .then(res => {
+                    if (action.callback) action.callback();
+                    dispatch(actions.vaccines.createNewVaccine.response(res));
+                })
+                .catch(err => dispatch(actions.vaccines.createNewVaccine.error(err)));
             break;
         default:
             break;
