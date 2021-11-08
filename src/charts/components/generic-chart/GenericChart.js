@@ -10,8 +10,21 @@ import {USER_ROLES} from "../../../constants/roles";
 import {getSelectedPatient} from "../../../utils/tokens";
 import {connect} from "react-redux";
 import {GENDERS} from "../../../constants/PersonalData";
+import {Button, Slider} from "@material-ui/core";
 
-const GenericChart = ({percentileData, maxY, minY = 0, yStep, yLabel, data, zoomOptions, selectedXRange, userInfo, userRole, relationships}) => {
+const GenericChart = ({
+                          percentileData,
+                          maxY,
+                          minY = 0,
+                          yStep,
+                          yLabel,
+                          data,
+                          zoomOptions,
+                          selectedXRange,
+                          userInfo,
+                          userRole,
+                          relationships
+                      }) => {
     const [xRange, setXRange] = useState(selectedXRange ?? {min: 0, max: 19})
 
     const VictoryZoomVoronoiContainer = createContainer("zoom", "voronoi");
@@ -36,15 +49,11 @@ const GenericChart = ({percentileData, maxY, minY = 0, yStep, yLabel, data, zoom
 
     return (
         <div className={"generic-chart-container"}>
-            {zoomOptions && <div className={"generic-chart-zoom-options-list"}>
-                {zoomOptions.map(zoomOption => <div className={`home-screen-tab${xRange.min === zoomOption.min && xRange.max === zoomOption.max ? ' selected' : ''}`}
-                                                    onClick={() => setXRange(zoomOption)}>{zoomOption.min} - {zoomOption.max}
-                </div>)}
-            </div>}
             <VictoryChart containerComponent={<VictoryZoomVoronoiContainer
                 labels={({datum}) => `${Math.round(datum.x, 2)}, ${Math.round(datum.y, 2)}`}
                 labelComponent={<VictoryTooltip centerOffset={{x: 5}} style={{fontSize: 8}}/>}
-            />} width={550} height={550} minDomain={{x: xRange.min, y: minYToDisplay}} maxDomain={{x: xRange.max, y: maxYToDisplay}}>
+            />} width={550} height={550} minDomain={{x: xRange.min, y: minYToDisplay}}
+                          maxDomain={{x: xRange.max, y: maxYToDisplay}}>
                 <VictoryAxis crossAxis
                              minDomain={0}
                              maxDomain={19}
@@ -93,6 +102,23 @@ const GenericChart = ({percentileData, maxY, minY = 0, yStep, yLabel, data, zoom
                 {data.length === 1 ? <VictoryScatter data={data} style={{data: {fill: colors.stroke}}}/> :
                     <VictoryLine data={data} style={{data: {stroke: colors.stroke}}}/>}
             </VictoryChart>
+
+            <div>
+                <Slider
+                    value={[xRange.min, xRange.max]}
+                    onChange={(e, newValue) => setXRange({min: newValue[0], max: newValue[1]})}
+                    valueLabelDisplay="auto"
+                    max={19}
+                    color={"primary"}
+                />
+                {zoomOptions && <div className={"generic-chart-zoom-options-list"}>
+                    {zoomOptions.map(zoomOption => <Button onClick={() => setXRange(zoomOption)}
+                                                           className={"chart-zoom-button"}
+                                                           variant={"contained"}
+                                                           size={"large"}
+                                                           color={"primary"}>{zoomOption.min} - {zoomOption.max}</Button>)}
+                </div>}
+            </div>
         </div>
     )
 }

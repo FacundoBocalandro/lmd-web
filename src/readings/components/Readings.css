@@ -16,7 +16,7 @@
 .readings-header {
     margin-top: 30px;
     width: 100%;
-    background: var(--blue);
+    background: var(--primary);
     border-radius: 5px;
     padding: 0 20px;
 }
@@ -63,12 +63,12 @@
 }
 
 .sidebar-category:hover {
-    background: var(--primary);
+    background: var(--light-blue);
     cursor: pointer;
 }
 
 .sidebar-category.selected {
-    background: var(--primary);
+    background: var(--light-blue);
     display: flex;
     justify-content: space-between;
 }
@@ -147,7 +147,7 @@
 .reading-card-header {
     width: 100%;
     height: 35px;
-    background: var(--primary);
+    background: var(--light-blue);
     color: white;
     font-size: 20px;
     display: flex;
@@ -169,7 +169,7 @@
 .reading-header {
     width: 200px;
     height: 35px;
-    background: var(--primary);
+    background: var(--light-blue);
     color: white;
     font-size: 20px;
     display: flex;

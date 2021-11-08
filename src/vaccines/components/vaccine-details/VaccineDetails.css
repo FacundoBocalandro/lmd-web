@@ -17,12 +17,12 @@
 .no-vaccine-selected-text-container .syringe-icon-container {
     padding: 20px;
     border-radius: 50%;
-    border: 1px solid var(--blue);
+    border: 1px solid var(--primary);
 }
 
 .no-vaccine-selected-text-container .syringe-icon {
     font-size: 40px;
-    color: var(--blue);
+    color: var(--primary);
 }
 
 .no-vaccine-selected-text-container span {

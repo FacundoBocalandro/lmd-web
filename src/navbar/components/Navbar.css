@@ -3,7 +3,7 @@
     justify-content: space-between;
     display: flex;
     height: var(--navbar-size);
-    background-color: var(--blue);
+    background-color: var(--primary);
     color: white;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .current-location {
-    color: var(--primary);
+    color: var(--light-blue);
 }
 
 .navbar-title{
@@ -108,7 +108,7 @@
 }
 
 .user-row-avatar-container.male {
-    border: 1px solid var(--blue);
+    border: 1px solid var(--primary);
 }
 
 .user-row-avatar-container.female {
@@ -118,11 +118,11 @@
 
 .user-row-avatar {
     font-size: 20px;
-    color: var(--blue);
+    color: var(--primary);
 }
 
 .user-row-avatar.male {
-    color: var(--blue);
+    color: var(--primary);
 }
 
 .user-row-avatar.female {
