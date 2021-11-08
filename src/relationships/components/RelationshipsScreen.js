@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from "react";
 import "./RelationshipsScreen.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlusCircle, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
 import toast, {Toaster} from "react-hot-toast";
 import {GENDERS} from "../../constants/PersonalData";
 import {getAvatar} from "../../utils/avatars";
 import {USER_ROLES} from "../../constants/roles";
 import RelationshipModal from "./relationship-modal/RelationshipModal";
 import {getSelectedPatient, removeSelectedPatient, saveSelectedPatient} from "../../utils/tokens";
+import {Button, IconButton} from "@material-ui/core";
+import {Add, Cancel} from "@material-ui/icons";
 
 const RelationshipsScreen = ({
                                  relationships,
@@ -62,12 +63,17 @@ const RelationshipsScreen = ({
                                                                          deleteRelationship={deleteRelationship}
                                                                          userId={userInfo.id} isPatient={isPatient()}
                                                                          saveSelectedPatient={saveSelectedPatient}
-                                                                         />)}
-            {isPatient() &&
-            <div className={"header-with-plus-icon add-relationship-header"} onClick={() => setModalInfo({open: true})}>
-                <span>Agregar pediatra</span>
-                <FontAwesomeIcon icon={faPlusCircle} className={"header-add-icon"}/>
-            </div>}
+            />)}
+            {isPatient() && <Button
+                variant="contained"
+                color="primary"
+                endIcon={<Add/>}
+                className={"add-relationship-button"}
+                onClick={() => setModalInfo({open: true})}
+            >
+                Agregar pediatra
+            </Button>
+            }
         </div>
     </div>)
 }
@@ -95,10 +101,12 @@ const UserRow = ({info, deleteRelationship, userId, isPatient}) => {
                 <div className={`user-row-avatar-container ${gender}`}>
                     <FontAwesomeIcon icon={getAvatar(info.avatar)} className={`user-row-avatar ${gender}`}/>
                 </div>
-                <span>{info.firstName} {info.lastName}</span>
+                <span className={"user-info-row-name"}>{info.firstName} {info.lastName}</span>
             </div>
-            {isPatient && <FontAwesomeIcon icon={faTimesCircle} className={"delete-relationship-icon"}
-                                           onClick={() => deleteRelationship({patientId: userId, doctorId: info.id})}/>}
+            {isPatient && <IconButton aria-label="eliminar pediatra" component="span"
+                                      onClick={() => deleteRelationship({patientId: userId, doctorId: info.id})} size={"large"}>
+                <Cancel/>
+            </IconButton>}
         </div>
     )
 }

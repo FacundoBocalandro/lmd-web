@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import GenericChart from "../generic-chart/GenericChart";
 import DelayedRendering from "../../../common/components/delayed-rendering/DelayedRendering";
-import Table from "../../../home/components/table/Table";
+import HomeTable from "../../../home/components/table/HomeTable";
 
 const PerimeterChart = ({
                             getAveragePerimeterData,
@@ -20,7 +20,7 @@ const PerimeterChart = ({
     return (
         <DelayedRendering>
             {userPerimeterHistory && tableTabSelected &&
-            <Table data={userPerimeterHistory} title={"Perímetro Céfalico"} accessor={"perimeter"} noZScore/>}
+            <HomeTable data={userPerimeterHistory} title={"Perímetro Céfalico"} accessor={"perimeter"} noZScore/>}
             {averagePerimeterData && userPerimeterHistory && !tableTabSelected &&
             <GenericChart percentileData={averagePerimeterData}
                           maxY={60}

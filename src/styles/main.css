@@ -1,11 +1,12 @@
 
 :root {
-    --primary: #6686CC;
-    --secondary: #FAA645;
+    --primary: #3F51B5;
+    --secondary: #F50057;
+    --light-blue: #6686CC;
     --grey: #DDDDDD;
     --blue: #133D8D;
     --green: green;
-    --red: red;
+    --red: #f44336;
     --navbar-size: 80px;
     --dark-grey: #969696
 }
@@ -20,7 +21,7 @@
 }
 
 .header {
-    color: var(--primary);
+    color: var(--light-blue);
     font-size: 60px;
     font-weight: bold;
     width: 100%;
@@ -96,7 +97,7 @@
 }
 
 .submit-button {
-    background: var(--blue);
+    background: var(--primary);
 }
 
 .cancel-button {

@@ -12,13 +12,16 @@ export const dateIsValid = (date) => {
         .test(date)
 }
 
+export const isValidDate = (date) => {
+    return date instanceof Date && !isNaN(date);
+}
+
 export const isOnOrBeforeToday = (dateString) => {
     return new Date(dateString) <= new Date();
 }
 
-export const getAge = (birthDateString, toDateString) =>
+export const getAge = (birthDateString, toDate) =>
 {
-    const toDate = new Date(toDateString);
     const birthDate = new Date(birthDateString);
     let age = toDate.getFullYear() - birthDate.getFullYear();
     const m = toDate.getMonth() - birthDate.getMonth();

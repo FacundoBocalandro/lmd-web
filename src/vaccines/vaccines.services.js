@@ -1,7 +1,7 @@
 import {deleteRequest, get, post, put} from "../utils/http";
 
 export const services = {
-    getAllVaccines: (patientId) => get('vaccine', {options: {params: {patientId}}}),
+    getAllVaccines: (userId) => get('vaccine', {options: {params: {userId}}}),
     getUserVaccines: (patientId) => get('vaccine/get-user-vaccines', {options: {params: {patientId}}}),
     submitNewVaccination: (vaccinationInfo) => post('vaccine/applied', vaccinationInfo),
     getVaccineDetails: (id) => get(`vaccine/details/${id}`),

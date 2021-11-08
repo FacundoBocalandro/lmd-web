@@ -23,6 +23,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Modal from "react-modal";
 import {MODAL_STYLE} from "../../constants/modal";
 import {Delete} from "@material-ui/icons";
+import toast, {Toaster} from "react-hot-toast";
 
 const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVaccines, userRole, exportVaccines, createNewVaccine}) => {
     const [selectedRowId, setSelectedRowId] = useState(null);
@@ -42,8 +43,11 @@ const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVacci
         doc.save(`vacunas-${new Date().toISOString()}.pdf`);
     }
 
-    const copyToClipboardtCallback = (body) => {
+    const copyToClipboardCallback = (body) => {
         navigator.clipboard.writeText(body)
+            .then(() => {
+                toast.success("Texto copiado al portapapeles");
+            })
     }
 
     /**
@@ -58,6 +62,7 @@ const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVacci
 
     return shouldRender() ? (
         <div className={"vaccines-screen"}>
+            <Toaster/>
             {addVaccineModalOpen && <AddVaccineModal setAddVaccineModalOpen={setAddVaccineModalOpen} createNewVaccine={createNewVaccine}/>}
             <div className={"vaccines-screen-left-panel"}>
                 <VaccinesTable setSelectedRowId={setSelectedRowId}
@@ -72,8 +77,8 @@ const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVacci
                 <div className={"export-div"}>
                     <Button
                         variant="contained"
+                        color={"secondary"}
                         startIcon={<GetAppIcon/>}
-                        className={"export-vaccines-button"}
                         onClick={() => exportVaccines(exportCallback)}
                     >
                         Imprimir libreta
@@ -81,9 +86,9 @@ const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVacci
                     <div className="divider"/>
                     {userRole === USER_ROLES.DOCTOR && <Button
                         variant="contained"
+                        color={"secondary"}
                         startIcon={<GetAppIcon />}
-                        className={"export-vaccines-button"}
-                        onClick={() => exportVaccines(copyToClipboardtCallback)}
+                        onClick={() => exportVaccines(copyToClipboardCallback)}
                     >
                         Exportar inmunizaciones
                     </Button> }
@@ -238,13 +243,13 @@ const AddVaccineModal = ({setAddVaccineModalOpen, createNewVaccine}) => {
                                                                 onChange={(e, value) => editDosage("reinforcement", value === 'true')}>
                                                         <FormControlLabel
                                                             value={true}
-                                                            control={<Radio color="primary"/>}
+                                                            control={<Radio color="secondary"/>}
                                                             label="Sí"
                                                             labelPlacement="start"
                                                         />
                                                         <FormControlLabel
                                                             value={false}
-                                                            control={<Radio color="primary"/>}
+                                                            control={<Radio color="secondary"/>}
                                                             label="No"
                                                             labelPlacement="start"
                                                         />
@@ -264,7 +269,7 @@ const AddVaccineModal = ({setAddVaccineModalOpen, createNewVaccine}) => {
                             </Table>
                                 <Button
                                     className={"add-dosage-button"}
-                                    color={"primary"}
+                                    color={"secondary"}
                                     variant={"contained"}
                                     onClick={() => setNewVaccine({
                                         ...newVaccine,

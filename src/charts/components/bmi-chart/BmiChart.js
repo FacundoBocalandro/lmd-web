@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import GenericChart from "../generic-chart/GenericChart";
 import DelayedRendering from "../../../common/components/delayed-rendering/DelayedRendering";
-import Table from "../../../home/components/table/Table";
+import HomeTable from "../../../home/components/table/HomeTable";
 
 const BmiChart = ({getAverageBmiData, averageBmiData, getUserBmiHistory, userBmiHistory, tableTabSelected}) => {
     useEffect(() => {
@@ -13,7 +13,7 @@ const BmiChart = ({getAverageBmiData, averageBmiData, getUserBmiHistory, userBmi
 
     return (
         <DelayedRendering>
-            {userBmiHistory && tableTabSelected && <Table data={userBmiHistory} title={"IMC"} accessor={"bmi"}/>}
+            {userBmiHistory && tableTabSelected && <HomeTable data={userBmiHistory} title={"IMC"} accessor={"bmi"}/>}
             {averageBmiData && userBmiHistory && !tableTabSelected && <GenericChart percentileData={averageBmiData}
                                                                                     maxY={32}
                                                                                     minY={10}

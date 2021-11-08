@@ -3,29 +3,19 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background-image: url("https://saludybienestar.com.ar/wp-content/uploads/2020/09/foto-hospital-austral-v2.jpg");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-}
-
-.register-card {
-    border-radius: 10px;
-    box-shadow: 10px 4px 36px 0px rgba(0,0,0,0.58);
-    -webkit-box-shadow: 10px 4px 36px 0px rgba(0,0,0,0.58);
-    -moz-box-shadow: 10px 4px 36px 0px rgba(0,0,0,0.58);
+    align-items: center;
 }
 
 .register-header-container{
-    text-align: center;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     padding: 20px;
 }
 
-.register-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    padding: 30px;
-    flex-grow: 1;
+.register-header-text {
+    margin-top: 10px;
+    font-size: 27px;
 }
 
 .register-input-container {
@@ -88,4 +78,51 @@
 
 .error-input {
     background-color: rgba(255,0,0,.5);
+}
+
+.lock-icon {
+    background: var(--secondary) !important;
+}
+
+.error-helper-text {
+    color: var(--red) !important;
+}
+
+.gender-label {
+    margin-left: 15px !important;
+}
+
+.error-label {
+    color: var(--red) !important;
+}
+
+.register-form {
+    width: 50%;
+}
+
+.register-button {
+    margin-top: 20px !important;
+}
+
+.already-have-account-text {
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.already-have-account-text:hover {
+    text-decoration: underline;
+}
+
+.matriculation-field-container {
+    display: flex !important;
+    align-items: center;
+}
+
+.matriculation-field-container .MuiFormControlLabel-label {
+    font-size: 15px !important;
+    color: rgba(0, 0, 0, 0.54) !important;
+}
+
+.doctor-switch {
+    flex-grow: 1 !important;
 }

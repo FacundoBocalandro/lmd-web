@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import "./Readings.css";
-import SearchInput from "../../common/components/inputs/SearchInput";
 import {faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import richUtils from "../../utils/richUtils";
 import ReadOnlyRichText from "../../common/components/rich-text/ReadOnlyRichText";
+import {InputAdornment, TextField} from "@material-ui/core";
+import {Search} from "@material-ui/icons";
 
 const Readings = ({categories, getReadingCategories, getReadingsByCategory}) => {
     const [searchFilter, setSearchFilter] = useState("");
@@ -19,7 +20,18 @@ const Readings = ({categories, getReadingCategories, getReadingsByCategory}) => 
     return (
         <div className={"readings-screen"}>
             <div className={"readings-screen-sidebar"}>
-                <SearchInput onChange={value => setSearchFilter(value)} value={searchFilter}/>
+                <TextField
+                    placeholder="Buscar..."
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Search/>
+                            </InputAdornment>
+                        ),
+                    }}
+                    value={searchFilter}
+                    onChange={e => setSearchFilter(e.target.value)}
+                />
                 <div className={"readings-header"}>
                     <span>Lecturas recomendadas</span>
                 </div>
