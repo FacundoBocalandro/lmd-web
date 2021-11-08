@@ -95,14 +95,17 @@
     align-items: center;
 }
 
-.growth-export-button {
-    margin-top: 10px !important;
-}
-
 .table-tab-button {
     width: fit-content !important;
 }
 
 .table-tab-button-container {
     margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.growth-export-button {
+    margin-right: 10px !important;
 }

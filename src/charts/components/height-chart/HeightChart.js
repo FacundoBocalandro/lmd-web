@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import GenericChart from "../generic-chart/GenericChart";
 import DelayedRendering from "../../../common/components/delayed-rendering/DelayedRendering";
-import Table from "../../../home/components/table/Table";
+import HomeTable from "../../../home/components/table/HomeTable";
 
 const HeightChart = ({
                          getAverageHeightData,
@@ -20,7 +20,7 @@ const HeightChart = ({
     return (
         <DelayedRendering>
             {userHeightHistory && tableTabSelected &&
-            <Table data={userHeightHistory} title={"Estatura"} accessor={"height"}/>}
+            <HomeTable data={userHeightHistory} title={"Estatura"} accessor={"height"}/>}
             {averageHeightData && userHeightHistory && !tableTabSelected &&
             <GenericChart percentileData={averageHeightData}
                           maxY={190}

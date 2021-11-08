@@ -50,15 +50,26 @@ const Home = ({userInfo, userRole, relationships, exportGrowthData}) => {
             <div className={"home-screen-charts"}>
                 <div className={"home-screen-charts-container"}>
                     <div className={"table-tab-button-container"}>
-                        {selectedTab !== ENTER_DATA_TAB && <Button
-                            variant="contained"
-                            color="primary"
-                            startIcon={tableTabSelected ? <Timeline/> : <TableChart/>}
-                            onClick={() => setTableTabSelected(!tableTabSelected)}
-                            className={"table-tab-button"}
-                        >
-                            {tableTabSelected ? "Gráfico" : "Tabla"}
-                        </Button>}
+                        {selectedTab !== ENTER_DATA_TAB && <>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                startIcon={tableTabSelected ? <Timeline/> : <TableChart/>}
+                                onClick={() => setTableTabSelected(!tableTabSelected)}
+                                className={"table-tab-button"}
+                            >
+                                {tableTabSelected ? "Gráfico" : "Tabla"}
+                            </Button>
+                            {userRole === USER_ROLES.DOCTOR && <Button
+                                variant="contained"
+                                color="default"
+                                startIcon={<GetAppIcon/>}
+                                className={"growth-export-button"}
+                                onClick={() => exportGrowthData(exportCallback)}
+                            >
+                                Exportar
+                            </Button>}
+                        </>}
                     </div>
                     {selectedTab === WEIGHT_TAB && <WeightChart tableTabSelected={tableTabSelected}/>}
                     {selectedTab === HEIGHT_TAB && <HeightChart tableTabSelected={tableTabSelected}/>}
@@ -67,15 +78,6 @@ const Home = ({userInfo, userRole, relationships, exportGrowthData}) => {
                     {selectedTab === ENTER_DATA_TAB && <EnterDataScreen/>}
                 </div>
                 <div className={"home-screen-right-panel"}>
-                    {userRole === USER_ROLES.DOCTOR && <Button
-                        variant="contained"
-                        color="default"
-                        startIcon={<GetAppIcon/>}
-                        className={"growth-export-button"}
-                        onClick={() => exportGrowthData(exportCallback)}
-                    >
-                        Exportar
-                    </Button>}
                     <Tabs
                         value={selectedTab}
                         onChange={(e, value) => setSelectedTab(value)}
@@ -92,7 +94,9 @@ const Home = ({userInfo, userRole, relationships, exportGrowthData}) => {
                 </div>
             </div>
         </div>
-    ) : (userRole === USER_ROLES.DOCTOR ? <NoPatientScreen/> : null)
+    ) : (userRole === USER_ROLES.DOCTOR ?
+        <NoPatientScreen/>
+        : null)
 }
 
 export default Home;

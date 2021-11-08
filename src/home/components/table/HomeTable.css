@@ -1,8 +1,18 @@
 .home-table-container {
-    width: 80%;
-    margin-top: 60px;
+    width: 100%;
+    margin-top: 40px;
     overflow: auto;
     max-height: 80%;
+    padding: 20px;
+}
+
+.home-table-header {
+    background: var(--primary) !important;
+}
+
+.home-table-header-text {
+    color: white !important;
+    font-size: 20px !important;
 }
 
 .home-table {
@@ -14,19 +24,8 @@
     background: var(--grey);
 }
 
-.home-table-cell-header {
-    font-size: 25px;
-    border: 1px solid #000000;
-    position: sticky;
-    top: 0;
-    background: white;
-}
-
-.home-table-cell {
-    font-size: 20px;
-    border: 1px solid #000000;
-    text-align: center;
-    line-height: 40px;
+.home-table-cell-text {
+    font-size: 17px;
 }
 
 .home-table-no-data {

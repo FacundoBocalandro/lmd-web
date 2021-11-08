@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import GenericChart from "../generic-chart/GenericChart";
 import DelayedRendering from "../../../common/components/delayed-rendering/DelayedRendering";
-import Table from "../../../home/components/table/Table";
+import HomeTable from "../../../home/components/table/HomeTable";
 
 const WeightChart = ({getAverageWeightData, averageWeightData, getUserWeightHistory, userWeightHistory, tableTabSelected}) => {
 
@@ -14,7 +14,7 @@ const WeightChart = ({getAverageWeightData, averageWeightData, getUserWeightHist
 
     return (
         <DelayedRendering>
-            {userWeightHistory && tableTabSelected && <Table data={userWeightHistory} title={"Peso"} accessor={"weight"}/>}
+            {userWeightHistory && tableTabSelected && <HomeTable data={userWeightHistory} title={"Peso"} accessor={"weight"}/>}
             {averageWeightData && userWeightHistory && !tableTabSelected && <GenericChart percentileData={averageWeightData}
                                                maxY={90}
                                                yStep={5}
