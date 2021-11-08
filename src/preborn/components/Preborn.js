@@ -40,7 +40,8 @@ const Preborn = ({userRole, prebornData, getPrebornData, setPrebornData, exportP
 
     return shouldRender() ?
         <PrebornBody reducerPrebornData={prebornData} disabled={isDisabled()}
-                     setReducerPrebornData={setPrebornData} exportPrebornData={exportPrebornData}/> : (userRole === USER_ROLES.DOCTOR ?
+                     setReducerPrebornData={setPrebornData}
+                     exportPrebornData={exportPrebornData}/> : (userRole === USER_ROLES.DOCTOR ?
             <NoPatientScreen/> : null);
 }
 
@@ -85,7 +86,7 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                 {!disabled && <Button
                     variant="contained"
                     color="secondary"
-                    startIcon={<GetAppIcon />}
+                    startIcon={<GetAppIcon/>}
                     className={"preborn-export-button"}
                     onClick={() => exportPrebornData(exportCallback)}
                 >
@@ -388,7 +389,9 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                             fullWidth
                                         />
                                     </div>
-                                    <div>
+                                </div>
+                                <div className={"preborn-apgar-body"}>
+                                    <div className={"preborn-apgar-element"}>
                                         <InputLabel itemID={"apgar1Score"} shrink>Apgar 1'</InputLabel>
                                         <Input
                                             value={prebornData.apgar1Score}
@@ -402,7 +405,7 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                             fullWidth
                                         />
                                     </div>
-                                    <div>
+                                    <div className={"preborn-apgar-element"}>
                                         <InputLabel itemID={"apgar5Score"} shrink>Apgar 5'</InputLabel>
                                         <Input
                                             value={prebornData.apgar5Score}
