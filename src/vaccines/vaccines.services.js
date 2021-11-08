@@ -8,4 +8,6 @@ export const services = {
     updateVaccination: (id, vaccinationInfo, patientId) => put(`vaccine/edit/${id}/${patientId}`, vaccinationInfo),
     deleteVaccination: (id, patientId) => deleteRequest(`vaccine/delete/${id}/${patientId}`),
     exportVaccines: (patientId) => get('export/vaccine', {options: {params: {patientId}}}),
+    getVaccineApplications: (id, patientId) => get(`vaccine/applications/${id}`, {options: {params: {patientId}}}),
+    createNewVaccine: (vaccine, patientId) => post(`vaccine/create/${patientId}`, vaccine),
 }
