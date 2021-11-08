@@ -1,6 +1,6 @@
 import Home from "../components/Home";
 import {connect} from "react-redux";
-// import actions from "../../actions";
+import actions from "../../actions";
 
 const mapStateToProps = state => ({
     userInfo: state.session.userInfo,
@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+    exportGrowthData: (callback) => dispatch(actions.home.exportGrowthData.request(callback))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

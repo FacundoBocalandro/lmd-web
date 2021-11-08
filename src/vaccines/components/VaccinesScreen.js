@@ -38,8 +38,12 @@ const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVacci
 
     const exportCallback = (body) => {
         const doc = new jsPDF()
-        doc.text(body, 10, 10)
-        doc.save('vacunas.pdf');
+        doc.text(doc.splitTextToSize(body, 180), 10, 10);
+        doc.save(`vacunas-${new Date().toISOString()}.pdf`);
+    }
+
+    const copyToClipboardtCallback = (body) => {
+        navigator.clipboard.writeText(body)
     }
 
     /**
@@ -72,8 +76,17 @@ const VaccinesScreen = ({getAllVaccines, getUserVaccines, allVaccines, userVacci
                         className={"export-vaccines-button"}
                         onClick={() => exportVaccines(exportCallback)}
                     >
-                        Exportar vacunas
+                        Imprimir libreta
                     </Button>
+                    <div className="divider"/>
+                    {userRole === USER_ROLES.DOCTOR && <Button
+                        variant="contained"
+                        startIcon={<GetAppIcon />}
+                        className={"export-vaccines-button"}
+                        onClick={() => exportVaccines(copyToClipboardtCallback)}
+                    >
+                        Exportar inmunizaciones
+                    </Button> }
                 </div>
                 {userRole === USER_ROLES.DOCTOR ? <VaccineApplications selectedRowId={selectedRowId}/> :
                     <VaccineDetails selectedRowId={selectedRowId}/>}

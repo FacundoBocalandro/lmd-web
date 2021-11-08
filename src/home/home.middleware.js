@@ -1,7 +1,7 @@
 import {
     CREATE_NEW_HEIGHT_RECORD_REQUEST,
     CREATE_NEW_PERIMETER_RECORD_REQUEST,
-    CREATE_NEW_WEIGHT_RECORD_REQUEST,
+    CREATE_NEW_WEIGHT_RECORD_REQUEST, EXPORT_GROWTH_DATA_REQUEST,
     GET_AVERAGE_BMI_DATA_REQUEST,
     GET_AVERAGE_HEIGHT_DATA_REQUEST,
     GET_AVERAGE_PERIMETER_DATA_REQUEST,
@@ -94,6 +94,16 @@ const homeMiddleware = ({dispatch, getState}) => next => action => {
                 .catch(err => {
                     if (action.errorCallback) action.errorCallback();
                     dispatch(actions.home.createNewHeightRecord.error(err));
+                });
+            break;
+        case EXPORT_GROWTH_DATA_REQUEST:
+            services.exportGrowthData(getSelectedPatient())
+                .then(res => {
+                    if (action.callback) action.callback(res.body)
+                    dispatch(actions.home.exportGrowthData.response(res));
+                })
+                .catch(err => {
+                    dispatch(actions.home.exportGrowthData.error(err));
                 });
             break;
         default:
