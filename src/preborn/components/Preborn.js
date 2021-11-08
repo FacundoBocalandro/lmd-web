@@ -15,6 +15,7 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import debounce from "lodash.debounce";
 import GetAppIcon from '@material-ui/icons/GetApp';
+import toast, {Toaster} from "react-hot-toast";
 
 const Preborn = ({userRole, prebornData, getPrebornData, setPrebornData, exportPrebornData}) => {
 
@@ -68,10 +69,14 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
 
     const exportCallback = (body) => {
         navigator.clipboard.writeText(body)
+            .then(() => {
+                toast.success("Texto copiado al portapapeles");
+            })
     }
 
     return (
         <div className={"preborn-screen"}>
+            <Toaster/>
             <Tabs
                 value={selectedTab}
                 onChange={(e, value) => setSelectedTab(value)}

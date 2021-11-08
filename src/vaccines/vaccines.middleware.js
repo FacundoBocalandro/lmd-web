@@ -86,6 +86,7 @@ const vaccinesMiddleware = ({dispatch, getState}) => next => action => {
                 .then(res => {
                     if (action.callback) action.callback();
                     dispatch(actions.vaccines.createNewVaccine.response(res));
+                    dispatch(actions.vaccines.getAllVaccines.request());
                 })
                 .catch(err => dispatch(actions.vaccines.createNewVaccine.error(err)));
             break;
