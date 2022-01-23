@@ -53,7 +53,7 @@
 }
 
 .unchecked-icon {
-    color: black !important;
+    color: rgba(0,0,0,.2) !important;
 }
 
 .new-vaccination-modal {
