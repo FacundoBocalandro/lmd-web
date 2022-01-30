@@ -128,12 +128,17 @@ const VaccinesTable = ({
                         className={"delete-dosage-modal-text"}>¿Está seguro que desea eliminar la
                         dosis {modalInfo.dosageNumber} <br/> de la vacuna {modalInfo.vaccineName}?
                     </div>
-                    <div className={"delete-dosage-modal-button-container"}>
+                    <div className={"delete-dosage-modal-buttons-container"}>
+                        <Button
+                            variant="contained"
+                            onClick={closeDeleteModal}
+                        >
+                            Cancelar
+                        </Button>
                         <Button
                             variant="contained"
                             color="secondary"
                             onClick={deleteVaccineApplication}
-                            size={"large"}
                         >
                             Eliminar
                         </Button>
