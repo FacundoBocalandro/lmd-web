@@ -6,7 +6,7 @@ import NoPatientScreen from "../../common/components/no-patient/NoPatientScreen"
 import {
     Accordion,
     AccordionDetails,
-    AccordionSummary, Button, Checkbox,
+    AccordionSummary, Button,
     FormControlLabel, Input, InputAdornment, InputLabel, Radio,
     RadioGroup,
     Tab,
@@ -148,9 +148,9 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                             <RadioGroup aria-label="vdrl" name="vdrl"
                                                         value={prebornData.vdrl} row
                                                         onChange={(event, value) => onChange(value === "true", "vdrl")}>
-                                                <FormControlLabel value={true} control={<Radio/>} label="Sí"
+                                                <FormControlLabel value={true} control={<Radio/>} label="Pos."
                                                                   disabled={disabled}/>
-                                                <FormControlLabel value={false} control={<Radio/>} label="No"
+                                                <FormControlLabel value={false} control={<Radio/>} label="Neg."
                                                                   disabled={disabled}/>
                                             </RadioGroup>
                                         </div>
@@ -159,9 +159,9 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                             <RadioGroup aria-label="toxoplasmosis" name="toxoplasmosis"
                                                         value={prebornData.toxoplasmosis} row
                                                         onChange={(event, value) => onChange(value === "true", "toxoplasmosis")}>
-                                                <FormControlLabel value={true} control={<Radio/>} label="Sí"
+                                                <FormControlLabel value={true} control={<Radio/>} label="Pos."
                                                                   disabled={disabled}/>
-                                                <FormControlLabel value={false} control={<Radio/>} label="No"
+                                                <FormControlLabel value={false} control={<Radio/>} label="Neg."
                                                                   disabled={disabled}/>
                                             </RadioGroup>
                                         </div>
@@ -170,9 +170,9 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                             <RadioGroup aria-label="chagas" name="chagas"
                                                         value={prebornData.chagas} row
                                                         onChange={(event, value) => onChange(value === "true", "chagas")}>
-                                                <FormControlLabel value={true} control={<Radio/>} label="Sí"
+                                                <FormControlLabel value={true} control={<Radio/>} label="Pos."
                                                                   disabled={disabled}/>
-                                                <FormControlLabel value={false} control={<Radio/>} label="No"
+                                                <FormControlLabel value={false} control={<Radio/>} label="Neg."
                                                                   disabled={disabled}/>
                                             </RadioGroup>
                                         </div>
@@ -181,9 +181,9 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                             <RadioGroup aria-label="hepatitis" name="hepatitis"
                                                         value={prebornData.hepatitis} row
                                                         onChange={(event, value) => onChange(value === "true", "hepatitis")}>
-                                                <FormControlLabel value={true} control={<Radio/>} label="Sí"
+                                                <FormControlLabel value={true} control={<Radio/>} label="Pos."
                                                                   disabled={disabled}/>
-                                                <FormControlLabel value={false} control={<Radio/>} label="No"
+                                                <FormControlLabel value={false} control={<Radio/>} label="Neg."
                                                                   disabled={disabled}/>
                                             </RadioGroup>
                                         </div>
@@ -192,9 +192,9 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                             <RadioGroup aria-label="hiv" name="hiv"
                                                         value={prebornData.hiv} row
                                                         onChange={(event, value) => onChange(value === "true", "hiv")}>
-                                                <FormControlLabel value={true} control={<Radio/>} label="Sí"
+                                                <FormControlLabel value={true} control={<Radio/>} label="Pos."
                                                                   disabled={disabled}/>
-                                                <FormControlLabel value={false} control={<Radio/>} label="No"
+                                                <FormControlLabel value={false} control={<Radio/>} label="Neg."
                                                                   disabled={disabled}/>
                                             </RadioGroup>
                                         </div>
@@ -203,9 +203,9 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                             <RadioGroup aria-label="estreptococoB" name="estreptococoB"
                                                         value={prebornData.estreptococoB} row
                                                         onChange={(event, value) => onChange(value === "true", "estreptococoB")}>
-                                                <FormControlLabel value={true} control={<Radio/>} label="Sí"
+                                                <FormControlLabel value={true} control={<Radio/>} label="Pos."
                                                                   disabled={disabled}/>
-                                                <FormControlLabel value={false} control={<Radio/>} label="No"
+                                                <FormControlLabel value={false} control={<Radio/>} label="Neg."
                                                                   disabled={disabled}/>
                                             </RadioGroup>
                                         </div>
@@ -449,21 +449,10 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                     </RadioGroup>
                                 </div>
                                 <div>
-                                    <span className={"preborn-accordion-body-title"}>Ecografía de caderas</span>
-                                    <RadioGroup aria-label="ecografia de caderas" name="waistEcography"
-                                                value={prebornData.waistEcography}
-                                                onChange={(event, value) => onChange(value === "true", "waistEcography")}>
-                                        <FormControlLabel value={true} control={<Radio/>} label="Sí"
-                                                          disabled={disabled}/>
-                                        <FormControlLabel value={false} control={<Radio/>} label="No"
-                                                          disabled={disabled}/>
-                                    </RadioGroup>
-                                </div>
-                                <div>
-                                    <span className={"preborn-accordion-body-title"}>Caída del cordón</span>
-                                    <RadioGroup aria-label="caida del cordon" name="umbilicalCordFell"
-                                                value={prebornData.umbilicalCordFell}
-                                                onChange={(event, value) => onChange(value === "true", "umbilicalCordFell")}>
+                                    <span className={"preborn-accordion-body-title"}>Caída tardía del cordón</span>
+                                    <RadioGroup aria-label="caida tardia del cordon" name="umbilicalCordLateFell"
+                                                value={prebornData.umbilicalCordLateFell}
+                                                onChange={(event, value) => onChange(value === "true", "umbilicalCordLateFell")}>
                                         <FormControlLabel value={true} control={<Radio/>} label="Sí"
                                                           disabled={disabled}/>
                                         <FormControlLabel value={false} control={<Radio/>} label="No"
@@ -491,16 +480,16 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                     />}
                                 </div>
                                 <div>
-                                    <span className={"preborn-accordion-body-title"}>Neonatología</span>
-                                    <RadioGroup aria-label="neonatologia" name="neonatology"
-                                                value={prebornData.neonatology}
-                                                onChange={(event, value) => onChange(value === "true", "neonatology")}>
+                                    <span className={"preborn-accordion-body-title"}>Internado en neonatología</span>
+                                    <RadioGroup aria-label="internado en neonatologia" name="wentIntoNeonatology"
+                                                value={prebornData.wentIntoNeonatology}
+                                                onChange={(event, value) => onChange(value === "true", "wentIntoNeonatology")}>
                                         <FormControlLabel value={true} control={<Radio/>} label="Sí"
                                                           disabled={disabled}/>
                                         <FormControlLabel value={false} control={<Radio/>} label="No"
                                                           disabled={disabled}/>
                                     </RadioGroup>
-                                    {prebornData.neonatology && <TextField
+                                    {prebornData.wentIntoNeonatology && <TextField
                                         label="Especificar"
                                         multiline
                                         rows={4}
@@ -509,65 +498,6 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                         disabled={disabled}
                                         onChange={(event) => onChange(event.target.value, "neonatologyObservations")}
                                     />}
-                                </div>
-                                <div>
-                                    <span className={"preborn-accordion-body-title"}>Estudios realizados</span>
-                                    <div className={"preborn-studies-body"}>
-                                        <FormControlLabel
-                                            value="brainEcography"
-                                            control={<Checkbox color="secondary" checked={prebornData.brainEcography}/>}
-                                            label="Ecografía cerebral"
-                                            labelPlacement="end"
-                                            disabled={disabled || prebornData.noStudies}
-                                            onChange={(event, checked) => onChange(checked, "brainEcography")}
-                                        />
-                                        <FormControlLabel
-                                            value="fundus"
-                                            control={<Checkbox color="secondary" checked={prebornData.fundus}/>}
-                                            label="Fondo de ojo"
-                                            labelPlacement="end"
-                                            disabled={disabled || prebornData.noStudies}
-                                            onChange={(event, checked) => onChange(checked, "fundus")}
-                                        />
-                                        <FormControlLabel
-                                            value="cardiology"
-                                            control={<Checkbox color="secondary" checked={prebornData.cardiology}/>}
-                                            label="Cardiología"
-                                            labelPlacement="end"
-                                            disabled={disabled || prebornData.noStudies}
-                                            onChange={(event, checked) => onChange(checked, "cardiology")}
-                                        />
-                                        <TextField
-                                            label="Otros estudios"
-                                            value={prebornData.otherStudies}
-                                            variant="outlined"
-                                            disabled={disabled || prebornData.noStudies}
-                                            onChange={(event) => onChange(event.target.value, "otherStudies")}
-                                        />
-                                        <FormControlLabel
-                                            value="noStudies"
-                                            control={<Checkbox color="secondary" checked={prebornData.noStudies}/>}
-                                            label="Ninguno"
-                                            labelPlacement="end"
-                                            disabled={disabled}
-                                            onChange={(event, checked) => {
-                                                if (checked) {
-                                                    const newPrebornData = {
-                                                        ...prebornData,
-                                                        brainEcography: false,
-                                                        fundus: false,
-                                                        cardiology: false,
-                                                        otherStudies: "",
-                                                        noStudies: true
-                                                    }
-                                                    setPrebornData(newPrebornData);
-                                                    debouncedOnChange(newPrebornData);
-                                                } else {
-                                                    onChange(false, "noStudies")
-                                                }
-                                            }}
-                                        />
-                                    </div>
                                 </div>
                             </div>
                         </AccordionDetails>
@@ -602,7 +532,7 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                             inputProps={{min: 0, max: 99}}
                                             id={"gestational-age"}
                                             disabled={disabled}
-                                            fullWidth
+                                            className={"amount-of-determinations"}
                                         />
                                     </>}
                                 </div>
@@ -635,8 +565,68 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                     value={prebornData.otherSearches}
                                     variant="outlined"
                                     disabled={disabled}
+                                    className={"other-searches-field"}
                                     onChange={(event) => onChange(event.target.value, "otherSearches")}
                                 />
+                                <div>
+                                    <span className={"preborn-accordion-body-title"}>Ecografía de caderas</span>
+                                    <RadioGroup aria-label="ecografia de caderas" name="waistEcography"
+                                                value={prebornData.waistEcography}
+                                                onChange={(event, value) => onChange(value === "true", "waistEcography")}>
+                                        <FormControlLabel value={true} control={<Radio/>} label="Sí"
+                                                          disabled={disabled}/>
+                                        <FormControlLabel value={false} control={<Radio/>} label="No"
+                                                          disabled={disabled}/>
+                                    </RadioGroup>
+                                </div>
+                                <div>
+                                    <span className={"preborn-accordion-body-title"}>Otoemisiones acústicas</span>
+                                    <RadioGroup aria-label="otoemisiones acústicas" name="otoacousticEmissions"
+                                                value={prebornData.otoacousticEmissions}
+                                                onChange={(event, value) => onChange(value === "true", "otoacousticEmissions")}>
+                                        <FormControlLabel value={true} control={<Radio/>} label="Sí"
+                                                          disabled={disabled}/>
+                                        <FormControlLabel value={false} control={<Radio/>} label="No"
+                                                          disabled={disabled}/>
+                                    </RadioGroup>
+                                </div>
+                                <div>
+                                    <span className={"preborn-accordion-body-title"}>Errores del metabolismo</span>
+                                    <RadioGroup aria-label="errores del metabolismo" name="metabolismErrors"
+                                                value={prebornData.metabolismErrors}
+                                                onChange={(event, value) => onChange(value === "true", "metabolismErrors")}>
+                                        <FormControlLabel value={true} control={<Radio/>} label="Sí"
+                                                          disabled={disabled}/>
+                                        <FormControlLabel value={false} control={<Radio/>} label="No"
+                                                          disabled={disabled}/>
+                                    </RadioGroup>
+                                </div>
+                                <div>
+                                    <span className={"preborn-accordion-body-title"}>Saturometría</span>
+                                    <RadioGroup aria-label="saturometria" name="saturometry"
+                                                value={prebornData.saturometry}
+                                                onChange={(event, value) => onChange(value === "true", "saturometry")}>
+                                        <FormControlLabel value={true} control={<Radio/>} label="Sí"
+                                                          disabled={disabled}/>
+                                        <FormControlLabel value={false} control={<Radio/>} label="No"
+                                                          disabled={disabled}/>
+                                    </RadioGroup>
+                                </div>
+                                <div>
+                                    <span className={"preborn-accordion-body-title"}>Estudios realizados</span>
+                                    <div>
+                                        <TextField
+                                            label="Otros estudios"
+                                            value={prebornData.otherStudies}
+                                            fullWidth
+                                            multiline
+                                            rows={4}
+                                            variant="outlined"
+                                            disabled={disabled || prebornData.noStudies}
+                                            onChange={(event) => onChange(event.target.value, "otherStudies")}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </AccordionDetails>
                     </Accordion>

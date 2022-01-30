@@ -34,7 +34,7 @@
 }
 
 .preborn-pregnancy {
-    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-columns: 1fr 1fr 3fr;
 }
 
 .preborn-birth {
@@ -52,12 +52,12 @@
 }
 
 .preborn-diagnosis {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     row-gap: 20px;
 }
 
 .preborn-searches {
-    grid-template-columns: 1fr 1fr 1fr 2fr;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .preborn-accordion-body-title {
@@ -70,10 +70,13 @@
 }
 
 .serology-option {
-    display: grid;
-    grid-template-columns: 2fr 3fr;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    grid-gap: 10px;
+}
+
+.serology-option span:first-child {
+    font-weight: bold;
 }
 
 .birth-observations-field {
@@ -113,5 +116,14 @@
 
 .preborn-screen-accordions {
     width: 100%;
+}
+
+.other-searches-field {
+    width: 90%;
+}
+
+.amount-of-determinations {
+    width: 70%;
+    margin-bottom: 5px;
 }
 
