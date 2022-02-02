@@ -438,17 +438,6 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                         <AccordionDetails>
                             <div className={"preborn-accordion-body preborn-diagnosis"}>
                                 <div>
-                                    <span className={"preborn-accordion-body-title"}>Prematurez</span>
-                                    <RadioGroup aria-label="prematurez" name="premature"
-                                                value={prebornData.premature}
-                                                onChange={(event, value) => onChange(value === "true", "premature")}>
-                                        <FormControlLabel value={true} control={<Radio/>} label="Sí"
-                                                          disabled={disabled}/>
-                                        <FormControlLabel value={false} control={<Radio/>} label="No"
-                                                          disabled={disabled}/>
-                                    </RadioGroup>
-                                </div>
-                                <div>
                                     <span className={"preborn-accordion-body-title"}>Caída tardía del cordón</span>
                                     <RadioGroup aria-label="caida tardia del cordon" name="umbilicalCordLateFell"
                                                 value={prebornData.umbilicalCordLateFell}
@@ -558,16 +547,6 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                                           disabled={disabled}/>
                                     </RadioGroup>
                                 </div>
-                                <TextField
-                                    label="Otras pesquisas"
-                                    multiline
-                                    rows={4}
-                                    value={prebornData.otherSearches}
-                                    variant="outlined"
-                                    disabled={disabled}
-                                    className={"other-searches-field"}
-                                    onChange={(event) => onChange(event.target.value, "otherSearches")}
-                                />
                                 <div>
                                     <span className={"preborn-accordion-body-title"}>Ecografía de caderas</span>
                                     <RadioGroup aria-label="ecografia de caderas" name="waistEcography"
@@ -613,10 +592,10 @@ const PrebornBody = ({reducerPrebornData, setReducerPrebornData, disabled, expor
                                     </RadioGroup>
                                 </div>
                                 <div>
-                                    <span className={"preborn-accordion-body-title"}>Estudios realizados</span>
+                                    <span className={"preborn-accordion-body-title"}>Otras pesquisas realizados</span>
                                     <div>
                                         <TextField
-                                            label="Otros estudios"
+                                            label="Otras pesquisas"
                                             value={prebornData.otherStudies}
                                             fullWidth
                                             multiline
