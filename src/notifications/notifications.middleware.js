@@ -19,8 +19,9 @@ const notificationsMiddleware = ({dispatch, getState}) => next => action => {
             break;
         case GET_ALL_NOTIFICATIONS_REQUEST:
             services.getNotifications()
-                .then(res => dispatch(actions.relationships.getAllRelationships.response(res)))
-                .catch(err => dispatch(actions.relationships.getAllRelationships.error(err)));
+                .then(res => dispatch(actions.notifications.getAllNotifications.response(res.notifications)))
+                .catch(err => dispatch(actions.notifications.getAllNotifications.error(err)));
+            break;
         default:
             break;
     }

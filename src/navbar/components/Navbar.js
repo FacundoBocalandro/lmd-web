@@ -58,8 +58,8 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo, userRole}) => {
                     {path: '/inicio/pediatras', label: 'Pediatras'},
                 ]
             case USER_ROLES.ADMIN: return [
-                {path: '/inicio', label: "Inicio"},
                 {path: '/inicio/lecturas', label: "Lecturas"},
+                {path: '/inicio/notificaciones', label: "Notificaciones"},
             ]
             default: return []
         }
