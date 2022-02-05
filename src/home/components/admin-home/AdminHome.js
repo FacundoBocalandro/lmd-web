@@ -7,8 +7,9 @@ import {MODAL_STYLE} from "../../../constants/modal";
 
 const GLOBAL_NOTIFICATION = "GLOBAL_NOTIFICATION";
 
-const AdminHome = ({getReadingCategories, readingCategories, addReading, sendNotification, uploadImage}) => {
+const AdminHome = ({getReadingCategories, readingCategories, addReading, sendNotification, uploadImage, getAllNotifications}) => {
     const [modalInfo, setModalInfo] = useState({});
+    const [notifications, setNotifications] = useState(getAllNotifications);
 
     const openGlobalNotificationModal = () => {
         setModalInfo({open: true, type: GLOBAL_NOTIFICATION})
@@ -33,6 +34,11 @@ const AdminHome = ({getReadingCategories, readingCategories, addReading, sendNot
         <button className={'submit-button'}
                 onClick={openGlobalNotificationModal}>Enviar notificación global
         </button>
+        <div>
+            <ul>
+                {notifications}
+            </ul>
+        </div>
     </div>
 }
 

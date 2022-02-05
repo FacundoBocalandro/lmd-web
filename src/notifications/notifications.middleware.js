@@ -1,6 +1,6 @@
 import {services} from "./notifications.services";
 import actions from "../actions";
-import {SEND_NOTIFICATION_REQUEST} from "./notifications.actions";
+import {SEND_NOTIFICATION_REQUEST, GET_ALL_NOTIFICATIONS_REQUEST} from "./notifications.actions";
 
 const notificationsMiddleware = ({dispatch, getState}) => next => action => {
     next(action);
@@ -17,6 +17,10 @@ const notificationsMiddleware = ({dispatch, getState}) => next => action => {
                     dispatch(actions.notifications.sendNotification.error(err));
                 });
             break;
+        case GET_ALL_NOTIFICATIONS_REQUEST:
+            services.getNotifications()
+                .then(res => dispatch(actions.relationships.getAllRelationships.response(res)))
+                .catch(err => dispatch(actions.relationships.getAllRelationships.error(err)));
         default:
             break;
     }

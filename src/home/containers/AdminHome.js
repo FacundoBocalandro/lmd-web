@@ -11,7 +11,8 @@ const mapDispatchToProps = dispatch => ({
     getReadingCategories: () => dispatch(actions.readings.getReadingCategories.request()),
     addReading: (reading, callback, errorCallback) => dispatch(actions.readings.addReading.request(reading, callback, errorCallback)),
     uploadImage: (image, callback, errorCallback) => dispatch(actions.readings.uploadImage.request(image, callback, errorCallback)),
-    sendNotification: (notification, callback, errorCallback) => dispatch(actions.notifications.sendNotification.request(notification, callback, errorCallback))
+    sendNotification: (notification, callback, errorCallback) => dispatch(actions.notifications.sendNotification.request(notification, callback, errorCallback)),
+    getAllNotifications: () => dispatch(actions.notifications.getAllNotifications.request())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminHome);
