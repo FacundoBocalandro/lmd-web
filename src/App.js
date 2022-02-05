@@ -29,7 +29,10 @@ function App({userRole}) {
                             <PrivateRoute exact path={`${url}/datos`} component={Home}/>
                             <PrivateRoute exact path={`${url}/perinatal`} component={Preborn}/>
                         </>}
-                        {userRole === USER_ROLES.ADMIN && <PrivateRoute exact path={`${url}`} component={AdminHome}/>}
+                        {userRole === USER_ROLES.ADMIN && <>
+                            <PrivateRoute exact path={`${url}`} component={AdminHome}/>
+                            <PrivateRoute exact path={`${url}/lecturas`} component={Readings}/>
+                        </>}
                         {userRole === USER_ROLES.PATIENT && <>
                             <PrivateRoute exact path={`${url}`} component={Home}/>
                             <PrivateRoute exact path={`${url}/perinatal`} component={Preborn}/>

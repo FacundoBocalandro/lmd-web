@@ -119,6 +119,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    position: relative;
 }
 
 .reading-card {
@@ -187,4 +188,62 @@
     height: 100%;
     width: 100%;
     line-height: 1.4;
+}
+
+.readings-table {
+    overflow: auto !important;
+    height: fit-content;
+    max-height: 100%;
+}
+
+.readings-table-header-text {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.readings-table-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+:not(.readings-table-header) .readings-table-row {
+    padding: 10px;
+}
+
+:not(.readings-table-header).readings-table-row:hover {
+    cursor: pointer;
+    background-color: var(--grey);
+}
+
+.readings-table-row.readings-table-header {
+    padding-bottom: 20px;
+}
+
+.readings-table-cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 15px !important;
+}
+
+.readings-table-header .readings-table-cell {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.add-reading-icon-container {
+    position: absolute !important;
+    bottom: 20px !important;
+    right: 20px !important;
+}
+
+.add-reading-icon {
+    color: var(--secondary);
+    font-size: 50px !important;
+}
+
+.readings-table-container {
+    height: 100%;
+    width: 100%;
+    position: relative;
 }

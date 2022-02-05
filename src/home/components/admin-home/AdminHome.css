@@ -12,27 +12,6 @@
     margin-top: 20px;
 }
 
-.add-reading-modal, .global-notification-modal{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: auto;
-}
-
-.add-reading-modal .rich-text-editor {
-    margin-top: 20px;
-}
-
-.add-reading-modal .submit-button, .global-notification-modal .submit-button {
-    margin-top: 20px;
-    font-size: 20px;
-}
-
-.add-reading-modal-category {
-    margin-top: 20px;
-    width: 100%;
-}
-
 .global-notification-modal .text-box-container {
     width: 70vw;
     height: 50vh;
