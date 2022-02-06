@@ -12,7 +12,7 @@ import Readings from "./readings/containers/Readings";
 import {connect} from "react-redux";
 import {USER_ROLES} from "./constants/roles";
 import DoctorsScreen from "./relationships/containers/RelationshipsScreen";
-import AdminHome from "./home/containers/AdminHome";
+import Notifications from "./notifications/containers/Notifications";
 import Preborn from "./preborn/containers/Preborn";
 
 function App({userRole}) {
@@ -30,8 +30,9 @@ function App({userRole}) {
                             <PrivateRoute exact path={`${url}/perinatal`} component={Preborn}/>
                         </>}
                         {userRole === USER_ROLES.ADMIN && <>
-                            <PrivateRoute exact path={`${url}`} component={AdminHome}/>
+                            <PrivateRoute exact path={`${url}`} component={() => <Redirect to={`${url}/lecturas`}/>}/>
                             <PrivateRoute exact path={`${url}/lecturas`} component={Readings}/>
+                            <PrivateRoute exact path={`${url}/notificaciones`} component={Notifications}/>
                         </>}
                         {userRole === USER_ROLES.PATIENT && <>
                             <PrivateRoute exact path={`${url}`} component={Home}/>

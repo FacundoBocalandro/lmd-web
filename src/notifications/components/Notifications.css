@@ -1,0 +1,105 @@
+.admin-home {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+}
+
+.admin-home .submit-button {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.global-notification-modal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+}
+
+.global-notification-modal .submit-button {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.global-notification-modal .text-box-container {
+    width: 70vw;
+    height: 50vh;
+    margin-top: 3px;
+    box-shadow: none;
+    padding: 10px;
+}
+
+.global-notification-modal .text-box {
+    font-family: Lato, serif;
+    font-size: 20px;
+}
+
+.global-notification-modal .input-container {
+    margin-top: 20px;
+}
+
+.upload-image-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.notifications-table-container {
+    height: 100%;
+    width: 100%;
+}
+
+.notifications-table {
+    overflow: auto !important;
+    height: fit-content;
+    width: 100%;
+}
+
+.notifications-table-header-text {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+:not(.notifications-table-header) .notifications-table-row {
+    padding: 10px;
+}
+
+:not(.notifications-table-header).notifications-table-row:hover {
+    cursor: pointer;
+    background-color: var(--grey);
+}
+
+.notifications-table-row.notifications-table-header {
+    padding-bottom: 20px;
+}
+
+.notifications-table-cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 15px !important;
+    max-width: 100px;
+}
+
+.notifications-table-header .notifications-table-cell {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.notifications-table-title-cell {
+    width: 20% !important;
+}
+.notifications-table-body-cell {
+    width: 40% !important;
+}
+.notifications-table-creator-cell {
+    width: 20% !important;
+}
+.notifications-table-time-cell {
+    width: 20% !important;
+}
