@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 
 const HomeTable = ({title, accessor, data, noZScore}) => {
-    const headers = noZScore ? ["Fecha", title] : ["Fecha", title, "Z-Score"];
+    const headers = noZScore ? ["Fecha", title] : ["Fecha", title, "Z-Score", "Percentil"];
     const sortedData = data.map(row => ({
         ...row,
         timeRecorded: new Date(row.timeRecorded)
@@ -30,7 +30,10 @@ const HomeTable = ({title, accessor, data, noZScore}) => {
                                     <span className={"home-table-cell-text"}>{row.timeRecorded.toLocaleDateString('en-GB')}</span>
                                 </TableCell>
                                 <TableCell className={"home-table-cell-text"}><span>{row[accessor]}</span></TableCell>
-                                {!noZScore && <TableCell><span className={"home-table-cell-text"}>{row.zscore}</span></TableCell>}
+                                {!noZScore && <>
+                                    <TableCell><span className={"home-table-cell-text"}>{row.zscore}</span></TableCell>
+                                    <TableCell><span className={"home-table-cell-text"}>{row.percentile}</span></TableCell>
+                                </>}
                             </TableRow>
                         ))}
                     </TableBody>
