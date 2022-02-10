@@ -16,13 +16,13 @@
 .readings-header {
     margin-top: 30px;
     width: 100%;
-    background: var(--blue);
+    background: var(--primary);
     border-radius: 5px;
     padding: 0 20px;
 }
 
 .readings-header span {
-    font-size: 25px;
+    font-size: 18px;
     color: white;
     flex: 1;
     text-align: center;
@@ -54,7 +54,7 @@
 }
 
 .sidebar-category-name {
-    font-size: 20px;
+    font-size: 17px;
     color: var(--dark-grey);
     width: 100%;
     overflow: hidden;
@@ -63,12 +63,12 @@
 }
 
 .sidebar-category:hover {
-    background: var(--primary);
+    background: var(--light-blue);
     cursor: pointer;
 }
 
 .sidebar-category.selected {
-    background: var(--primary);
+    background: var(--light-blue);
     display: flex;
     justify-content: space-between;
 }
@@ -100,7 +100,7 @@
 }
 
 .no-selected-category-container span {
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
     text-align: center;
 }
@@ -119,6 +119,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    position: relative;
 }
 
 .reading-card {
@@ -147,7 +148,7 @@
 .reading-card-header {
     width: 100%;
     height: 35px;
-    background: var(--primary);
+    background: var(--light-blue);
     color: white;
     font-size: 20px;
     display: flex;
@@ -169,7 +170,7 @@
 .reading-header {
     width: 200px;
     height: 35px;
-    background: var(--primary);
+    background: var(--light-blue);
     color: white;
     font-size: 20px;
     display: flex;
@@ -187,4 +188,62 @@
     height: 100%;
     width: 100%;
     line-height: 1.4;
+}
+
+.readings-table {
+    overflow: auto !important;
+    height: fit-content;
+    max-height: 100%;
+}
+
+.readings-table-header-text {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.readings-table-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+:not(.readings-table-header) .readings-table-row {
+    padding: 10px;
+}
+
+:not(.readings-table-header).readings-table-row:hover {
+    cursor: pointer;
+    background-color: var(--grey);
+}
+
+.readings-table-row.readings-table-header {
+    padding-bottom: 20px;
+}
+
+.readings-table-cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 15px !important;
+}
+
+.readings-table-header .readings-table-cell {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.add-reading-icon-container {
+    position: absolute !important;
+    bottom: 20px !important;
+    right: 20px !important;
+}
+
+.add-reading-icon {
+    color: var(--secondary);
+    font-size: 50px !important;
+}
+
+.readings-table-container {
+    height: 100%;
+    width: 100%;
+    position: relative;
 }

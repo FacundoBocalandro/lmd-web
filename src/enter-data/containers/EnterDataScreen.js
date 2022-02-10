@@ -3,7 +3,9 @@ import {connect} from "react-redux";
 import EnterDataScreen from "../components/EnterDataScreen";
 
 const mapStateToProps = state => ({
-    birthDate: state.session.userInfo.birthDate
+    userInfo: state.session.userInfo,
+    userRole: state.session.userInfo?.userRole,
+    relationships: state.relationships.relationships,
 })
 
 const mapDispatchToProps = dispatch => ({

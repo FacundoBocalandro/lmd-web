@@ -1,11 +1,19 @@
 import React, {useState} from 'react';
 import "./Register.css"
 import {useHistory} from "react-router";
-import toast, { Toaster } from 'react-hot-toast';
-import NumberInput from "../../../common/components/inputs/NumberInput";
+import toast, {Toaster} from 'react-hot-toast';
 import {GENDERS} from "../../../constants/PersonalData";
-import DateInput from "../../../common/components/inputs/DateInput";
-import {dateIsValid, getDateObject} from "../../../utils/dates";
+import {isValidDate} from "../../../utils/dates";
+import {
+    Avatar, Button, FormControlLabel,
+    Grid,
+    MenuItem, Switch,
+    TextField
+} from "@material-ui/core";
+import {LockOutlined} from "@material-ui/icons";
+import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import {numbersOnly} from "../../../utils/numbers";
 
 const Register = ({
                       registerUser,
@@ -22,13 +30,15 @@ const Register = ({
         lastName: "",
         gender: null,
         dni: "",
-        birthDate: "",
+        birthDate: new Date(),
         email: "",
         matriculationCode: "",
         username: "",
         password: "",
         confirmPassword: "",
     })
+
+    const [isDoctor, setIsDoctor] = useState(false);
 
     const [errors, setErrors] = useState({
         firstName: false,
@@ -66,7 +76,7 @@ const Register = ({
     }
 
     const validateBirthDate = (values) => {
-        return dateIsValid(values.birthDate)
+        return isValidDate(values.birthDate)
     }
 
     const validateEmail = (values) => {
@@ -107,10 +117,7 @@ const Register = ({
         })
 
         if (!Object.values(newErrors).some(error => error)) {
-            registerUser({
-                    ...form,
-                    birthDate: getDateObject(form.birthDate)
-                },
+            registerUser(form,
                 successCallback,
                 errorCallback)
         } else {
@@ -131,7 +138,7 @@ const Register = ({
         return checkUsernameUsedPending || checkUsernameUsedError || registerPending
     }
 
-    const cancelForm = () => {
+    const redirectToLogin = () => {
         history.push('/')
     }
 
@@ -147,122 +154,141 @@ const Register = ({
         <div className={"register-screen"}>
             <Toaster/>
             <div className={"register-header-container"}>
-                <span className={"header"}>Registro</span>
+                <Avatar className={"lock-icon"}>
+                    <LockOutlined/>
+                </Avatar>
+                <span className={"register-header-text"}>Registro</span>
             </div>
             <div className={"register-form"}>
-                <div className={"register-input-container"}>
-                    <input placeholder={"Nombre"}
-                           className={errors.firstName ? 'input input-error' : ' input'}
-                           value={form.firstName}
-                           onChange={event => setField('firstName', event.target.value)}/>
-                    <span className={errors.firstName ? 'error-message' : 'error-message no-message'}> Error en el nombre</span>
-                </div>
-                <div className={"register-input-container"}>
-                    <input placeholder={"Apellido"}
-                           className={errors.lastName ? 'input input-error' : ' input'}
-                           value={form.lastName}
-                           onChange={event => setField('lastName', event.target.value)}/>
-                    <span className={errors.lastName ? 'error-message' : 'error-message no-message'}> Error en el apellido</span>
-                </div>
-                <div className={"register-input-container"}>
-                    <div className={`register-gender-container${errors.gender ? ' input-error' : ''}`}>
-                        <div className={"register-gender-label"}>Sexo</div>
-                        <div className={"register-gender-options"}>
-                            <div className={"gender-checkbox-container"}>
-                                <span>Masculino</span>
-                                <input type="checkbox" checked={form.gender === GENDERS.MALE}
-                                       onClick={() => changeGender(GENDERS.MALE)}/>
-                            </div>
-                            <div className={"gender-checkbox-container"}>
-                                <span>Femenino</span>
-                                <input type="checkbox" checked={form.gender === GENDERS.FEMALE}
-                                       onClick={() => changeGender(GENDERS.FEMALE)}/>
-                            </div>
-                        </div>
-                    </div>
-                    <span className={errors.gender ? 'error-message' : 'error-message no-message'}>Debe seleccionar el sexo</span>
-                </div>
-                <div className={"register-input-container"}>
-                    <NumberInput value={form.dni}
-                                 placeholder={"DNI (Sin puntos)"}
-                                 className={errors.dni ? 'input input-error' : ' input'}
-                                 onChange={value => setField('dni', value)}/>
-                    <span className={errors.dni ? 'error-message' : 'error-message no-message'}>Error en el DNI</span>
-                </div>
-                <div className={"register-input-container"}>
-                    <DateInput placeholder={"Fecha de nacimiento"}
-                               className={errors.birthDate ? 'input input-error' : ' input'}
-                               date={form.birthDate}
-                               onChange={value => setField('birthDate', value)}/>
-                    <span className={errors.birthDate ? 'error-message' : 'error-message no-message'}>Error en la fecha de nacimiento</span>
-
-                </div>
-                <div className={"register-input-container"}>
-                    <input placeholder={"Email"}
-                           type={"email"}
-                           className={errors.email ? 'input input-error' : ' input'}
-                           value={form.email}
-                           onChange={event => setField('email', event.target.value)}/>
-                    <span
-                        className={errors.email ? 'error-message' : 'error-message no-message'}>Error en el email</span>
-
-                </div>
-                <div className={"register-input-container"}>
-                    <input placeholder={"Nombre de Usuario"}
-                           className={errors.username ? 'input input-error' : ' input'}
-                           value={form.username}
-                           onChange={event => setField('username', event.target.value)}
-                           onBlur={(e) => {
-                               if (!!e.target.value) {
-                                   checkUsernameUsed(form.username, response => {
-                                       setErrors({...errors, username: !response})
-                                   }, () => setErrors({...errors, username: true}));
-                               }
-                           }}
-                    />
-                    <span className={errors.username ? 'error-message' : 'error-message no-message'}>El usuario ya existe</span>
-                </div>
-                <div className={"register-input-container"}>
-                    <input placeholder={"Matrícula (Sólo pediatras)"}
-                           type={"matriculationCode"}
-                           className={"input"}
-                           value={form.matriculationCode}
-                           onChange={event => setField('matriculationCode', event.target.value)}/>
-                </div>
-                <div className={"register-input-container"}>
-                    <input placeholder={"Contraseña"}
-                           type={"password"}
-                           className={errors.password ? 'input input-error' : ' input'}
-                           value={form.password}
-                           onChange={event => setField('password', event.target.value)}/>
-                    <span className={errors.password ? 'error-message' : 'error-message no-message'}>
-                        La contraseña tiene que tener mínimo 8 caracteres, una mayúscula, un número y un signo </span>
-
-                </div>
-                <div className={"register-input-container"}>
-                    <input placeholder={"Repita contraseña"}
-                           type={"password"}
-                           className={errors.confirmPassword ? 'input input-error' : ' input'}
-                           value={form.confirmPassword}
-                           onKeyUp={(event) => {
-                               if (event.key === "Enter") {
-                                   submitForm();
-                               }
-                           }}
-                           onChange={event => setField('confirmPassword', event.target.value)}/>
-                    <span className={errors.confirmPassword ? 'error-message' : 'error-message no-message'}> Las
-                        contraseñas no coiniciden</span>
-                </div>
+                <Grid container spacing={2}>
+                    <Grid item md={6}>
+                        <TextField label={"Nombre"}
+                                   required value={form.firstName}
+                                   onChange={event => setField('firstName', event.target.value)}
+                                   fullWidth
+                                   variant={"outlined"}
+                                   error={errors.firstName}/>
+                    </Grid>
+                    <Grid item md={6}>
+                        <TextField label={"Apellido"}
+                                   required value={form.lastName}
+                                   onChange={event => setField('lastName', event.target.value)}
+                                   fullWidth
+                                   variant={"outlined"}
+                                   error={errors.lastName}/>
+                    </Grid>
+                    <Grid item md={6}>
+                        <TextField
+                            value={form.gender}
+                            onChange={event => changeGender(event.target.value)}
+                            variant={"outlined"}
+                            label={"Sexo"}
+                            select
+                            required
+                            error={errors.gender}
+                            fullWidth
+                        >
+                            <MenuItem value={GENDERS.MALE}>Masculino</MenuItem>
+                            <MenuItem value={GENDERS.FEMALE}>Femenino</MenuItem>
+                        </TextField>
+                    </Grid>
+                    <Grid item md={6}>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <KeyboardDatePicker
+                                label="Fecha de nacimiento"
+                                format="dd/MM/yyyy"
+                                value={form.birthDate}
+                                onChange={date => setField('birthDate', date)}
+                                fullWidth
+                                required
+                                invalidDateMessage={"Fecha inválida"}
+                                maxDate={new Date()}
+                                error={errors.birthDate}
+                                inputVariant={"outlined"}
+                            />
+                        </MuiPickersUtilsProvider>
+                    </Grid>
+                    <Grid item md={6}>
+                        <TextField label={"DNI"}
+                                   required value={form.dni}
+                                   onChange={event => setField('dni', numbersOnly(event.target.value))}
+                                   fullWidth
+                                   variant={"outlined"}
+                                   error={errors.dni}/>
+                    </Grid>
+                    <Grid item md={3} className={"matriculation-field-container"}>
+                        <FormControlLabel
+                            control={<Switch color="secondary" checked={isDoctor} onChange={event => {
+                                setIsDoctor(!isDoctor);
+                                setField('matriculationCode', "")
+                            }}/>}
+                            label="Soy pediatra"
+                            labelPlacement="top"
+                        />
+                    </Grid>
+                    <Grid item md={3}>
+                        <TextField label={"Matrícula"}
+                                   required value={form.matriculationCode}
+                                   onChange={event => setField('matriculationCode', event.target.value)}
+                                   fullWidth
+                                   variant={"outlined"} disabled={!isDoctor}/>
+                    </Grid>
+                    <Grid item md={12}>
+                        <TextField label={"Email"}
+                                   required value={form.email}
+                                   onChange={event => setField('email', event.target.value)}
+                                   fullWidth
+                                   variant={"outlined"}
+                                   error={errors.email}/>
+                    </Grid>
+                    <Grid item md={12}>
+                        <TextField label={"Nombre de usuario"}
+                                   required value={form.username}
+                                   onChange={event => setField('username', event.target.value)}
+                                   fullWidth
+                                   variant={"outlined"}
+                                   error={errors.username}
+                                   onBlur={(e) => {
+                                       if (!!e.target.value) {
+                                           checkUsernameUsed(form.username, response => {
+                                               setErrors({...errors, username: !response})
+                                           }, () => setErrors({...errors, username: true}));
+                                       }
+                                   }}/>
+                    </Grid>
+                    <Grid item md={12}>
+                        <TextField label={"Contraseña"}
+                                   required value={form.password}
+                                   onChange={event => setField('password', event.target.value)}
+                                   fullWidth
+                                   variant={"outlined"}
+                                   error={errors.password}
+                                   type={"password"}
+                                   helperText={errors.password ? "La contraseña tiene que tener mínimo 8 caracteres, una mayúscula, un número y un signo" : ""}/>
+                    </Grid>
+                    <Grid item md={12}>
+                        <TextField label={"Repita contraseña"}
+                                   required value={form.confirmPassword}
+                                   onChange={event => setField('confirmPassword', event.target.value)}
+                                   fullWidth
+                                   variant={"outlined"}
+                                   error={errors.confirmPassword}
+                                   type={"password"}
+                                   onKeyUp={(event) => {
+                                       if (event.key === "Enter") {
+                                           submitForm();
+                                       }
+                                   }}/>
+                    </Grid>
+                </Grid>
             </div>
-            <div className={"register-buttons"}>
-                <button className={"cancel-button"} onClick={cancelForm}>
-                    Cancelar
-                </button>
-                <button onClick={submitForm} className={`submit-button ${isDisabled() ? 'disabled' : ''}`}
-                        disabled={isDisabled()}>
-                    Registrarse
-                </button>
-            </div>
+            <Button onClick={submitForm}
+                    disabled={isDisabled()}
+                    variant={"contained"}
+                    size={"large"}
+                    color={"primary"} className={"register-button"}>Registrarse</Button>
+            <span className={"already-have-account-text"}
+                  onClick={redirectToLogin}>¿Ya tiene una cuenta? Loguearse</span>
         </div>
     )
 }

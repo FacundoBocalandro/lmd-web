@@ -1,6 +1,7 @@
 import React, {useState} from "react";
-import TextInput from "../../../common/components/inputs/TextInput";
 import Modal from "react-modal";
+import {MODAL_STYLE} from "../../../constants/modal";
+import {Button, TextField} from "@material-ui/core";
 
 const RelationshipModal = ({closeModal, modalInfo, setModalInfo, handleAddNewRelationship, searchDoctors}) => {
     const [doctor, setDoctor] = useState(null);
@@ -14,30 +15,23 @@ const RelationshipModal = ({closeModal, modalInfo, setModalInfo, handleAddNewRel
     }
 
     return (
-        <Modal isOpen={true} onRequestClose={closeModal} style={{
-            overlay: {
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center'
-            }, content: {width: 'fit-content', height: 'fit-content', inset: 'auto'}
-        }}>
+        <Modal isOpen={true} onRequestClose={closeModal} style={MODAL_STYLE}>
             <div className={"add-relationship-modal"}>
                 {doctor ? <>
                         <div className={"relationship-modal-doctor-info"}>
                             <span className={"doctor-name"}>{doctor.firstName} {doctor.lastName}</span>
                             <span className={"doctor-dni"}>{doctor.dni}</span>
                         </div>
-                        <button className={'submit-button add-relationship-button'}
-                                onClick={handleAddNewRelationship}>Agregar
-                        </button>
+                        <div className={"relationship-modal-buttons-container"}>
+                            <Button variant={"contained"} color={"secondary"} onClick={closeModal}>Cancelar</Button>
+                            <Button variant={"contained"} color={"primary"} onClick={handleAddNewRelationship}>Agregar</Button>
+                        </div>
                     </>
                     : <>
-                        <TextInput value={modalInfo.doctorId}
-                                   onChange={setDoctorDni}
-                                   label={"DNI del doctor"} error={modalInfo.error}/>
-                        <button className={'submit-button add-relationship-button'}
-                                onClick={handleSearchDoctors}>Buscar
-                        </button>
+                        <TextField value={modalInfo.doctorId}
+                                   onChange={event => setDoctorDni(event.target.value)}
+                                   label={"DNI del doctor"} fullWidth required/>
+                        <Button variant={"contained"} color={"primary"} onClick={handleSearchDoctors} className={"search-doctor-button"}>Buscar</Button>
                     </>}
             </div>
         </Modal>

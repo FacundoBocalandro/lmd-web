@@ -1,4 +1,4 @@
-import {
+ import {
     CREATE_NOTE_ERROR,
     CREATE_NOTE_REQUEST,
     CREATE_NOTE_RESPONSE,

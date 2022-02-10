@@ -1,0 +1,20 @@
+.reading-modal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+}
+
+.reading-modal .rich-text-editor {
+    margin-top: 20px;
+}
+
+.reading-modal .submit-button {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.reading-modal-category {
+    margin-top: 20px;
+    width: 100%;
+}

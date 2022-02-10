@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import "./VaccineDetails.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSyringe} from "@fortawesome/free-solid-svg-icons";
+import {Tab, Tabs} from "@material-ui/core";
 
 const VaccineDetails = ({selectedRowId, getVaccineDetails, vaccineDetails}) => {
     const [selectedTab, setSelectedTab] = useState(1);
@@ -15,17 +16,18 @@ const VaccineDetails = ({selectedRowId, getVaccineDetails, vaccineDetails}) => {
     return vaccineDetails ? <div className={"vaccine-details-screen"}>
             <div className={"vaccine-details-content"}>
                 <div className={"vaccine-details-title"}>{vaccineDetails.vaccineName}</div>
+                <Tabs
+                    value={selectedTab}
+                    onChange={(e, value) => setSelectedTab(value)}
+                    indicatorColor="primary"
+                    textColor="primary"
+                >
+                    <Tab label="Descripción" value={1}/>
+                    <Tab label="Efectos secundarios" value={2}/>
+                </Tabs>
                 <div className={"vaccine-details-body"}>
                     {selectedTab === 1 && <p>{vaccineDetails.description}</p>}
                     {selectedTab === 2 && <p>{vaccineDetails.sideEffects}</p>}
-                </div>
-            </div>
-            <div className={"home-screen-tabs-container"}>
-                <div className={`home-screen-tab${selectedTab === 1 ? ' selected' : ''}`}
-                     onClick={() => setSelectedTab(1)}>Descripción
-                </div>
-                <div className={`home-screen-tab${selectedTab === 2 ? ' selected' : ''}`}
-                     onClick={() => setSelectedTab(2)}>Efectos Secundarios
                 </div>
             </div>
         </div> :

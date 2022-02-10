@@ -46,17 +46,20 @@ const Navbar = ({logout, getUserInfoFromToken, allUsersInfo, userRole}) => {
             case USER_ROLES.DOCTOR: return [
                 {path: '/inicio', label: "Inicio"},
                 {path: '/inicio/datos', label: "Datos"},
+                {path: '/inicio/perinatal', label: "Perinatal"},
                 {path: '/inicio/vacunas', label: "Vacunas"},
             ]
             case USER_ROLES.PATIENT: return [
                     {path: '/inicio', label: 'Inicio'},
+                    {path: '/inicio/perinatal', label: "Perinatal"},
                     {path: '/inicio/vacunas', label: "Vacunas"},
                     {path: '/inicio/lecturas', label: 'Lecturas'},
                     {path: '/inicio/notas', label: 'Notas'},
                     {path: '/inicio/pediatras', label: 'Pediatras'},
                 ]
             case USER_ROLES.ADMIN: return [
-                {path: '/inicio', label: "Inicio"}
+                {path: '/inicio/lecturas', label: "Lecturas"},
+                {path: '/inicio/notificaciones', label: "Notificaciones"},
             ]
             default: return []
         }

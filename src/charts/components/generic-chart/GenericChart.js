@@ -1,18 +1,26 @@
 import React, {useState} from "react";
 import "./GenericChart.css";
 import {
-    createContainer,
     VictoryAxis,
     VictoryChart, VictoryLabel,
-    VictoryLine, VictoryScatter, VictoryTooltip,
+    VictoryLine, VictoryScatter, VictoryTooltip, VictoryVoronoiContainer,
 } from "victory";
+import {Button, Slider} from "@material-ui/core";
 
-const GenericChart = ({percentileData, maxY, minY = 0, yStep, yLabel, data, colors, zoomOptions, selectedXRange}) => {
+const GenericChart = ({
+                          percentileData,
+                          maxY,
+                          minY = 0,
+                          yStep,
+                          yLabel,
+                          data,
+                          zoomOptions,
+                          selectedXRange
+                      }) => {
     const [xRange, setXRange] = useState(selectedXRange ?? {min: 0, max: 19})
-
-    const VictoryZoomVoronoiContainer = createContainer("zoom", "voronoi");
     const maxYToDisplay = Math.max(getMaxY(data), maxY);
     const minYToDisplay = Math.min(getMinY(data), minY);
+    const colors = {grid: '#6686CC', stroke: 'red'}
 
     const commonLineProps = (percentile) => {
         const lineData = percentileData[`percentile${percentile}`];
@@ -25,15 +33,11 @@ const GenericChart = ({percentileData, maxY, minY = 0, yStep, yLabel, data, colo
 
     return (
         <div className={"generic-chart-container"}>
-            {zoomOptions && <div className={"generic-chart-zoom-options-list"}>
-                {zoomOptions.map(zoomOption => <div className={`home-screen-tab${xRange.min === zoomOption.min && xRange.max === zoomOption.max ? ' selected' : ''}`}
-                                                    onClick={() => setXRange(zoomOption)}>{zoomOption.min} - {zoomOption.max}
-                </div>)}
-            </div>}
-            <VictoryChart containerComponent={<VictoryZoomVoronoiContainer
+            <VictoryChart containerComponent={<VictoryVoronoiContainer
                 labels={({datum}) => `${Math.round(datum.x, 2)}, ${Math.round(datum.y, 2)}`}
                 labelComponent={<VictoryTooltip centerOffset={{x: 5}} style={{fontSize: 8}}/>}
-            />} width={550} height={550} minDomain={{x: xRange.min, y: minYToDisplay}} maxDomain={{x: xRange.max, y: maxYToDisplay}}>
+            />} width={550} height={550} minDomain={{x: xRange.min, y: minYToDisplay}}
+                          maxDomain={{x: xRange.max, y: maxYToDisplay}}>
                 <VictoryAxis crossAxis
                              minDomain={0}
                              maxDomain={19}
@@ -62,26 +66,43 @@ const GenericChart = ({percentileData, maxY, minY = 0, yStep, yLabel, data, colo
                              axisLabelComponent={<VictoryLabel dy={-10}/>}
                 />
                 <VictoryLine data={percentileData.percentile97} {...commonLineProps('97')}
-                             style={{data: {strokeWidth: .7, strokeDasharray: '3,3'}}}/>
+                             style={{data: {strokeWidth: 1.5, strokeDasharray: '3,3'}}}/>
                 {percentileData.percentile90 &&
                 <VictoryLine data={percentileData.percentile90} {...commonLineProps('90')}
-                             style={{data: {strokeWidth: .7}}}/>}
+                             style={{data: {strokeWidth: 1.5}}}/>}
                 {percentileData.percentile75 &&
                 <VictoryLine data={percentileData.percentile75} {...commonLineProps('75')}
-                             style={{data: {strokeWidth: .7, strokeDasharray: '3,3'}}}/>}
+                             style={{data: {strokeWidth: 1.5, strokeDasharray: '3,3'}}}/>}
                 <VictoryLine data={percentileData.percentile50} {...commonLineProps('50')}
-                             style={{data: {strokeWidth: 1.5}}}/>
+                             style={{data: {strokeWidth: 2}}}/>
                 {percentileData.percentile25 &&
                 <VictoryLine data={percentileData.percentile25} {...commonLineProps('25')}
-                             style={{data: {strokeWidth: .7, strokeDasharray: '3,3'}}}/>}
+                             style={{data: {strokeWidth: 1.5, strokeDasharray: '3,3'}}}/>}
                 {percentileData.percentile10 &&
                 <VictoryLine data={percentileData.percentile10} {...commonLineProps('10')}
-                             style={{data: {strokeWidth: .7}}}/>}
+                             style={{data: {strokeWidth: 1.5}}}/>}
                 <VictoryLine data={percentileData.percentile3} {...commonLineProps('3')}
-                             style={{data: {strokeWidth: .7, strokeDasharray: '3,3'}}}/>
+                             style={{data: {strokeWidth: 1.5, strokeDasharray: '3,3'}}}/>
                 {data.length === 1 ? <VictoryScatter data={data} style={{data: {fill: colors.stroke}}}/> :
-                    <VictoryLine data={data} style={{data: {stroke: colors.stroke}}}/>}
+                    <VictoryLine data={data} style={{data: {stroke: colors.stroke, strokeWidth: 3}}}/>}
             </VictoryChart>
+
+            <div>
+                <Slider
+                    value={[xRange.min, xRange.max]}
+                    onChange={(e, newValue) => setXRange({min: newValue[0], max: newValue[1]})}
+                    valueLabelDisplay="auto"
+                    max={19}
+                    color={"primary"}
+                />
+                {zoomOptions && <div className={"generic-chart-zoom-options-list"}>
+                    {zoomOptions.map(zoomOption => <Button onClick={() => setXRange(zoomOption)}
+                                                           className={"chart-zoom-button"}
+                                                           variant={"contained"}
+                                                           size={"large"}
+                                                           color={"primary"}>{zoomOption.min} - {zoomOption.max}</Button>)}
+                </div>}
+            </div>
         </div>
     )
 }

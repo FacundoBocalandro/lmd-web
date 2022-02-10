@@ -13,23 +13,23 @@
 }
 
 .home-avatar-container {
-    padding: 40px;
+    padding: 30px;
     border-radius: 50%;
-    border: 1px solid var(--blue);
+    border: 1px solid var(--primary);
 }
 
 .home-avatar {
-    font-size: 100px;
-    color: var(--blue);
+    font-size: 50px;
+    color: var(--primary);
 }
 
 .home-name {
-    font-size: 52px;
+    font-size: 30px;
     text-align: center;
 }
 
 .home-age-and-id {
-    font-size: 36px;
+    font-size: 25px;
     text-align: center;
 }
 
@@ -42,19 +42,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 100px;
+    margin-top: 75px;
     padding-right: 20px;
 }
 
 .home-screen-tab {
-    font-size: 22px;
+    margin: 10px;
+    font-size: 18px;
     padding: 10px 25px;
     text-align: center;
     height: 50px;
     width: 250px;
-    margin-top: 10px;
     border-radius: 10px;
-    background-color: var(--blue);
+    background-color: var(--primary);
     color: white;
     transition: all 200ms;
     box-shadow: 0 2px 5px 3px rgba(0,0,0,0.3);
@@ -63,11 +63,11 @@
 .home-screen-tab:hover {
     cursor: pointer;
     box-shadow: 0 2px 5px 3px #E0E0E0;
-    background-color: var(--primary);
+    background-color: var(--light-blue);
 }
 
 .home-screen-tab.selected {
-    background-color: var(--primary);
+    background-color: var(--light-blue);
 }
 
 .home-screen-tab.table-tab {
@@ -77,5 +77,35 @@
 .home-screen-charts-container {
     flex: 1;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.home-screen-charts .MuiTabs-indicator {
+    left: 0;
+}
+
+.home-screen-charts .MuiTabs-root {
+    margin-top: 30px;
+}
+
+.home-screen-right-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.table-tab-button {
+    width: fit-content !important;
+}
+
+.table-tab-button-container {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.growth-export-button {
+    margin-right: 10px !important;
 }

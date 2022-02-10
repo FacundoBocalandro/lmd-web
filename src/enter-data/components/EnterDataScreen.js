@@ -1,17 +1,35 @@
 import React, {useState} from 'react';
 import "./EnterDataScreen.css";
-import NumberInput from "../../common/components/inputs/NumberInput";
-import TextInput from "../../common/components/inputs/TextInput";
-import toast, { Toaster } from 'react-hot-toast';
-import DateInput from "../../common/components/inputs/DateInput";
-import {dateIsValid, getAge, getDateObject} from "../../utils/dates";
+import toast, {Toaster} from 'react-hot-toast';
+import {getAge, isValidDate} from "../../utils/dates";
+import {USER_ROLES} from "../../constants/roles";
+import {getSelectedPatient} from "../../utils/tokens";
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
+import {Button, Grid, InputAdornment, TextField} from "@material-ui/core";
 
-const EnterDataScreen = ({birthDate, createNewWeightRecord, createNewPerimeterRecord, createNewHeightRecord}) => {
-    const [timeRecorded, setTimeRecorded] = useState("");
+const EnterDataScreen = ({
+                             userInfo,
+                             userRole,
+                             relationships,
+                             createNewWeightRecord,
+                             createNewPerimeterRecord,
+                             createNewHeightRecord
+                         }) => {
+    const [timeRecorded, setTimeRecorded] = useState(new Date());
     const [dateError, setDateError] = useState(false);
     const [weight, setWeight] = useState("");
     const [height, setHeight] = useState("");
     const [perimeter, setPerimeter] = useState("");
+
+    /**
+     * If user is patient, use his/her birth date
+     * If user is doctor, use selected patients birth date
+     */
+    const birthDate = userRole === USER_ROLES.PATIENT ? userInfo.birthDate : relationships.find(user => user.id === getSelectedPatient())?.birthDate;
 
     const errorCallback = (dataType) => {
         toast.error(`Error creando registro de ${dataType}`);
@@ -22,11 +40,10 @@ const EnterDataScreen = ({birthDate, createNewWeightRecord, createNewPerimeterRe
     }
 
     const onSubmit = () => {
-        if (dateIsValid(timeRecorded)) {
-            const timeRecordedFormatted = getDateObject(timeRecorded);
-            if (!!weight) createNewWeightRecord(weight, timeRecordedFormatted, () => successCallback('peso'), () => errorCallback('peso'));
-            if (!!perimeter) createNewPerimeterRecord(perimeter, timeRecordedFormatted, () => successCallback('perímetro cefálico'), () => errorCallback('perímetro cefálico'));
-            if (!!height) createNewHeightRecord(height, timeRecordedFormatted, () => successCallback('estatura'), () => errorCallback('estatura'));
+        if (isValidDate(timeRecorded)) {
+            if (!!weight) createNewWeightRecord(weight, timeRecorded, () => successCallback('peso'), () => errorCallback('peso'));
+            if (!!perimeter) createNewPerimeterRecord(perimeter, timeRecorded, () => successCallback('perímetro cefálico'), () => errorCallback('perímetro cefálico'));
+            if (!!height) createNewHeightRecord(height, timeRecorded, () => successCallback('estatura'), () => errorCallback('estatura'));
         } else {
             setDateError(true);
         }
@@ -35,25 +52,64 @@ const EnterDataScreen = ({birthDate, createNewWeightRecord, createNewPerimeterRe
     return (
         <div className={"enter-data-screen"}>
             <Toaster/>
-            <div className={"enter-data-date-and-age"}>
-                <DateInput date={timeRecorded}
-                           onChange={(value) => {
-                               if (dateError) setDateError(false);
-                               setTimeRecorded(value);
-                           }}
-                           className={dateError ? 'input input-error' : ' input'}
-                           label={"Fecha de registro"}/>
-                <TextInput disabled={true} label={"Edad"} value={dateIsValid(timeRecorded) ? getAge(birthDate, timeRecorded) : ''}/>
-            </div>
-            <div className={"enter-data-values"}>
-                <NumberInput onChange={setWeight} value={weight} label={"Peso"} min={0}
-                             adornment={"kg"}/>
-                <NumberInput onChange={setHeight} value={height} label={"Estatura"} min={0}
-                             adornment={"cm"}/>
-                <NumberInput onChange={setPerimeter} value={perimeter} label={"Perímetro Cefálico"} min={0} adornment={"cm"}/>
-            </div>
+            <Grid container spacing={2}>
+                <Grid item md={6}>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <KeyboardDatePicker
+                            label="Fecha de registro"
+                            format="dd/MM/yyyy"
+                            value={timeRecorded}
+                            onChange={date => {
+                                if (dateError) setDateError(false);
+                                setTimeRecorded(date);
+                            }}
+                            minDate={new Date(birthDate)}
+                            fullWidth
+                            required
+                            invalidDateMessage={"Fecha inválida"}
+                        />
+                    </MuiPickersUtilsProvider>
+                </Grid>
+                <Grid item md={6}>
+                    <TextField disabled={true} label={"Edad"} value={isValidDate(timeRecorded) ? getAge(birthDate, timeRecorded) : ""} fullWidth/>
+                </Grid>
+                <Grid item md={4}>
+                    <TextField value={weight}
+                               type={"number"}
+                               label={"Peso"}
+                               InputProps={{
+                                   endAdornment: <InputAdornment position="end">Kg</InputAdornment>
+                               }}
+                               onChange={event => setWeight(event.target.value)} fullWidth/>
+                </Grid>
+                <Grid item md={4}>
+                    <TextField value={height}
+                               type={"number"}
+                               label={"Estatura"}
+                               InputProps={{
+                                   endAdornment: <InputAdornment position="end">cm</InputAdornment>
+                               }}
+                               onChange={event => setHeight(event.target.value)} fullWidth/>
+                </Grid>
+                <Grid item md={4}>
+                    <TextField value={perimeter}
+                               type={"number"}
+                               label={"Perímetro Cefálico"}
+                               InputProps={{
+                                   endAdornment: <InputAdornment position="end">cm</InputAdornment>
+                               }}
+                               onChange={event => setPerimeter(event.target.value)} fullWidth/>
+                </Grid>
+            </Grid>
             <div className={"enter-data-button-container"}>
-                <button className={`submit-button`} onClick={onSubmit}>Guardar</button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={onSubmit}
+                    size={"large"}
+                >
+                    Guardar
+                </Button>
             </div>
         </div>
     )
